@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palestra esercizi — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="index.html">Piano</a>
+      <a href="sezioni/1-numeri.html">1 · Numeri</a>
+      <a href="sezioni/2-successioni.html">2 · Successioni</a>
+      <a href="sezioni/3-serie.html">3 · Serie</a>
+      <a href="teoremi.html">Teoremi</a>
+      <a href="quesiti.html">Quesiti</a>
+      <a href="esercizi.html">Esercizi</a>
+      <a href="simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout no-sidebar">
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Terza parte della prova · svolgimento completo</div>
+      <h1>Palestra esercizi</h1>
+      <p class="lead">Esercizi con <strong>suggerimenti progressivi</strong>: prima una spinta, poi un'altra, e solo alla fine lo svolgimento. La regola è una sola — apri il primo suggerimento solo dopo cinque minuti di blocco vero.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ Perché i suggerimenti sono a scaglioni</div>
+      <p class="mb0">Guardare subito la soluzione dà la sensazione di aver capito, ma non costruisce nulla: all'esame non avrai la soluzione accanto. Lo sforzo <em>prima</em> di vedere la risposta è ciò che rende la memoria duratura. Se dopo il terzo suggerimento sei ancora bloccato, apri lo svolgimento — ma poi <strong>rifai l'esercizio da zero il giorno dopo</strong>, a foglio bianco.</p>
+    </div>
+
+    <div class="chips" id="fSez">
+      <span class="small muted" style="align-self:center;margin-right:6px">Sezione:</span>
+      <button class="chip on" data-v="all">tutte</button>
+      <button class="chip" data-v="1">1 · Numeri</button>
+      <button class="chip" data-v="2">2 · Successioni</button>
+      <button class="chip" data-v="3">3 · Serie</button>
+    </div>
+    <div class="chips" id="fDiff">
+      <span class="small muted" style="align-self:center;margin-right:6px">Difficoltà:</span>
+      <button class="chip on" data-v="all">tutte</button>
+      <button class="chip" data-v="1">● base</button>
+      <button class="chip" data-v="2">●● standard</button>
+      <button class="chip" data-v="3">●●● impegnativo</button>
+    </div>
+    <div class="chips" id="fTema"></div>
+
+    <div class="btnrow">
+      <button class="btn primary" id="randomBtn">🎲 Esercizio a caso</button>
+      <button class="btn" id="closeBtn">Chiudi tutti gli aiuti</button>
+      <span class="small muted" style="align-self:center" id="count"></span>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="box" style="margin-top:44px">
+      <div class="box-title">📚 Dove trovare altri esercizi</div>
+      <ul class="mb0">
+        <li><strong>[2]</strong> G. Catino, F. Punzo, <em>Analisi Matematica 1. Esercizi Svolti e Quesiti Teorici</em>, Esculapio (2025) — il testo di riferimento del corso. La guida settimanale indica di volta in volta gli esercizi assegnati (settimana 1: Cap. 1, Es. 1–16).</li>
+        <li><strong>[4]</strong> M. Contedini, G. Grillo, F. Punzo, <em>Esercizi di Analisi Matematica 1, Geometria e Algebra Lineare</em>, Esculapio (2022).</li>
+        <li>Le <strong>esercitazioni del venerdì</strong> con il prof. Ambra: rifai a casa, a quaderno chiuso, gli esercizi svolti a lezione. È il singolo esercizio con il miglior rapporto tra tempo e punti.</li>
+      </ul>
+    </div>
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Palestra esercizi della prima parte</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="assets/js/data/topics.js"></script>
+<script src="assets/js/data/esercizi.js"></script>
+<script src="assets/js/plot.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  var E = AM.ESERCIZI;
+  var fs = 'all', fd = 'all', ft = 'all';
+
+  // filtro sezione da querystring
+  var m = /[?&]sez=([123])/.exec(location.search);
+  if (m) fs = m[1];
+
+  function temi() {
+    var t = E.filter(function (e) { return fs === 'all' || e.sez === +fs; }).map(function (e) { return e.tema; });
+    return Array.from(new Set(t));
+  }
+  function renderTemi() {
+    var el = document.getElementById('fTema');
+    el.innerHTML = '<span class="small muted" style="align-self:center;margin-right:6px">Tema:</span>' +
+      '<button class="chip' + (ft === 'all' ? ' on' : '') + '" data-v="all">tutti</button>' +
+      temi().map(function (t) {
+        return '<button class="chip' + (ft === t ? ' on' : '') + '" data-v="' + t + '">' + t + '</button>';
+      }).join('');
+    el.querySelectorAll('.chip').forEach(function (b) {
+      b.onclick = function () { ft = b.dataset.v; renderTemi(); render(); };
+    });
+  }
+
+  function match(e) {
+    if (fs !== 'all' && e.sez !== +fs) return false;
+    if (fd !== 'all' && e.d !== +fd) return false;
+    if (ft !== 'all' && e.tema !== ft) return false;
+    return true;
+  }
+
+  function dots(d) { return '<span class="badge ' + (d === 1 ? 'ok' : d === 2 ? 'warn' : 'star') + '">' + '●'.repeat(d) + '</span>'; }
+
+  function card(e) {
+    var hints = e.hints.map(function (h, i) {
+      return '<details class="reveal hint"><summary>💡 Suggerimento ' + (i + 1) + '</summary>' +
+        '<div class="reveal-body"><p class="mb0">' + h + '</p></div></details>';
+    }).join('');
+    return '<section id="' + e.id + '" class="card" style="scroll-margin-top:76px;margin-bottom:22px">' +
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px">' +
+        '<span class="badge">' + e.id + '</span>' +
+        '<span class="badge purple">' + e.tema + '</span>' +
+        dots(e.d) +
+        '<span class="badge">Sez. ' + e.sez + '</span>' +
+      '</div>' +
+      '<div style="font-size:16.5px;margin-bottom:14px">' + e.t + '</div>' +
+      hints +
+      '<details class="reveal sol"><summary>✓ Svolgimento completo</summary><div class="reveal-body">' + e.sol + '</div></details>' +
+      '</section>';
+  }
+
+  function render() {
+    var sel = E.filter(match);
+    document.getElementById('list').innerHTML = sel.length ? sel.map(card).join('')
+      : '<div class="box"><p class="mb0 muted">Nessun esercizio con questi filtri.</p></div>';
+    document.getElementById('count').textContent = sel.length + ' esercizi';
+    AM.typeset(document.getElementById('list'));
+  }
+
+  function wire(id, setter) {
+    document.querySelectorAll('#' + id + ' .chip').forEach(function (b) {
+      b.onclick = function () {
+        document.querySelectorAll('#' + id + ' .chip').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on'); setter(b.dataset.v);
+        if (id === 'fSez') { ft = 'all'; renderTemi(); }
+        render();
+      };
+    });
+  }
+  wire('fSez', function (v) { fs = v; });
+  wire('fDiff', function (v) { fd = v; });
+
+  // stato iniziale coerente con la querystring
+  document.querySelectorAll('#fSez .chip').forEach(function (b) {
+    b.classList.toggle('on', b.dataset.v === fs);
+  });
+
+  document.getElementById('randomBtn').onclick = function () {
+    var sel = E.filter(match);
+    if (!sel.length) return;
+    var e = sel[Math.floor(Math.random() * sel.length)];
+    document.getElementById(e.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    AM.toast('👉 ' + e.id + ' · ' + e.tema);
+  };
+  document.getElementById('closeBtn').onclick = function () {
+    document.querySelectorAll('#list details[open]').forEach(function (d) { d.open = false; });
+    AM.toast('Aiuti richiusi');
+  };
+
+  renderTemi();
+  render();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I 66 quesiti teorici — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="index.html">Piano</a>
+      <a href="sezioni/1-numeri.html">1 · Numeri</a>
+      <a href="sezioni/2-successioni.html">2 · Successioni</a>
+      <a href="sezioni/3-serie.html">3 · Serie</a>
+      <a href="teoremi.html">Teoremi</a>
+      <a href="quesiti.html">Quesiti</a>
+      <a href="esercizi.html">Esercizi</a>
+      <a href="simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout no-sidebar">
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Prima parte · Quesiti 1.1 – 1.66</div>
+      <h1>I quesiti teorici</h1>
+      <p class="lead">Sono le domande da cui la docente pesca per i <strong>10 punti della seconda parte</strong> della prova. Qui li trovi tutti, con una risposta modello: quello che dovresti riuscire a scrivere su un foglio in cinque minuti.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ La modalità che funziona</div>
+      <p class="mb0">Usa le <strong>flashcard</strong>, non l'elenco. Leggi la domanda, rispondi ad alta voce o su un foglio, <em>poi</em> rivela e confronta. Valutati onestamente: le schede che sbagli tornano subito, quelle che sai tornano a distanza crescente (1, 2, 4, 8, 16, 32 giorni). Bastano dieci minuti al giorno.</p>
+    </div>
+
+    <div class="grid g4" id="stats"></div>
+
+    <div class="btnrow">
+      <button class="btn primary" id="modeCard">🗂 Flashcard</button>
+      <button class="btn" id="modeList">📋 Elenco completo</button>
+    </div>
+
+    <!-- ===== Flashcard ===== -->
+    <div id="cardMode">
+      <div class="chips" id="cardFilters">
+        <button class="chip on" data-f="all">Tutti</button>
+        <button class="chip" data-f="due">Solo da ripassare</button>
+        <button class="chip" data-f="star">Solo con dim. da scritto</button>
+        <button class="chip" data-f="s1">Sezione 1</button>
+        <button class="chip" data-f="s2">Sezione 2</button>
+        <button class="chip" data-f="s3">Sezione 3</button>
+      </div>
+      <div id="deck"></div>
+      <p class="small muted center">Scorciatoie: <code>spazio</code> rivela · <code>1</code> non la sapevo · <code>2</code> incerto · <code>3</code> la sapevo</p>
+    </div>
+
+    <!-- ===== Elenco ===== -->
+    <div id="listMode" class="hidden">
+      <div class="chips" id="listFilters">
+        <button class="chip on" data-f="all">Tutti</button>
+        <button class="chip" data-f="star">Solo con dim. da scritto</button>
+        <button class="chip" data-f="s1">Sezione 1</button>
+        <button class="chip" data-f="s2">Sezione 2</button>
+        <button class="chip" data-f="s3">Sezione 3</button>
+      </div>
+      <div class="ctrl" style="margin:12px 0"><input type="text" id="search" placeholder="Cerca fra i quesiti…" style="width:100%;max-width:420px"></div>
+      <div id="list"></div>
+    </div>
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Quesiti teorici della prima parte · <a href="Domande%20di%20Teoria%20AM1.pdf">PDF originale</a></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="assets/js/data/topics.js"></script>
+<script src="assets/js/data/quesiti.js"></script>
+<script src="assets/js/plot.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  var Q = AM.QUESITI;
+
+  function badge(q) {
+    return q.mark === '*' ? '<span class="badge star">dim. scritto</span>'
+         : q.mark === '**' ? '<span class="badge star2">dim. orale</span>' : '';
+  }
+
+  /* ---------- statistiche ---------- */
+  function stats() {
+    var ids = Q.map(function (q) { return 'Q' + q.id; });
+    var s = AM.srs.summary(ids);
+    document.getElementById('stats').innerHTML =
+      '<div class="card stat"><div class="stat-val" style="color:var(--warn)">' + s.due + '</div><div class="stat-lab">da ripassare ora</div></div>' +
+      '<div class="card stat"><div class="stat-val" style="color:var(--ok)">' + s.learned + '</div><div class="stat-lab">consolidate</div></div>' +
+      '<div class="card stat"><div class="stat-val" style="color:var(--text-faint)">' + s.fresh + '</div><div class="stat-lab">mai viste</div></div>' +
+      '<div class="card stat"><div class="stat-val">' + s.tot + '</div><div class="stat-lab">quesiti totali</div></div>';
+  }
+  stats();
+
+  /* ---------- flashcard ---------- */
+  var cards = Q.map(function (q) {
+    return {
+      id: 'Q' + q.id,
+      tag: 'Quesito ' + q.id + ' · Sez. ' + q.sez,
+      badge: badge(q),
+      sez: q.sez, mark: q.mark,
+      front: q.t,
+      back: '<div style="padding-top:16px">' + q.a +
+            (q.teo ? '<p class="small" style="margin-top:14px"><a href="teoremi.html#' + q.teo + '">→ dimostrazione passo per passo</a></p>' : '') +
+            '</div>'
+    };
+  });
+
+  var filtro = 'all';
+  function cardFilter(c) {
+    if (filtro === 'all' || filtro === 'due') return true;
+    if (filtro === 'star') return c.mark === '*';
+    return c.sez === +filtro.slice(1);
+  }
+  var deck = AM.mountCards('#deck', cards, { filter: cardFilter, onlyDue: false, onGrade: stats });
+
+  document.querySelectorAll('#cardFilters .chip').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('#cardFilters .chip').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); filtro = b.dataset.f;
+      deck.setOpts({ filter: cardFilter, onlyDue: filtro === 'due' });
+    };
+  });
+
+  // ?due=1 dalla dashboard
+  if (/[?&]due=1/.test(location.search)) {
+    var btn = document.querySelector('#cardFilters .chip[data-f="due"]');
+    if (btn) btn.click();
+  }
+
+  // scorciatoie da tastiera
+  addEventListener('keydown', function (e) {
+    if (document.getElementById('cardMode').classList.contains('hidden')) return;
+    if (/input|textarea|select/i.test((e.target.tagName || ''))) return;
+    if (e.key === ' ') { var f = document.querySelector('#deck [data-flip]'); if (f) { e.preventDefault(); f.click(); } }
+    if (e.key === '1' || e.key === '2' || e.key === '3') {
+      var g = document.querySelector('#deck [data-g="' + (+e.key - 1) + '"]'); if (g) g.click();
+    }
+  });
+
+  /* ---------- elenco ---------- */
+  var lf = 'all', term = '';
+  function listFilter(q) {
+    var s = (q.t + ' ' + q.a).toLowerCase();
+    if (term && s.indexOf(term) < 0) return false;
+    if (lf === 'all') return true;
+    if (lf === 'star') return q.mark === '*';
+    return q.sez === +lf.slice(1);
+  }
+  function renderList() {
+    var sel = Q.filter(listFilter);
+    document.getElementById('list').innerHTML = sel.length
+      ? sel.map(function (q) {
+          return '<details class="reveal" id="q-' + q.id.replace('.', '-') + '"><summary>' +
+            '<span class="badge">' + q.id + '</span> ' + q.t + ' ' + badge(q) + '</summary>' +
+            '<div class="reveal-body">' + q.a +
+            (q.teo ? '<p class="small" style="margin-top:12px"><a href="teoremi.html#' + q.teo + '">→ dimostrazione passo per passo</a></p>' : '') +
+            '</div></details>';
+        }).join('')
+      : '<div class="box"><p class="mb0 muted">Nessun quesito corrisponde alla ricerca.</p></div>';
+    AM.typeset(document.getElementById('list'));
+  }
+  document.querySelectorAll('#listFilters .chip').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('#listFilters .chip').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); lf = b.dataset.f; renderList();
+    };
+  });
+  document.getElementById('search').addEventListener('input', function () {
+    term = this.value.trim().toLowerCase(); renderList();
+  });
+  renderList();
+
+  /* ---------- switch modalità ---------- */
+  var cm = document.getElementById('cardMode'), lm = document.getElementById('listMode');
+  var bc = document.getElementById('modeCard'), bl = document.getElementById('modeList');
+  bc.onclick = function () { cm.classList.remove('hidden'); lm.classList.add('hidden'); bc.classList.add('primary'); bl.classList.remove('primary'); };
+  bl.onclick = function () { lm.classList.remove('hidden'); cm.classList.add('hidden'); bl.classList.add('primary'); bc.classList.remove('primary'); };
+});
+</script>
+</body>
+</html>

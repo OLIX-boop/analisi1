@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 1 · Numeri reali e complessi — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="1-numeri.html">1 · Numeri</a>
+      <a href="2-successioni.html">2 · Successioni</a>
+      <a href="3-serie.html">3 · Serie</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../quesiti.html">Quesiti</a>
+      <a href="../esercizi.html">Esercizi</a>
+      <a href="../simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 1</h4>
+    <a href="#checklist">Checklist del programma</a>
+    <a href="#insiemi">1 · Insiemi numerici</a>
+    <a href="#decimali" class="sub">Allineamenti decimali</a>
+    <a href="#logica">2 · Richiami di logica</a>
+    <a href="#radice2" class="sub">√2 è irrazionale</a>
+    <a href="#induzione">3 · Principio di induzione</a>
+    <a href="#bernoulli" class="sub">Bernoulli</a>
+    <a href="#geometrica" class="sub">Progressione geometrica</a>
+    <a href="#supinf">4 · Sup, inf e completezza</a>
+    <a href="#completezza" class="sub">Completezza di ℝ</a>
+    <a href="#potenze">5 · Radici, potenze, logaritmi</a>
+    <a href="#gonio" class="sub">Goniometria</a>
+    <a href="#modulo">6 · Valore assoluto</a>
+    <a href="#complessi">7 · Numeri complessi</a>
+    <a href="#argand" class="sub">Piano di Argand</a>
+    <a href="#trigonometrica" class="sub">Forma trigonometrica</a>
+    <a href="#demoivre" class="sub">de Moivre</a>
+    <a href="#radicin" class="sub">Radici n-esime</a>
+    <a href="#tfa" class="sub">Teorema fondamentale</a>
+    <a href="#test">Mettiti alla prova</a>
+    <a href="#errori">Errori tipici</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 1 · Prima parte</div>
+      <h1>Numeri reali e complessi</h1>
+      <p class="lead">Il corso comincia costruendo il terreno su cui poggerà tutto il resto: un insieme numerico <em>senza buchi</em>. La proprietà di completezza di $\R$ che vedi qui è, letteralmente, ciò che rende possibili i limiti, le derivate e gli integrali dei mesi successivi.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">↳ Dove stiamo andando</div>
+      <p class="mb0">Tutta la sezione risponde a una domanda: <strong>perché $\Q$ non basta?</strong> La risposta breve è $\sqrt2$. La risposta lunga è la <em>completezza</em>, e da lì discende l'esistenza di radici, logaritmi, del numero $e$ e del limite di ogni successione monotòna. Nella seconda metà si allarga $\R$ a $\C$ per un motivo speculare: in $\R$ l'equazione $x^2=-1$ non ha soluzioni.</p>
+    </div>
+
+    <h2 id="checklist">Checklist del programma</h2>
+    <p class="muted small">Spunta ogni voce quando sai enunciarla e spiegarla senza guardare. Le voci con <span class="badge star">dim. scritto</span> richiedono la dimostrazione alla prova scritta.</p>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 1</strong>
+        <span class="muted small"><span data-progress-txt="s1">0/23</span> · <span data-progress-pct="s1">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="s1"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <!-- ============================================================ -->
+    <h2 id="insiemi">1 · Gli insiemi numerici</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione — $\N$, $\Z$, $\Q$</div>
+      <p>$$\N=\{0,1,2,3,\dots\},\qquad \Z=\{\dots,-2,-1,0,1,2,\dots\},\qquad \Q=\left\{\frac mn:\ m\in\Z,\ n\in\Z\setminus\{0\}\right\}.$$</p>
+      <p class="mb0">In $\Q$ due frazioni $\frac mn$ e $\frac{m'}{n'}$ rappresentano lo stesso numero se e solo se $mn'=m'n$. Le operazioni sono $\frac mn+\frac pq=\frac{mq+np}{nq}$ e $\frac mn\cdot\frac pq=\frac{mp}{nq}$; l'ordinamento (con $n,q>0$) è $\frac mn\le\frac pq\iff mq\le np$.</p>
+    </div>
+
+    <p>Valgono le inclusioni strette $\N\subset\Z\subset\Q$. Ogni ampliamento risponde a un'esigenza algebrica precisa: in $\N$ non si può sempre sottrarre, in $\Z$ non si può sempre dividere. La domanda naturale è: <strong>e in $\Q$, cosa manca?</strong></p>
+
+    <h3 id="decimali">Allineamenti decimali</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Un <strong>allineamento decimale</strong> è una scrittura $\pm\,c_0,c_1c_2c_3\dots$ con $c_0\in\N$ e $c_i\in\{0,\dots,9\}$. Può essere <em>finito</em>, <em>infinito periodico</em> o <em>infinito non periodico</em>.</p>
+    </div>
+
+    <p>Eseguendo la divisione euclidea fra numeratore e denominatore si ottiene sempre un allineamento finito o periodico, e viceversa. Dunque</p>
+    $$\Q\ \longleftrightarrow\ \{\text{allineamenti finiti o infiniti periodici}\}.$$
+
+    <details class="reveal">
+      <summary>Perché si escludono gli allineamenti di periodo 9?</summary>
+      <div class="reveal-body">
+        <p>Perché altrimenti la corrispondenza non sarebbe biunivoca: $0,\overline9$ e $1$ sarebbero due scritture dello stesso numero. Infatti, per la somma della serie geometrica,
+        $$0,\overline9=\sum_{k=1}^{\infty}\frac{9}{10^{k}}=9\cdot\frac{\frac1{10}}{1-\frac1{10}}=9\cdot\frac19=1.$$
+        <p class="mb0">Per convenzione si sceglie sempre la scrittura finita.</p>
+      </div>
+    </details>
+
+    <div class="box def">
+      <div class="box-title">Definizione — L'insieme $\R$</div>
+      <p class="mb0">$$\R:=\{\text{tutti gli allineamenti decimali}\}.$$ Gli elementi di $\R\setminus\Q$ si dicono <strong>numeri irrazionali</strong>: sono esattamente gli allineamenti infiniti non periodici.</p>
+    </div>
+
+    <p>La corrispondenza fra $\R$ e i punti di una retta (fissati origine e unità di misura) è <em>biunivoca</em>: $\R$ è la <strong>retta reale</strong>, senza buchi. $\Q$ invece è pieno di buchi — e il prossimo risultato ne esibisce uno.</p>
+
+    <!-- ============================================================ -->
+    <h2 id="logica">2 · Richiami di logica</h2>
+
+    <p>Un <strong>teorema</strong> ha la forma «<em>ipotesi</em> $\Rightarrow$ <em>tesi</em>». Conoscere la struttura logica dell'enunciato è metà del lavoro, perché determina la tecnica di dimostrazione.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Forma</th><th>Simboli</th><th>Relazione con $P\Rightarrow Q$</th></tr></thead>
+        <tbody>
+          <tr><td>Implicazione</td><td>$P\Rightarrow Q$</td><td>—</td></tr>
+          <tr><td><strong>Contronominale</strong></td><td>$\lnot Q\Rightarrow\lnot P$</td><td><strong>equivalente</strong> ✓</td></tr>
+          <tr><td>Inversa</td><td>$Q\Rightarrow P$</td><td>in generale <strong>non</strong> equivalente ✗</td></tr>
+          <tr><td>Negazione</td><td>$P\ \land\ \lnot Q$</td><td>è ciò che si suppone per assurdo</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Le tre tecniche di dimostrazione</div>
+      <ul class="mb0">
+        <li><strong>Diretta:</strong> si parte dall'ipotesi e con passaggi leciti si arriva alla tesi.</li>
+        <li><strong>Indiretta per contrapposizione:</strong> si dimostra $\lnot Q\Rightarrow\lnot P$, che è equivalente. Utile quando la negazione della tesi è più maneggevole dell'ipotesi.</li>
+        <li><strong>Indiretta per assurdo:</strong> si suppongono vere <em>sia</em> $P$ <em>sia</em> $\lnot Q$ e si deriva una contraddizione.</li>
+        <li><strong>Per induzione:</strong> quando la tesi dipende da $n\in\N$.</li>
+      </ul>
+    </div>
+
+    <div class="box prop">
+      <div class="box-title">Proposizione — parità dei quadrati <span class="badge star2">dim. orale</span></div>
+      <p class="mb0">Sia $m\in\Z$. Allora $m$ è pari $\iff m^2$ è pari; equivalentemente $m$ è dispari $\iff m^2$ è dispari.</p>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione — prova prima da solo, poi rivela</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Caso $m$ pari (verso $\Rightarrow$)</div>
+            <div class="step-content">$m=2h$ per qualche $h\in\Z$, quindi $m^2=4h^2=2(2h^2)$: pari.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Caso $m$ dispari (verso $\Rightarrow$)</div>
+            <div class="step-content">$m=2h+1$, quindi $m^2=4h^2+4h+1=2(2h^2+2h)+1$: dispari.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Verso $\Leftarrow$: come si ottiene senza nuovi conti?</div>
+            <div class="step-content">Per <strong>contrapposizione</strong>: «$m^2$ pari $\Rightarrow$ $m$ pari» è equivalente a «$m$ dispari $\Rightarrow$ $m^2$ dispari», che è il passo 2. $\blacksquare$</div></div></div>
+        </div>
+      </div>
+    </details>
+
+    <h3 id="radice2">Il numero $\sqrt2$ è irrazionale <span class="badge star">dim. scritto · n° 1</span></h3>
+
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Non esiste alcun $q\in\Q$ tale che $q^2=2$. In simboli, $\sqrt2\notin\Q$.</p>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione a passi coperti — clicca su ogni riga per rivelarla</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Quale tecnica si usa, e cosa si suppone?</div>
+            <div class="step-content">Per <strong>assurdo</strong>: si nega la tesi e si suppone $\sqrt2\in\Q$, cioè $\exists m,n\in\Z$, $n\ne0$, con $\sqrt2=\frac mn$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Quale riduzione lecita è l'innesco di tutto?</div>
+            <div class="step-content">Senza perdita di generalità $m$ e $n$ sono <strong>coprimi</strong> (frazione ridotta ai minimi termini). È l'ipotesi che verrà contraddetta.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Elevando al quadrato</div>
+            <div class="step-content">$2=\frac{m^2}{n^2}$, cioè $m^2=2n^2$: dunque $m^2$ è pari.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Quale risultato precedente si applica?</div>
+            <div class="step-content">La proposizione sulla parità dei quadrati: $m^2$ pari $\Rightarrow m$ pari, cioè $m=2k$ per qualche $k\in\Z$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Si sostituisce e si ripete</div>
+            <div class="step-content">$(2k)^2=2n^2\Rightarrow 4k^2=2n^2\Rightarrow n^2=2k^2$: quindi $n^2$ è pari e, ancora per la proposizione, $n$ è pari.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Dov'è l'assurdo?</div>
+            <div class="step-content">$m$ e $n$ sono entrambi pari, cioè hanno il fattore comune $2$: contraddice la coprimalità. Dunque $\sqrt2\notin\Q$. $\blacksquare$</div></div></div>
+        </div>
+      </div>
+    </details>
+
+    <div class="box trap">
+      <div class="box-title">✗ Errori che costano punti</div>
+      <ul class="mb0">
+        <li>Dimenticare di dire «coprimi»: senza quell'ipotesi <em>non c'è nessun assurdo</em>.</li>
+        <li>Usare «$m^2$ pari $\Rightarrow m$ pari» come se fosse ovvio: è il lemma, va enunciato (e all'orale dimostrato).</li>
+        <li>Confondere questo teorema con «$\sqrt2$ non esiste»: $\sqrt2$ esiste eccome, in $\R$. Semplicemente non sta in $\Q$.</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="induzione">3 · Il principio di induzione</h2>
+
+    <div class="box def">
+      <div class="box-title">Principio di induzione</div>
+      <p>Sia $P(n)$ una proposizione dipendente da $n\in\N$. Se</p>
+      <ol><li><strong>(base)</strong> $P(0)$ è vera, e</li>
+      <li><strong>(passo induttivo)</strong> per ogni $n$: $P(n)$ vera $\Rightarrow$ $P(n+1)$ vera,</li></ol>
+      <p class="mb0">allora $P(n)$ è vera per ogni $n\in\N$. Se la base si verifica in $n_0$ invece che in $0$, si conclude che $P(n)$ è vera per ogni $n\ge n_0$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Il domino dell'induzione</span><span class="faint" style="text-transform:none;font-weight:400">servono entrambe le ipotesi</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <label class="ctrl"><input type="checkbox" id="indBase" checked> <span>Base $P(n_0)$ vera</span></label>
+          <label class="ctrl"><input type="checkbox" id="indStep" checked> <span>Passo induttivo $P(n)\Rightarrow P(n+1)$</span></label>
+          <div class="ctrl"><label for="indN0">parte da $n_0$</label><input type="range" id="indN0" min="0" max="6" value="0" step="1"><output data-out="indN0">0</output></div>
+        </div>
+        <div id="dominoRow" style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0"></div>
+        <div class="readout" id="indOut"></div>
+      </div>
+    </div>
+
+    <div class="box prop">
+      <div class="box-title">Proposizione — somma dei primi $n$ naturali <span class="badge star2">dim. orale</span></div>
+      <p class="mb0">$$\sum_{k=0}^{n}k=\frac{n(n+1)}{2}\qquad\forall n\in\N.$$</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione</summary><div class="reveal-body">
+      <p><strong>Base.</strong> $n=0$: primo membro $0$, secondo membro $\frac{0\cdot1}{2}=0$. ✓</p>
+      <p><strong>Passo.</strong> Supposto $\sum_{k=0}^n k=\frac{n(n+1)}2$ (ipotesi induttiva),
+      $$\sum_{k=0}^{n+1}k=\underbrace{\frac{n(n+1)}{2}}_{\text{ip. induttiva}}+(n+1)=(n+1)\left(\frac n2+1\right)=\frac{(n+1)(n+2)}{2},$$
+      che è $P(n+1)$. $\blacksquare$</p>
+      <p class="mb0 small muted">All'esame, indica <em>esplicitamente</em> il punto in cui usi l'ipotesi induttiva: è quello che il correttore cerca.</p>
+    </div></details>
+
+    <h3 id="bernoulli">Disuguaglianza di Bernoulli <span class="badge star">dim. scritto · n° 2</span></h3>
+
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Sia $h\in\R$ con $h\ge-1$. Allora $$(1+h)^n\ \ge\ 1+nh\qquad\forall n\in\N.$$</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Bernoulli, visto</span><span class="faint" style="text-transform:none;font-weight:400">la curva sta sempre sopra la retta</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="berN">esponente $n$</label><input type="range" id="berN" min="0" max="10" value="3" step="1"><output data-out="berN">3</output></div>
+        </div>
+        <canvas class="plot" id="berPlot"></canvas>
+        <div class="readout" id="berOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione a passi coperti</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Base $n=0$</div>
+            <div class="step-content">$(1+h)^0=1$ e $1+0\cdot h=1$: vale con l'uguale. ✓</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Ipotesi induttiva e tesi del passo</div>
+            <div class="step-content">Si suppone $(1+h)^n\ge1+nh$ e si vuole $(1+h)^{n+1}\ge1+(n+1)h$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Dove entra l'ipotesi $h\ge-1$? (è la domanda d'esame)</div>
+            <div class="step-content">Da $h\ge-1$ segue $1+h\ge0$: moltiplicare entrambi i membri per un numero <strong>non negativo</strong> conserva il verso della disuguaglianza. Se fosse $1+h<0$ il verso si invertirebbe.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Il conto</div>
+            <div class="step-content">$(1+h)^{n+1}=(1+h)^n(1+h)\ge(1+nh)(1+h)=1+(n+1)h+nh^2$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">La conclusione</div>
+            <div class="step-content">Poiché $nh^2\ge0$, si ha $1+(n+1)h+nh^2\ge1+(n+1)h$. Per transitività si ottiene $P(n+1)$. $\blacksquare$</div></div></div>
+        </div>
+      </div>
+    </details>
+
+    <h3 id="geometrica">Somma di una progressione geometrica <span class="badge star2">dim. orale</span></h3>
+
+    <div class="box teo">
+      <div class="box-title">Proposizione</div>
+      <p class="mb0">Per $q\ne1$: $$\sum_{k=0}^{n}q^{k}=1+q+\dots+q^{n}=\frac{1-q^{\,n+1}}{1-q}.$$ Se $q=1$ la somma vale $n+1$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Somme parziali della progressione geometrica</span><span class="faint" style="text-transform:none;font-weight:400">anticipa la serie geometrica</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="geoQ">ragione $q$</label><input type="range" id="geoQ" min="-1.4" max="1.2" value="0.6" step="0.02"><output data-out="geoQ">0.6</output></div>
+        </div>
+        <canvas class="plot" id="geoPlot"></canvas>
+        <div class="readout" id="geoOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof"><summary>Le due dimostrazioni</summary><div class="reveal-body">
+      <p><strong>Per induzione.</strong> Base $n=0$: $q^0=1=\frac{1-q}{1-q}$. Passo:
+      $$\sum_{k=0}^{n+1}q^k=\frac{1-q^{n+1}}{1-q}+q^{n+1}=\frac{1-q^{n+1}+q^{n+1}-q^{n+2}}{1-q}=\frac{1-q^{n+2}}{1-q}.\ \blacksquare$$</p>
+      <p class="mb0"><strong>Trucco telescopico (più veloce).</strong> Posto $S_n=\sum_{k=0}^n q^k$,
+      $$(1-q)S_n=\sum_{k=0}^{n}q^{k}-\sum_{k=0}^{n}q^{k+1}=q^0-q^{n+1}=1-q^{n+1},$$
+      da cui la tesi dividendo per $1-q\ne0$.</p>
+    </div></details>
+
+    <!-- ============================================================ -->
+    <h2 id="supinf">4 · Massimo, minimo, estremo superiore e inferiore</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizioni</div>
+      <p>Sia $E\subseteq\R$ non vuoto.</p>
+      <ul class="mb0">
+        <li>$M\in\R$ è <strong>maggiorante</strong> di $E$ se $x\le M$ per ogni $x\in E$; $m$ è <strong>minorante</strong> se $x\ge m$ per ogni $x\in E$.</li>
+        <li>$M$ è <strong>massimo</strong> di $E$ se è maggiorante <em>e</em> $M\in E$. Analogamente il <strong>minimo</strong>.</li>
+        <li>$E$ è <strong>limitato superiormente</strong> se ammette almeno un maggiorante; <strong>limitato</strong> se lo è da entrambe le parti.</li>
+        <li>L'<strong>estremo superiore</strong> $\sup E$ è il <em>minimo dei maggioranti</em>; l'<strong>estremo inferiore</strong> $\inf E$ è il <em>massimo dei minoranti</em>.</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Caratterizzazione dell'estremo superiore</div>
+      <p class="mb0">$L=\sup E$ se e solo se valgono simultaneamente
+      $$\text{(1)}\quad x\le L\ \ \forall x\in E;\qquad\qquad \text{(2)}\quad \forall\eps>0\ \ \exists x_\eps\in E:\ x_\eps>L-\eps.$$
+      Simmetricamente per $\ell=\inf E$: (1) $x\ge\ell\ \forall x\in E$; (2) $\forall\eps>0\ \exists x_\eps\in E: x_\eps<\ell+\eps$.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ Perché la proprietà (2) è quella che conta</div>
+      <p class="mb0">La (1) dice solo che $L$ è un maggiorante; è la (2) a dire che è il <em>più piccolo</em>. Ed è la (2) che userai nella dimostrazione della <a href="../teoremi.html#T09">regolarità delle successioni monotòne</a>: fornisce un elemento $a_N$ vicino al sup, e la monotonia fa il resto. Imparala nella forma «$L-\eps$ non è un maggiorante».</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Esploratore di sup e inf</span><span class="faint" style="text-transform:none;font-weight:400">muovi $\eps$ e guarda la proprietà (2)</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="setSel">insieme</label>
+            <select id="setSel">
+              <option value="0">$E=(0,2]$</option>
+              <option value="1">$E=[0,2)$</option>
+              <option value="2">$E=\{1/n : n\ge1\}$</option>
+              <option value="3">$E=\{n/(n+1) : n\in\N\}$</option>
+              <option value="4">$E=\{(-1)^n+1/n : n\ge1\}$</option>
+              <option value="5">$E=[1,+\infty)$</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="setEps">$\eps$</label><input type="range" id="setEps" min="0.02" max="1" value="0.35" step="0.01"><output data-out="setEps">0.35</output></div>
+        </div>
+        <canvas class="plot" id="setPlot"></canvas>
+        <div class="readout" id="setOut"></div>
+      </div>
+    </div>
+
+    <h3 id="completezza">La proprietà di completezza</h3>
+    <div class="box teo">
+      <div class="box-title">Teorema — completezza (o continuità) di $\R$</div>
+      <p class="mb0">Ogni sottoinsieme di $\R$ non vuoto e limitato superiormente ammette estremo superiore <strong>in $\R$</strong>. Simmetricamente per l'estremo inferiore.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ La completezza non vale in $\Q$</div>
+      <p class="mb0">Sia $A=\{x\in\Q\ :\ x>0,\ x^2<2\}$. $A$ è non vuoto ($1\in A$) e limitato superiormente in $\Q$ (per esempio da $2$), ma <strong>non ha estremo superiore in $\Q$</strong>: il candidato sarebbe $\sqrt2$, che non è razionale. È questa la differenza strutturale fra $\Q$ e $\R$, e l'unica ragione per cui si introduce $\R$.</p>
+    </div>
+
+    <p>Da qui in avanti, ogni volta che un teorema garantisce <em>l'esistenza</em> di qualcosa senza costruirlo — una radice, un logaritmo, il numero $e$, il limite di una successione monotòna — dietro c'è la completezza.</p>
+
+    <!-- ============================================================ -->
+    <h2 id="potenze">5 · Radici, potenze, logaritmi</h2>
+
+    <div class="box teo">
+      <div class="box-title">Teorema — esistenza della radice $n$-esima</div>
+      <p class="mb0">Siano $y\ge0$ e $n\in\N$, $n\ge1$. Allora esiste <strong>un unico</strong> $x\ge0$ tale che $x^n=y$. Si scrive $x=\sqrt[n]y=y^{1/n}$. Se $n$ è dispari, la radice è definita anche per $y<0$.</p>
+    </div>
+
+    <p>Da qui si definiscono le potenze a esponente razionale, $a^{m/n}:=\sqrt[n]{a^m}$ per $a>0$, e poi quelle a esponente reale come estremo superiore:</p>
+    $$a^{x}:=\sup\{a^{q}\ :\ q\in\Q,\ q\le x\}\qquad (a>1).$$
+
+    <div class="box teo">
+      <div class="box-title">Teorema — esistenza del logaritmo</div>
+      <p class="mb0">Siano $a>0$, $a\ne1$, e $y>0$. Allora esiste unico $x\in\R$ con $a^{x}=y$; si pone $x=\log_a y$. La base usuale è $a=e$, il numero di Nepero, e si scrive $\ln y$.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ Il filo conduttore</div>
+      <p class="mb0">Tutte e tre le definizioni — radici, potenze reali, logaritmi — sono estremi superiori di opportuni insiemi. In $\Q$ quegli estremi non esisterebbero. <strong>È sempre la completezza.</strong> Se in sede d'esame ti chiedono «quale proprietà di $\R$ è fondamentale per definirli?», la risposta è una sola.</p>
+    </div>
+
+    <h3 id="gonio">Grandezze goniometriche</h3>
+    <div class="widget">
+      <div class="widget-head"><span>Circonferenza goniometrica</span><span class="faint" style="text-transform:none;font-weight:400">trascina il punto sulla circonferenza</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="gonioT">angolo $\theta$</label><input type="range" id="gonioT" min="0" max="6.2832" value="0.9" step="0.005"><output data-out="gonioT">0.90</output></div>
+        </div>
+        <canvas class="plot" id="gonioPlot"></canvas>
+        <div class="readout" id="gonioOut"></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Le formule che servono per de Moivre</div>
+      <p class="mb0">$$\sin(\alpha\pm\beta)=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta,\qquad \cos(\alpha\pm\beta)=\cos\alpha\cos\beta\mp\sin\alpha\sin\beta.$$
+      Sono esattamente le identità che compariranno svolgendo il prodotto di due numeri complessi in forma trigonometrica. Impararle adesso significa non doverle ricostruire durante la dimostrazione.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="modulo">6 · Valore assoluto e disuguaglianza triangolare</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$$|x|:=\begin{cases}x & x\ge0\\ -x & x<0\end{cases}\qquad\text{equivalentemente}\qquad |x|=\max\{x,-x\}=\sqrt{x^2}.$$</p>
+    </div>
+
+    <p><strong>Lettura geometrica</strong> — quella da tenere in testa: $|x|$ è la distanza di $x$ dall'origine, e $|x-y|$ è la distanza fra $x$ e $y$. Ogni definizione di limite del corso sarà scritta con questa lettura: $|a_n-L|<\eps$ significa «$a_n$ dista da $L$ meno di $\eps$».</p>
+
+    <div class="box teo">
+      <div class="box-title">Teorema — disuguaglianza triangolare <span class="badge star2">dim. orale</span></div>
+      <p class="mb0">$$|a+b|\le|a|+|b|\qquad\forall a,b\in\R,$$ e nella forma inversa $\bigl||a|-|b|\bigr|\le|a-b|$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Disuguaglianza triangolare</span><span class="faint" style="text-transform:none;font-weight:400">quando vale l'uguale?</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="triA">$a$</label><input type="range" id="triA" min="-4" max="4" value="2.5" step="0.1"><output data-out="triA">2.5</output></div>
+          <div class="ctrl"><label for="triB">$b$</label><input type="range" id="triB" min="-4" max="4" value="-1.5" step="0.1"><output data-out="triB">-1.5</output></div>
+        </div>
+        <canvas class="plot" id="triPlot"></canvas>
+        <div class="readout" id="triOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof"><summary>Dimostrazione</summary><div class="reveal-body">
+      <p>Per ogni $x$ vale $-|x|\le x\le|x|$. Scrivendola per $a$ e per $b$ e sommando membro a membro:
+      $$-(|a|+|b|)\le a+b\le |a|+|b|.$$
+      Poiché per $c\ge0$ si ha $-c\le t\le c\iff|t|\le c$, con $t=a+b$ e $c=|a|+|b|$ si ottiene la tesi. $\blacksquare$</p>
+      <p class="mb0"><strong>Forma inversa:</strong> $|a|=|(a-b)+b|\le|a-b|+|b|$ dà $|a|-|b|\le|a-b|$; scambiando $a$ e $b$ si ottiene anche $|b|-|a|\le|a-b|$, e insieme $\bigl||a|-|b|\bigr|\le|a-b|$.</p>
+    </div></details>
+
+    <!-- ============================================================ -->
+    <h2 id="complessi">7 · I numeri complessi</h2>
+
+    <p>In $\R$ l'equazione $x^2=-1$ non ha soluzioni, perché ogni quadrato è $\ge0$. Si introduce allora l'<strong>unità immaginaria</strong> $i$, con la sola regola $i^2=-1$, e si pone</p>
+    $$\C:=\{z=a+ib\ :\ a,b\in\R\}.$$
+
+    <div class="box def">
+      <div class="box-title">Forma algebrica e operazioni</div>
+      <p>$a=\Real z$ è la <em>parte reale</em>, $b=\Imag z$ la <em>parte immaginaria</em> — entrambe numeri <strong>reali</strong>. Due complessi sono uguali sse coincidono parte reale e parte immaginaria.</p>
+      <p>$$ (a+ib)+(c+id)=(a+c)+i(b+d),\qquad (a+ib)(c+id)=(ac-bd)+i(ad+bc).$$</p>
+      <p class="mb0"><strong>Coniugato</strong> $\bar z=a-ib$; <strong>modulo</strong> $|z|=\sqrt{a^2+b^2}$; vale $z\bar z=|z|^2$, da cui la divisione: $\dfrac zw=\dfrac{z\bar w}{|w|^2}$.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ $\C$ non è ordinato</div>
+      <p class="mb0">Non esiste su $\C$ un ordinamento compatibile con le operazioni: scritture come $z>0$ o $z_1<z_2$ sono prive di senso (a meno che i numeri siano reali). Si può confrontare solo il <em>modulo</em>, che è un numero reale.</p>
+    </div>
+
+    <h3 id="argand">Il piano di Argand-Gauss</h3>
+    <div class="widget">
+      <div class="widget-head"><span>Piano complesso interattivo</span><span class="faint" style="text-transform:none;font-weight:400">trascina $z$ nel piano</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <label class="ctrl"><input type="checkbox" id="argConj"> <span>mostra $\bar z$</span></label>
+          <label class="ctrl"><input type="checkbox" id="argMul" checked> <span>mostra $iz$ (rotazione di $\pi/2$)</span></label>
+        </div>
+        <canvas class="plot" id="argPlot"></canvas>
+        <div class="readout" id="argOut"></div>
+      </div>
+    </div>
+
+    <h3 id="trigonometrica">Forma trigonometrica ed esponenziale</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p>Per $z\ne0$, posti $\rho=|z|>0$ e $\theta=\arg z$ (tale che $\cos\theta=\frac a\rho$, $\sin\theta=\frac b\rho$):
+      $$z=\rho(\cos\theta+i\sin\theta).$$
+      L'argomento è determinato a meno di multipli di $2\pi$; scegliendolo in $(-\pi,\pi]$ si ha l'<em>argomento principale</em>.</p>
+      <p class="mb0"><strong>Formula di Eulero:</strong> $e^{i\theta}:=\cos\theta+i\sin\theta$, da cui la <strong>forma esponenziale</strong> $z=\rho\,e^{i\theta}$.</p>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ L'errore sull'argomento</div>
+      <p class="mb0">$\theta=\arctan\frac ba$ vale <strong>solo</strong> nel primo e quarto quadrante ($a>0$). Per $a<0$ bisogna aggiungere $\pi$. Esempio: $z=-1+i\sqrt3$ ha $\arctan\frac{\sqrt3}{-1}=-\frac\pi3$, ma l'argomento corretto è $\frac{2\pi}{3}$ — il punto sta nel secondo quadrante. <strong>Disegna sempre il punto prima di scrivere l'argomento.</strong></p>
+    </div>
+
+    <h3 id="demoivre">Formule di de Moivre <span class="badge star">dim. scritto · n° 3</span></h3>
+
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">$$z_1z_2=\rho_1\rho_2\bigl[\cos(\theta_1+\theta_2)+i\sin(\theta_1+\theta_2)\bigr],\qquad z^{\,n}=\rho^{\,n}\bigl[\cos(n\theta)+i\sin(n\theta)\bigr].$$
+      In parole: <em>il prodotto moltiplica i moduli e somma gli argomenti</em>.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>de Moivre: le potenze di $z$</span><span class="faint" style="text-transform:none;font-weight:400">una spirale, se $\rho\ne1$</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="dmRho">$\rho$</label><input type="range" id="dmRho" min="0.55" max="1.45" value="1.05" step="0.01"><output data-out="dmRho">1.05</output></div>
+          <div class="ctrl"><label for="dmTh">$\theta$</label><input type="range" id="dmTh" min="0.1" max="3.1" value="0.7" step="0.01"><output data-out="dmTh">0.70</output></div>
+          <div class="ctrl"><label for="dmN">potenze fino a $n$</label><input type="range" id="dmN" min="1" max="14" value="8" step="1"><output data-out="dmN">8</output></div>
+        </div>
+        <canvas class="plot" id="dmPlot"></canvas>
+        <div class="readout" id="dmOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione a passi coperti</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Si svolge il prodotto</div>
+            <div class="step-content">$z_1z_2=\rho_1\rho_2\bigl[(\cos\theta_1\cos\theta_2-\sin\theta_1\sin\theta_2)+i(\sin\theta_1\cos\theta_2+\cos\theta_1\sin\theta_2)\bigr]$, usando $i^2=-1$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Cosa si riconosce nelle due parentesi?</div>
+            <div class="step-content">Le <strong>formule di addizione</strong>: $\cos(\theta_1+\theta_2)$ e $\sin(\theta_1+\theta_2)$. Quindi $z_1z_2=\rho_1\rho_2[\cos(\theta_1+\theta_2)+i\sin(\theta_1+\theta_2)]$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Potenza: quale tecnica?</div>
+            <div class="step-content">Induzione su $n$. Base $n=0$: $z^0=1=\rho^0(\cos0+i\sin0)$. ✓</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Passo induttivo</div>
+            <div class="step-content">$z^{n+1}=z^n\cdot z$; applicando la formula del prodotto già dimostrata, $z^{n+1}=\rho^{n+1}[\cos((n+1)\theta)+i\sin((n+1)\theta)]$. $\blacksquare$</div></div></div>
+        </div>
+        <div class="box trap" style="margin-bottom:0">
+          <div class="box-title">✗ Attenzione al circolo vizioso</div>
+          <p class="mb0">Scrivere $z_1z_2=\rho_1e^{i\theta_1}\rho_2e^{i\theta_2}=\rho_1\rho_2e^{i(\theta_1+\theta_2)}$ non è una dimostrazione: la formula di Eulero <em>definisce</em> $e^{i\theta}$ tramite seno e coseno, e la proprietà $e^{i\alpha}e^{i\beta}=e^{i(\alpha+\beta)}$ è proprio de Moivre. All'esame usa le formule di addizione.</p>
+        </div>
+      </div>
+    </details>
+
+    <h3 id="radicin">Radici $n$-esime <span class="badge star">dim. scritto · n° 4</span></h3>
+
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Sia $w=\rho(\cos\theta+i\sin\theta)\ne0$ e $n\ge1$. L'equazione $z^n=w$ ha <strong>esattamente $n$</strong> soluzioni distinte:
+      $$z_k=\sqrt[n]{\rho}\left[\cos\frac{\theta+2k\pi}{n}+i\sin\frac{\theta+2k\pi}{n}\right],\qquad k=0,1,\dots,n-1.$$</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Radici $n$-esime: il poligono regolare</span><span class="faint" style="text-transform:none;font-weight:400">tutte sullo stesso cerchio, equispaziate</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="rtN">$n$</label><input type="range" id="rtN" min="2" max="12" value="5" step="1"><output data-out="rtN">5</output></div>
+          <div class="ctrl"><label for="rtRho">$\rho=|w|$</label><input type="range" id="rtRho" min="0.2" max="2.5" value="1.6" step="0.05"><output data-out="rtRho">1.6</output></div>
+          <div class="ctrl"><label for="rtTh">$\theta=\arg w$</label><input type="range" id="rtTh" min="0" max="6.2832" value="0.6" step="0.01"><output data-out="rtTh">0.60</output></div>
+        </div>
+        <canvas class="plot" id="rtPlot"></canvas>
+        <div class="readout" id="rtOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione a passi coperti</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Come si imposta?</div>
+            <div class="step-content">Si cerca $z=r(\cos\varphi+i\sin\varphi)$ con $r>0$. Per de Moivre, $z^n=r^n[\cos(n\varphi)+i\sin(n\varphi)]$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Quando due complessi in forma trigonometrica coincidono?</div>
+            <div class="step-content">Stesso modulo e argomenti congrui modulo $2\pi$. Imponendo $z^n=w$: $r^n=\rho$ e $n\varphi=\theta+2k\pi$ con $k\in\Z$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Si risolve</div>
+            <div class="step-content">$r=\sqrt[n]\rho$ (unica radice reale positiva, esiste per completezza) e $\varphi_k=\frac{\theta+2k\pi}{n}$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Perché esattamente $n$ e non infinite?</div>
+            <div class="step-content">$\varphi_k$ e $\varphi_{k'}$ danno lo stesso numero sse $\frac{2\pi(k-k')}{n}\in2\pi\Z$, cioè sse $n$ divide $k-k'$. Quindi $k=0,\dots,n-1$ danno tutte e sole le soluzioni distinte. $\blacksquare$</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">La lettura geometrica</div>
+            <div class="step-content">Stesso modulo $\sqrt[n]\rho$, argomenti a distanza $\frac{2\pi}{n}$: sono i <strong>vertici di un poligono regolare di $n$ lati</strong>. Per $w=1$ si ottengono le radici $n$-esime dell'unità $e^{2k\pi i/n}$, la cui somma è $0$ per $n\ge2$.</div></div></div>
+        </div>
+      </div>
+    </details>
+
+    <h3 id="tfa">Teorema fondamentale dell'algebra</h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Ogni polinomio di grado $n\ge1$ a coefficienti complessi ha <strong>almeno una</strong> radice in $\C$. Iterando, ne ha esattamente $n$ contate con molteplicità: $$P(z)=a_n(z-z_1)(z-z_2)\cdots(z-z_n).$$</p>
+    </div>
+    <p>Si dice che $\C$ è <strong>algebricamente chiuso</strong>: passando da $\R$ a $\C$ si risolve non solo $x^2=-1$, ma ogni equazione polinomiale. Una conseguenza utile negli esercizi: se il polinomio ha coefficienti <em>reali</em>, le radici non reali compaiono a coppie coniugate.</p>
+
+    <!-- ============================================================ -->
+    <h2 id="test">Mettiti alla prova</h2>
+    <p class="muted small">Domande nello stile della prima parte della prova. Le opzioni sono mescolate a ogni giro.</p>
+    <div id="quizBox"></div>
+
+    <h2 id="errori">Errori tipici della Sezione 1</h2>
+    <div class="box trap">
+      <ul class="mb0">
+        <li><strong>Confondere massimo e estremo superiore.</strong> Il sup esiste sempre (per insiemi limitati superiormente), il massimo solo se è <em>assunto</em>. $\sup(0,2)=2$ ma il massimo non esiste.</li>
+        <li><strong>Scrivere $\min E$ quando serve $\inf E$.</strong> Nella prima parte della prova questa distinzione è chiesta quasi sempre.</li>
+        <li><strong>Nell'induzione, «dimostrare» $P(n)$ invece di supporla.</strong> $P(n)$ è l'ipotesi induttiva.</li>
+        <li><strong>Dimenticare la base dell'induzione</strong>, o verificarla nel punto sbagliato quando l'enunciato parte da $n_0>0$.</li>
+        <li><strong>In Bernoulli, non giustificare il verso della disuguaglianza</strong> quando si moltiplica per $(1+h)$.</li>
+        <li><strong>Calcolare l'argomento con $\arctan\frac ba$ senza guardare il quadrante.</strong></li>
+        <li><strong>Scrivere $\sqrt[n]{w}$ in $\C$ come se fosse un solo numero.</strong> Sono $n$.</li>
+        <li><strong>Usare disuguaglianze fra numeri complessi.</strong> $\C$ non è ordinato.</li>
+        <li><strong>Dimostrare de Moivre con la forma esponenziale.</strong> È circolare.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="2-successioni.html">Sezione 2 · Funzioni e successioni →</a>
+      <a class="btn" href="../esercizi.html?sez=1">Esercizi della Sezione 1</a>
+      <a class="btn" href="../teoremi.html?sez=1">Dimostrazioni della Sezione 1</a>
+    </div>
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Sezione 1 · Guida di studio non ufficiale</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data/topics.js"></script>
+<script src="../assets/js/data/quiz.js"></script>
+<script src="../assets/js/plot.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 1);
+  AM.mountQuiz('#quizBox', AM.quizPerSezione(1), { statKey: 'sez1' });
+
+  /* ---------- Domino dell'induzione ---------- */
+  (function () {
+    var row = document.getElementById('dominoRow'), out = document.getElementById('indOut');
+    var base = document.getElementById('indBase'), step = document.getElementById('indStep');
+    var n0 = 0;
+    function paint() {
+      var N = 11, html = '';
+      for (var i = 0; i < N; i++) {
+        var fallen = base.checked && step.checked && i >= n0;
+        var isBase = (i === n0);
+        var bg = fallen ? 'var(--ok)' : 'var(--bg-sunken)';
+        var fg = fallen ? '#fff' : 'var(--text-faint)';
+        var bd = isBase && base.checked ? '2px solid var(--accent)' : '1px solid var(--border)';
+        html += '<div style="width:38px;height:52px;border-radius:5px;border:' + bd +
+          ';background:' + bg + ';color:' + fg + ';display:grid;place-items:center;font-size:12px;font-weight:700;' +
+          'transition:.25s;transform:rotate(' + (fallen ? '9deg' : '0deg') + ')">' + i + '</div>';
+      }
+      row.innerHTML = html;
+      var msg;
+      if (base.checked && step.checked) msg = '<b>P(n) è vera per ogni n ≥ ' + n0 + '.</b> La base fa cadere la prima tessera, il passo induttivo propaga la caduta a tutte le successive.';
+      else if (!base.checked && step.checked) msg = '<b>Non si conclude nulla.</b> Il passo induttivo c\'è, ma nessuna tessera è stata spinta. Esempio: P(n) = «n = n+1» soddisfa il passo induttivo ed è sempre falsa.';
+      else if (base.checked && !step.checked) msg = '<b>Si conclude solo P(' + n0 + ').</b> Senza il passo induttivo la caduta non si propaga: sai che vale per un solo valore.';
+      else msg = '<b>Nessuna delle due ipotesi.</b> Il principio di induzione non è applicabile.';
+      out.innerHTML = msg;
+    }
+    base.onchange = step.onchange = paint;
+    plotSlider('indN0', function (v) { n0 = v; paint(); });
+    paint();
+  })();
+
+  /* ---------- Bernoulli ---------- */
+  (function () {
+    var p = new Plot('berPlot', { xmin: -1.05, xmax: 1.6, ymin: -2.5, ymax: 9, height: 330, xlabel: 'h' });
+    var n = 3, out = document.getElementById('berOut');
+    p.draw(function (g) {
+      g.fn(function (h) { return Math.pow(1 + h, n); }, { color: 'accent', width: 2.6, from: -1, to: 1.6 });
+      g.fn(function (h) { return 1 + n * h; }, { color: 'danger', width: 2, dash: true });
+      g.dot(0, 1, { color: 'ok', r: 4.5, ring: true });
+      g.vline(-1, { color: 'faint', dash: [3, 3], width: 1 });
+      g.text(-1, g.ymax - 0.6, ' h = −1', { color: 'faint', size: 11, align: 'left' });
+      g.legend([{ label: '(1+h)^n', color: 'accent' }, { label: '1+nh', color: 'danger', dash: true }], { left: true });
+    });
+    plotSlider('berN', function (v) {
+      n = v; p.redraw();
+      var samples = [-0.9, -0.5, 0, 0.5, 1.2];
+      var txt = samples.map(function (h) {
+        var L = Math.pow(1 + h, n), R = 1 + n * h;
+        return 'h=' + h.toFixed(1) + ': ' + L.toFixed(3) + ' ≥ ' + R.toFixed(3) + (Math.abs(L - R) < 1e-9 ? '  (uguale)' : '');
+      }).join('<br>');
+      out.innerHTML = '<b>n = ' + n + '</b><br>' + txt +
+        (n <= 1 ? '<br><span style="color:var(--warn)">Per n = 0 e n = 1 vale sempre l\'uguaglianza.</span>' :
+                  '<br>L\'uguaglianza vale solo in h = 0.');
+    });
+  })();
+
+  /* ---------- Progressione geometrica ---------- */
+  (function () {
+    var q = 0.6, out = document.getElementById('geoOut');
+    var p = new Plot('geoPlot', { xmin: 0, xmax: 16, ymin: -1.5, ymax: 4, height: 300, xlabel: 'n' });
+    p.draw(function (g) {
+      var lim = Math.abs(q) < 1 ? 1 / (1 - q) : null;
+      if (lim !== null) {
+        g.hline(lim, { color: 'ok', dash: true, width: 1.6 });
+        g.text(g.xmax - 0.3, lim, '1/(1−q) = ' + lim.toFixed(3), { color: 'ok', size: 11, align: 'right', dy: -6, halo: true });
+      }
+      g.seq(function (n) { return q === 1 ? n + 1 : (1 - Math.pow(q, n + 1)) / (1 - q); },
+            { from: 0, to: 16, color: 'accent', stem: true, r: 3.4 });
+    });
+    plotSlider('geoQ', function (v) {
+      q = v;
+      var ymax = 4, ymin = -1.5;
+      if (Math.abs(q) < 1) { var L = 1 / (1 - q); ymax = Math.max(2, L * 1.45); ymin = Math.min(-0.6, L - Math.abs(L) * 1.9); }
+      else { ymax = 12; ymin = -8; }
+      p.setWindow({ ymin: ymin, ymax: ymax }); p.redraw();
+      var msg;
+      if (Math.abs(q) < 1) msg = '<b>|q| &lt; 1</b> → le somme parziali convergono a 1/(1−q) = <b>' + (1 / (1 - q)).toFixed(4) + '</b>. È la serie geometrica convergente.';
+      else if (q >= 1) msg = '<b>q ≥ 1</b> → le somme parziali crescono senza limite: la serie diverge a +∞.';
+      else msg = '<b>q ≤ −1</b> → le somme parziali oscillano senza stabilizzarsi: la serie è indeterminata.';
+      out.innerHTML = 'q = ' + q.toFixed(2) + '<br>' + msg;
+    });
+  })();
+
+  /* ---------- Esploratore sup/inf ---------- */
+  (function () {
+    var SETS = [
+      { nome: 'E = (0, 2]', tipo: 'int', a: 0, b: 2, ain: false, bin: true, sup: 2, inf: 0, max: 2, min: null },
+      { nome: 'E = [0, 2)', tipo: 'int', a: 0, b: 2, ain: true, bin: false, sup: 2, inf: 0, max: null, min: 0 },
+      { nome: 'E = {1/n : n ≥ 1}', tipo: 'pts', pts: (function () { var v = []; for (var n = 1; n <= 60; n++) v.push(1 / n); return v; })(), sup: 1, inf: 0, max: 1, min: null },
+      { nome: 'E = {n/(n+1) : n ∈ ℕ}', tipo: 'pts', pts: (function () { var v = []; for (var n = 0; n <= 60; n++) v.push(n / (n + 1)); return v; })(), sup: 1, inf: 0, max: null, min: 0 },
+      { nome: 'E = {(−1)ⁿ + 1/n : n ≥ 1}', tipo: 'pts', pts: (function () { var v = []; for (var n = 1; n <= 60; n++) v.push(Math.pow(-1, n) + 1 / n); return v; })(), sup: 1.5, inf: -1, max: 1.5, min: null },
+      { nome: 'E = [1, +∞)', tipo: 'ray', a: 1, sup: Infinity, inf: 1, max: null, min: 1 }
+    ];
+    var idx = 0, eps = 0.35, out = document.getElementById('setOut');
+    var p = new Plot('setPlot', { xmin: -2, xmax: 3, ymin: -1, ymax: 1, height: 200, grid: false, axes: false, pad: { l: 16, r: 16, t: 30, b: 34 } });
+
+    p.draw(function (g) {
+      var S = SETS[idx];
+      var c = g.ctx, pal = { b: getComputedStyle(document.documentElement).getPropertyValue('--border').trim() };
+      // asse
+      g.seg(g.xmin, 0, g.xmax, 0, { color: 'muted', width: 1.4 });
+      for (var t = -2; t <= 3; t++) {
+        g.seg(t, -0.07, t, 0.07, { color: 'muted', width: 1 });
+        g.text(t, -0.12, String(t), { color: 'faint', size: 11, align: 'center', baseline: 'top' });
+      }
+      // insieme
+      if (S.tipo === 'int') {
+        c.save(); c.globalAlpha = .25; c.fillStyle = g.col('accent');
+        c.fillRect(g.X(S.a), g.Y(0.13), g.X(S.b) - g.X(S.a), g.Y(-0.13) - g.Y(0.13)); c.restore();
+        g.dot(S.a, 0, { color: 'accent', r: 5, hollow: !S.ain });
+        g.dot(S.b, 0, { color: 'accent', r: 5, hollow: !S.bin });
+      } else if (S.tipo === 'ray') {
+        c.save(); c.globalAlpha = .25; c.fillStyle = g.col('accent');
+        c.fillRect(g.X(S.a), g.Y(0.13), g.X(g.xmax) - g.X(S.a), g.Y(-0.13) - g.Y(0.13)); c.restore();
+        g.dot(S.a, 0, { color: 'accent', r: 5 });
+        g.arrow(2.6, 0, 2.95, 0, { color: 'accent', width: 2 });
+      } else {
+        S.pts.forEach(function (x) { g.dot(x, 0, { color: 'accent', r: 3.2, ring: true }); });
+      }
+      // sup e banda (sup−ε, sup]
+      if (isFinite(S.sup)) {
+        c.save(); c.globalAlpha = .18; c.fillStyle = g.col('ok');
+        c.fillRect(g.X(S.sup - eps), g.Y(0.55), g.X(S.sup) - g.X(S.sup - eps), g.Y(-0.55) - g.Y(0.55)); c.restore();
+        g.seg(S.sup, -0.45, S.sup, 0.45, { color: 'ok', width: 2 });
+        g.text(S.sup, 0.5, 'sup = ' + S.sup, { color: 'ok', size: 12, bold: true, align: 'center', halo: true });
+        g.seg(S.sup - eps, -0.3, S.sup - eps, 0.3, { color: 'ok', width: 1.2, dash: [4, 3] });
+        g.text(S.sup - eps, -0.36, 'sup−ε', { color: 'ok', size: 10.5, align: 'center', baseline: 'top', halo: true });
+      } else {
+        g.text(2.6, 0.5, 'sup = +∞', { color: 'ok', size: 12, bold: true, align: 'center', halo: true });
+      }
+      if (isFinite(S.inf)) {
+        g.seg(S.inf, -0.45, S.inf, 0.45, { color: 'purple', width: 2 });
+        g.text(S.inf, -0.5, 'inf = ' + S.inf, { color: 'purple', size: 12, bold: true, align: 'center', baseline: 'top', halo: true });
+      }
+    });
+
+    function refresh() {
+      var S = SETS[idx];
+      var has = 'no';
+      if (isFinite(S.sup)) {
+        if (S.tipo === 'pts') has = S.pts.some(function (x) { return x > S.sup - eps; }) ? 'sì' : 'no';
+        else has = 'sì';
+      }
+      out.innerHTML =
+        '<b>' + S.nome + '</b><br>' +
+        'sup E = ' + (isFinite(S.sup) ? S.sup : '+∞') + ' &nbsp;·&nbsp; inf E = ' + (isFinite(S.inf) ? S.inf : '−∞') + '<br>' +
+        'max E = ' + (S.max === null ? '<span style="color:var(--danger)">non esiste</span>' : S.max) +
+        ' &nbsp;·&nbsp; min E = ' + (S.min === null ? '<span style="color:var(--danger)">non esiste</span>' : S.min) + '<br>' +
+        '<span style="color:var(--ok)">Proprietà (2) con ε = ' + eps.toFixed(2) + ': esiste x ∈ E con x &gt; sup−ε? <b>' + has + '</b></span>' +
+        (S.max === null && isFinite(S.sup) ? '<br><span style="color:var(--text-faint)">Il sup non è assunto: si avvicina quanto si vuole, ma nessun elemento lo raggiunge.</span>' : '');
+    }
+    document.getElementById('setSel').onchange = function () { idx = +this.value; p.redraw(); refresh(); };
+    plotSlider('setEps', function (v) { eps = v; p.redraw(); refresh(); });
+  })();
+
+  /* ---------- Circonferenza goniometrica ---------- */
+  (function () {
+    var th = 0.9, out = document.getElementById('gonioOut');
+    var p = new Plot('gonioPlot', { xmin: -1.7, xmax: 1.7, ymin: -1.4, ymax: 1.4, height: 320, equal: true,
+      xticks: [-1, 0, 1], yticks: [-1, 0, 1] });
+    p.draw(function (g) {
+      var c = g.ctx;
+      c.save(); c.strokeStyle = g.col('muted'); c.lineWidth = 1.6; c.globalAlpha = .6;
+      c.beginPath(); c.arc(g.X(0), g.Y(0), Math.abs(g.X(1) - g.X(0)), 0, 2 * Math.PI); c.stroke(); c.restore();
+      var x = Math.cos(th), y = Math.sin(th);
+      // arco
+      c.save(); c.strokeStyle = g.col('warn'); c.lineWidth = 3;
+      c.beginPath(); c.arc(g.X(0), g.Y(0), Math.abs(g.X(0.3) - g.X(0)), 0, -th, true); c.stroke(); c.restore();
+      g.seg(0, 0, x, y, { color: 'accent', width: 2 });
+      g.seg(x, 0, x, y, { color: 'danger', width: 2.4 });
+      g.seg(0, 0, x, 0, { color: 'ok', width: 2.4 });
+      g.dot(x, y, { color: 'accent', r: 5, ring: true });
+      g.text(x / 2, -0.09, 'cos θ', { color: 'ok', size: 11.5, bold: true, align: 'center', baseline: 'top', halo: true });
+      g.text(x + (x >= 0 ? 0.06 : -0.06), y / 2, 'sen θ', { color: 'danger', size: 11.5, bold: true, align: x >= 0 ? 'left' : 'right', halo: true });
+      g.text(0.34, 0.1, 'θ', { color: 'warn', size: 13, bold: true, italic: true, halo: true });
+    });
+    plotSlider('gonioT', function (v) {
+      th = v; p.redraw();
+      var deg = (th * 180 / Math.PI) % 360;
+      var tn = Math.abs(Math.cos(th)) < 1e-3 ? 'non definita' : (Math.sin(th) / Math.cos(th)).toFixed(4);
+      out.innerHTML = 'θ = ' + th.toFixed(3) + ' rad = ' + deg.toFixed(1) + '°<br>' +
+        'cos θ = <b>' + Math.cos(th).toFixed(4) + '</b> &nbsp; sen θ = <b>' + Math.sin(th).toFixed(4) + '</b> &nbsp; tan θ = <b>' + tn + '</b><br>' +
+        'verifica: cos²θ + sen²θ = ' + (Math.cos(th) * Math.cos(th) + Math.sin(th) * Math.sin(th)).toFixed(6);
+    });
+    p.onDrag(function (pt) {
+      var a = Math.atan2(pt.y, pt.x); if (a < 0) a += 2 * Math.PI;
+      var el = document.getElementById('gonioT'); el.value = a; el.dispatchEvent(new Event('input'));
+    });
+  })();
+
+  /* ---------- Disuguaglianza triangolare ---------- */
+  (function () {
+    var a = 2.5, b = -1.5, out = document.getElementById('triOut');
+    var p = new Plot('triPlot', { xmin: -9, xmax: 9, ymin: -1, ymax: 1.6, height: 190, grid: false, axes: false, pad: { l: 16, r: 16, t: 26, b: 30 } });
+    p.draw(function (g) {
+      g.seg(g.xmin, 0, g.xmax, 0, { color: 'muted', width: 1.4 });
+      for (var t = -8; t <= 8; t += 2) {
+        g.seg(t, -0.08, t, 0.08, { color: 'muted', width: 1 });
+        g.text(t, -0.14, String(t), { color: 'faint', size: 10.5, align: 'center', baseline: 'top' });
+      }
+      g.arrow(0, 0.45, a, 0.45, { color: 'accent', width: 2.4 });
+      g.text(a / 2, 0.52, 'a = ' + a.toFixed(1), { color: 'accent', size: 11, bold: true, align: 'center', halo: true });
+      g.arrow(a, 0.85, a + b, 0.85, { color: 'purple', width: 2.4 });
+      g.text(a + b / 2, 0.92, 'b = ' + b.toFixed(1), { color: 'purple', size: 11, bold: true, align: 'center', halo: true });
+      g.arrow(0, 1.25, a + b, 1.25, { color: 'danger', width: 2.6 });
+      g.text((a + b) / 2, 1.32, 'a+b', { color: 'danger', size: 11, bold: true, align: 'center', halo: true });
+      g.dot(0, 0, { color: 'muted', r: 3.5 });
+    });
+    function refresh() {
+      var L = Math.abs(a + b), R = Math.abs(a) + Math.abs(b);
+      var eq = Math.abs(L - R) < 1e-9;
+      out.innerHTML = '|a+b| = <b>' + L.toFixed(2) + '</b> &nbsp;≤&nbsp; |a| + |b| = <b>' + R.toFixed(2) + '</b>' +
+        (eq ? '<br><span style="color:var(--ok)"><b>Vale l\'uguale</b>: a e b hanno lo stesso segno (o uno è nullo).</span>'
+            : '<br><span style="color:var(--warn)">Disuguaglianza stretta: a e b hanno segni discordi, quindi si cancellano parzialmente.</span>') +
+        '<br>forma inversa: ||a|−|b|| = ' + Math.abs(Math.abs(a) - Math.abs(b)).toFixed(2) + ' ≤ |a−b| = ' + Math.abs(a - b).toFixed(2);
+    }
+    plotSlider('triA', function (v) { a = v; p.redraw(); refresh(); });
+    plotSlider('triB', function (v) { b = v; p.redraw(); refresh(); });
+  })();
+
+  /* ---------- Piano di Argand ---------- */
+  (function () {
+    var z = { x: 1.6, y: 1.1 }, out = document.getElementById('argOut');
+    var p = new Plot('argPlot', { xmin: -3, xmax: 3, ymin: -2, ymax: 2, height: 340, equal: true, xlabel: 'Re', ylabel: 'Im' });
+    var conj = document.getElementById('argConj'), mul = document.getElementById('argMul');
+    p.draw(function (g) {
+      g.arrow(0, 0, z.x, z.y, { color: 'accent', width: 2.4 });
+      g.dot(z.x, z.y, { color: 'accent', r: 5.5, ring: true });
+      g.text(z.x, z.y, ' z', { color: 'accent', size: 13, bold: true, dy: -8, halo: true });
+      g.seg(z.x, 0, z.x, z.y, { color: 'faint', dash: [3, 3], width: 1 });
+      g.seg(0, z.y, z.x, z.y, { color: 'faint', dash: [3, 3], width: 1 });
+      // arco argomento
+      var c = g.ctx, th = Math.atan2(z.y, z.x);
+      c.save(); c.strokeStyle = g.col('warn'); c.lineWidth = 2.2;
+      c.beginPath(); c.arc(g.X(0), g.Y(0), Math.abs(g.X(0.45) - g.X(0)), 0, -th, th > 0 ? true : false); c.stroke(); c.restore();
+      g.text(0.52 * Math.cos(th / 2), 0.52 * Math.sin(th / 2), 'θ', { color: 'warn', size: 13, bold: true, italic: true, halo: true });
+      if (conj.checked) {
+        g.arrow(0, 0, z.x, -z.y, { color: 'purple', width: 1.8, alpha: .85 });
+        g.dot(z.x, -z.y, { color: 'purple', r: 4.5, ring: true });
+        g.text(z.x, -z.y, ' z̄', { color: 'purple', size: 12.5, bold: true, dy: 14, halo: true });
+      }
+      if (mul.checked) {
+        g.arrow(0, 0, -z.y, z.x, { color: 'ok', width: 1.8, alpha: .85 });
+        g.dot(-z.y, z.x, { color: 'ok', r: 4.5, ring: true });
+        g.text(-z.y, z.x, ' iz', { color: 'ok', size: 12.5, bold: true, dy: -8, halo: true });
+      }
+    });
+    function refresh() {
+      var rho = Math.hypot(z.x, z.y), th = Math.atan2(z.y, z.x);
+      out.innerHTML =
+        'z = ' + z.x.toFixed(2) + (z.y >= 0 ? ' + ' : ' − ') + Math.abs(z.y).toFixed(2) + 'i<br>' +
+        'ρ = |z| = <b>' + rho.toFixed(3) + '</b> &nbsp;·&nbsp; θ = arg z = <b>' + th.toFixed(3) + '</b> rad = ' + (th * 180 / Math.PI).toFixed(1) + '°<br>' +
+        'forma trigonometrica: z = ' + rho.toFixed(2) + '(cos ' + th.toFixed(2) + ' + i sen ' + th.toFixed(2) + ') = ' + rho.toFixed(2) + ' e^(i·' + th.toFixed(2) + ')<br>' +
+        'z·z̄ = |z|² = ' + (rho * rho).toFixed(3);
+    }
+    p.onDrag(function (pt) { z = pt; p.redraw(); refresh(); });
+    conj.onchange = mul.onchange = function () { p.redraw(); };
+    refresh();
+  })();
+
+  /* ---------- de Moivre ---------- */
+  (function () {
+    var rho = 1.05, th = 0.7, N = 8, out = document.getElementById('dmOut');
+    var p = new Plot('dmPlot', { xmin: -3, xmax: 3, ymin: -2, ymax: 2, height: 340, equal: true, xlabel: 'Re', ylabel: 'Im' });
+    p.draw(function (g) {
+      var c = g.ctx;
+      c.save(); c.strokeStyle = g.col('border'); c.lineWidth = 1;
+      c.beginPath(); c.arc(g.X(0), g.Y(0), Math.abs(g.X(1) - g.X(0)), 0, 2 * Math.PI); c.stroke(); c.restore();
+      var px = null, py = null;
+      for (var k = 1; k <= N; k++) {
+        var r = Math.pow(rho, k), a = th * k;
+        var x = r * Math.cos(a), y = r * Math.sin(a);
+        if (px !== null) g.seg(px, py, x, y, { color: 'accent', width: 1.2, alpha: .45, dash: [3, 3] });
+        g.dot(x, y, { color: k === 1 ? 'danger' : 'accent', r: k === 1 ? 5 : 4, ring: true });
+        g.text(x, y, ' ' + (k === 1 ? 'z' : 'z' + '^' + k), { color: k === 1 ? 'danger' : 'muted', size: 10.5, bold: k === 1, dy: -7, halo: true });
+        px = x; py = y;
+      }
+    });
+    function refresh() {
+      var r = Math.pow(rho, N), a = th * N;
+      out.innerHTML =
+        'z = ' + rho.toFixed(2) + ' e^(i·' + th.toFixed(2) + ')<br>' +
+        'z^' + N + ' = ' + rho.toFixed(2) + '^' + N + ' · e^(i·' + N + '·' + th.toFixed(2) + ') = <b>' + r.toFixed(3) + '</b> · e^(i·' + a.toFixed(2) + ')<br>' +
+        (rho > 1.005 ? 'ρ &gt; 1 → i moduli crescono: <b>spirale verso l\'esterno</b>.'
+         : rho < 0.995 ? 'ρ &lt; 1 → i moduli decrescono: <b>spirale verso l\'origine</b>.'
+         : 'ρ = 1 → tutti i punti restano sulla circonferenza unitaria: <b>rotazione pura</b>.');
+    }
+    plotSlider('dmRho', function (v) { rho = v; p.redraw(); refresh(); });
+    plotSlider('dmTh', function (v) { th = v; p.redraw(); refresh(); });
+    plotSlider('dmN', function (v) { N = v; p.redraw(); refresh(); });
+  })();
+
+  /* ---------- Radici n-esime ---------- */
+  (function () {
+    var n = 5, rho = 1.6, th = 0.6, out = document.getElementById('rtOut');
+    var p = new Plot('rtPlot', { xmin: -2.8, xmax: 2.8, ymin: -2, ymax: 2, height: 340, equal: true, xlabel: 'Re', ylabel: 'Im' });
+    p.draw(function (g) {
+      var R = Math.pow(rho, 1 / n), c = g.ctx;
+      c.save(); c.strokeStyle = g.col('ok'); c.lineWidth = 1.4; c.globalAlpha = .55; c.setLineDash([4, 4]);
+      c.beginPath(); c.arc(g.X(0), g.Y(0), Math.abs(g.X(R) - g.X(0)), 0, 2 * Math.PI); c.stroke(); c.restore();
+      // poligono
+      var pts = [];
+      for (var k = 0; k < n; k++) {
+        var a = (th + 2 * Math.PI * k) / n;
+        pts.push([R * Math.cos(a), R * Math.sin(a)]);
+      }
+      c.save(); c.fillStyle = g.col('ok'); c.globalAlpha = .12;
+      c.beginPath(); pts.forEach(function (q, i) { i ? c.lineTo(g.X(q[0]), g.Y(q[1])) : c.moveTo(g.X(q[0]), g.Y(q[1])); });
+      c.closePath(); c.fill(); c.restore();
+      for (var i = 0; i < n; i++) {
+        var j = (i + 1) % n;
+        g.seg(pts[i][0], pts[i][1], pts[j][0], pts[j][1], { color: 'ok', width: 1.6, alpha: .8 });
+      }
+      pts.forEach(function (q, k) {
+        g.dot(q[0], q[1], { color: k === 0 ? 'danger' : 'ok', r: k === 0 ? 5.5 : 4.5, ring: true });
+        g.text(q[0], q[1], ' z' + k, { color: k === 0 ? 'danger' : 'muted', size: 10.5, bold: k === 0, dy: -7, halo: true });
+      });
+      // w
+      g.arrow(0, 0, rho * Math.cos(th), rho * Math.sin(th), { color: 'accent', width: 1.8, alpha: .75, dash: [5, 4] });
+      g.dot(rho * Math.cos(th), rho * Math.sin(th), { color: 'accent', r: 5 });
+      g.text(rho * Math.cos(th), rho * Math.sin(th), ' w', { color: 'accent', size: 12.5, bold: true, dy: -8, halo: true });
+    });
+    function refresh() {
+      var R = Math.pow(rho, 1 / n);
+      out.innerHTML =
+        'w = ' + rho.toFixed(2) + ' e^(i·' + th.toFixed(2) + ') &nbsp;·&nbsp; n = ' + n + '<br>' +
+        'ogni radice ha modulo ⁿ√ρ = <b>' + R.toFixed(4) + '</b>; gli argomenti distano ' +
+        '2π/' + n + ' = <b>' + (2 * Math.PI / n).toFixed(4) + '</b> rad = ' + (360 / n).toFixed(1) + '°<br>' +
+        'sono i vertici di un poligono regolare di <b>' + n + '</b> lati; z₀ ha argomento θ/n = ' + (th / n).toFixed(4);
+    }
+    plotSlider('rtN', function (v) { n = v; p.redraw(); refresh(); });
+    plotSlider('rtRho', function (v) { rho = v; p.redraw(); refresh(); });
+    plotSlider('rtTh', function (v) { th = v; p.redraw(); refresh(); });
+  })();
+});
+</script>
+</body>
+</html>

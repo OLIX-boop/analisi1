@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 2 · Funzioni, successioni e limiti — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="1-numeri.html">1 · Numeri</a>
+      <a href="2-successioni.html">2 · Successioni</a>
+      <a href="3-serie.html">3 · Serie</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../quesiti.html">Quesiti</a>
+      <a href="../esercizi.html">Esercizi</a>
+      <a href="../simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 2</h4>
+    <a href="#checklist">Checklist del programma</a>
+    <a href="#funzioni">1 · Funzioni tra insiemi</a>
+    <a href="#composta" class="sub">Funzione composta</a>
+    <a href="#inversa" class="sub">Iniettiva, suriettiva, inversa</a>
+    <a href="#proprieta">2 · Proprietà delle funzioni</a>
+    <a href="#monotonia" class="sub">Monotonia</a>
+    <a href="#parita" class="sub">Pari, dispari, periodiche</a>
+    <a href="#limitate" class="sub">Sup e inf di funzioni</a>
+    <a href="#elementari" class="sub">Galleria delle elementari</a>
+    <a href="#successioni">3 · Successioni</a>
+    <a href="#definitivamente" class="sub">Definitivamente</a>
+    <a href="#limite">4 · Il limite</a>
+    <a href="#epsN" class="sub">Il gioco di ε e N</a>
+    <a href="#unicita" class="sub">Unicità del limite</a>
+    <a href="#limitata" class="sub">Convergente ⇒ limitata</a>
+    <a href="#teoremi">5 · I teoremi sui limiti</a>
+    <a href="#segno" class="sub">Permanenza del segno</a>
+    <a href="#carabinieri" class="sub">Due carabinieri</a>
+    <a href="#monotone" class="sub">Successioni monotòne</a>
+    <a href="#nepero" class="sub">Il numero e</a>
+    <a href="#calcolo">6 · Calcolo dei limiti</a>
+    <a href="#notevoli" class="sub">Limiti notevoli</a>
+    <a href="#gerarchia" class="sub">Gerarchia degli infiniti</a>
+    <a href="#asintotico" class="sub">Equivalenze e o-piccoli</a>
+    <a href="#test">Mettiti alla prova</a>
+    <a href="#errori">Errori tipici</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 2 · Prima parte</div>
+      <h1>Funzioni, successioni e limiti</h1>
+      <p class="lead">Qui nasce l'Analisi vera e propria. La prima metà è linguaggio — indispensabile ma familiare. La seconda introduce <strong>il limite</strong>, la definizione che riassume l'intero corso: tutto ciò che verrà dopo (continuità, derivate, integrali, serie) è un limite travestito.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">↳ Il salto concettuale</div>
+      <p class="mb0">Fino a ora hai lavorato con oggetti <em>statici</em>: un numero, un insieme, una disuguaglianza. Il limite è il primo oggetto <em>dinamico</em>: non descrive dove la successione arriva, ma come si comporta <strong>definitivamente</strong>. Se la definizione «$\forall\eps>0\ \exists N:\ \forall n>N,\ |a_n-L|<\eps$» ti sembra un rompicapo di quantificatori, usa il visualizzatore più sotto: è una striscia e una soglia, nient'altro.</p>
+    </div>
+
+    <h2 id="checklist">Checklist del programma</h2>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 2</strong>
+        <span class="muted small"><span data-progress-txt="s2">0/29</span> · <span data-progress-pct="s2">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="s2"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <!-- ============================================================ -->
+    <h2 id="funzioni">1 · Funzioni tra insiemi</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p>Una <strong>funzione</strong> $f:A\to B$ associa a <em>ogni</em> $x\in A$ <em>uno e un solo</em> $f(x)\in B$.</p>
+      <ul class="mb0">
+        <li><strong>dominio</strong> $A$; <strong>codominio</strong> $B$;</li>
+        <li><strong>immagine</strong> $f(A)=\{f(x):x\in A\}\subseteq B$;</li>
+        <li><strong>grafico</strong> $G_f=\{(x,f(x)):x\in A\}$;</li>
+        <li><strong>controimmagine</strong> di $E\subseteq B$: $f^{-1}(E)=\{x\in A: f(x)\in E\}$.</li>
+      </ul>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ La trappola della controimmagine</div>
+      <p class="mb0">$f^{-1}(E)$ è definita <strong>sempre</strong>, anche quando $f$ non è invertibile: è un <em>insieme</em>, non il valore di una funzione inversa. Per $f(x)=x^2$ si ha $f^{-1}(\{4\})=\{-2,2\}$ e $f^{-1}(\{-1\})=\emptyset$, benché $f$ non sia iniettiva. Quando in un quesito compare $f^{-1}$, controlla sempre se si parla di controimmagine o di funzione inversa.</p>
+    </div>
+
+    <h3 id="composta">Funzione composta</h3>
+    <p>Date $f:A\to B$ e $g:C\to D$ con $f(A)\subseteq C$, si pone $(g\circ f)(x)=g(f(x))$: prima $f$, poi $g$. La composizione è <strong>associativa</strong> ma in generale <strong>non commutativa</strong>.</p>
+    <details class="reveal"><summary>Il controesempio da citare all'esame</summary><div class="reveal-body">
+      <p class="mb0">$f(x)=x^2$, $g(x)=x+1$:
+      $$(g\circ f)(x)=x^2+1,\qquad (f\circ g)(x)=(x+1)^2=x^2+2x+1.$$
+      Coincidono solo per $x=0$. Spesso, inoltre, una sola delle due composizioni è definita.</p>
+    </div></details>
+
+    <h3 id="inversa">Iniettiva, suriettiva, biunivoca</h3>
+    <div class="box def">
+      <div class="box-title">Definizioni</div>
+      <ul class="mb0">
+        <li><strong>iniettiva:</strong> $f(x_1)=f(x_2)\Rightarrow x_1=x_2$ — ogni retta orizzontale incontra il grafico <em>al più</em> una volta;</li>
+        <li><strong>suriettiva:</strong> $f(A)=B$ — ogni retta orizzontale a quota in $B$ incontra il grafico <em>almeno</em> una volta;</li>
+        <li><strong>biunivoca:</strong> entrambe. Allora esiste $f^{-1}:B\to A$ con $f^{-1}(y)=x\iff f(x)=y$.</li>
+      </ul>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Test della retta orizzontale</span><span class="faint" style="text-transform:none;font-weight:400">trascina la retta</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="injSel">funzione</label>
+            <select id="injSel">
+              <option value="0">$f(x)=x^2$</option>
+              <option value="1">$f(x)=x^3$</option>
+              <option value="2">$f(x)=e^x$</option>
+              <option value="3">$f(x)=\sin x$</option>
+              <option value="4">$f(x)=x^3-3x$</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="injY">quota $y$</label><input type="range" id="injY" min="-4" max="4" value="1.5" step="0.05"><output data-out="injY">1.5</output></div>
+        </div>
+        <canvas class="plot" id="injPlot"></canvas>
+        <div class="readout" id="injOut"></div>
+      </div>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ Il trucco che serve sempre</div>
+      <p class="mb0">Ogni funzione iniettiva diventa biunivoca <strong>restringendo il codominio all'immagine</strong>. $e^x:\R\to\R$ non è suriettiva, ma $e^x:\R\to(0,+\infty)$ è biunivoca, con inversa $\ln$. Allo stesso modo $x^2$ non è iniettiva su $\R$, ma lo è su $[0,+\infty)$. I grafici di $f$ e $f^{-1}$ sono simmetrici rispetto alla bisettrice $y=x$.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="proprieta">2 · Proprietà delle funzioni reali</h2>
+
+    <h3 id="monotonia">Monotonia e rapporto incrementale</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$f$ è <strong>crescente</strong> se $x_1<x_2\Rightarrow f(x_1)\le f(x_2)$; <strong>strettamente crescente</strong> se vale $<$. Analogamente decrescente. <strong>Monotòna</strong> = crescente oppure decrescente.</p>
+    </div>
+
+    <div class="box prop">
+      <div class="box-title">Proposizione — collegamento con il rapporto incrementale</div>
+      <p class="mb0">Posto, per $x_1\ne x_2$, $\ R(x_1,x_2)=\dfrac{f(x_2)-f(x_1)}{x_2-x_1}$, si ha
+      $$f\ \text{crescente su }A\iff R(x_1,x_2)\ge0\ \ \forall x_1\ne x_2\in A,$$ e strettamente crescente $\iff R>0$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione</summary><div class="reveal-body">
+      <p>($\Rightarrow$) Siano $x_1\ne x_2$; a meno di scambiarli, $x_1<x_2$, quindi $x_2-x_1>0$. Se $f$ è crescente allora $f(x_2)-f(x_1)\ge0$, e il quoziente di un numero $\ge0$ per uno $>0$ è $\ge0$.</p>
+      <p class="mb0">($\Leftarrow$) Se $R(x_1,x_2)\ge0$ e $x_1<x_2$, da $f(x_2)-f(x_1)=R\cdot(x_2-x_1)$ con entrambi i fattori $\ge0$ segue $f(x_1)\le f(x_2)$. $\blacksquare$</p>
+      <p class="mb0 small muted" style="margin-top:10px">Il guadagno: $R$ non dipende dall'ordine di $x_1,x_2$, quindi la monotonia diventa una condizione di <em>segno</em>. Nel calcolo differenziale questo segno diventerà quello di $f'$.</p>
+    </div></details>
+
+    <h3 id="parita">Funzioni pari, dispari, periodiche</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Tipo</th><th>Condizione</th><th>Simmetria del grafico</th><th>Esempi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pari</strong></td><td>$f(-x)=f(x)$</td><td>rispetto all'asse $y$</td><td>$x^2$, $\cos x$, $|x|$</td></tr>
+          <tr><td><strong>Dispari</strong></td><td>$f(-x)=-f(x)$</td><td>rispetto all'origine</td><td>$x^3$, $\sin x$, $\arctan x$</td></tr>
+          <tr><td><strong>Periodica</strong></td><td>$f(x+T)=f(x)$</td><td>traslazione di $T$</td><td>$\sin x$ ($T=2\pi$), $\tan x$ ($T=\pi$)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">Il dominio deve essere simmetrico rispetto all'origine perché la parità abbia senso. Se $f$ è dispari ed è definita in $0$, allora $f(0)=0$. La maggior parte delle funzioni non è né pari né dispari.</p>
+
+    <h3 id="limitate">Massimo, minimo, sup e inf di funzioni</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Tutte le nozioni si ottengono applicando quelle insiemistiche all'<strong>immagine</strong>:
+      $$\sup_A f:=\sup f(A),\qquad \inf_A f:=\inf f(A),\qquad \max_A f:=\max f(A)\ \text{(se esiste)}.$$
+      Se $f(x_0)=\max_A f$, il punto $x_0$ si dice <strong>punto di massimo assoluto</strong>.</p>
+    </div>
+    <div class="box trap">
+      <div class="box-title">✗ Valore o punto?</div>
+      <p class="mb0">Il <em>massimo</em> è un valore sull'asse $y$; il <em>punto di massimo</em> è un'ascissa. Per $f(x)=\sin x$ su $\R$: il massimo è $1$, i punti di massimo sono infiniti, $x=\frac\pi2+2k\pi$. Per $f(x)=\arctan x$: $\sup=\frac\pi2$ e $\inf=-\frac\pi2$, ma <strong>né massimo né minimo</strong> esistono.</p>
+    </div>
+
+    <h3 id="elementari">Galleria delle funzioni elementari</h3>
+    <div class="widget">
+      <div class="widget-head"><span>Funzioni elementari e trasformazioni</span><span class="faint" style="text-transform:none;font-weight:400">$y = a\,f(bx+c)+d$</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="elSel">$f$</label>
+            <select id="elSel">
+              <option value="x2">$x^2$</option><option value="x3">$x^3$</option>
+              <option value="sqrt">$\sqrt x$</option><option value="inv">$1/x$</option>
+              <option value="exp">$e^x$</option><option value="ln">$\ln x$</option>
+              <option value="sin">$\sin x$</option><option value="cos">$\cos x$</option>
+              <option value="tan">$\tan x$</option><option value="abs">$|x|$</option>
+              <option value="atan">$\arctan x$</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="elA">$a$</label><input type="range" id="elA" min="-3" max="3" value="1" step="0.1"><output data-out="elA">1</output></div>
+          <div class="ctrl"><label for="elB">$b$</label><input type="range" id="elB" min="-3" max="3" value="1" step="0.1"><output data-out="elB">1</output></div>
+          <div class="ctrl"><label for="elC">$c$</label><input type="range" id="elC" min="-4" max="4" value="0" step="0.1"><output data-out="elC">0</output></div>
+          <div class="ctrl"><label for="elD">$d$</label><input type="range" id="elD" min="-4" max="4" value="0" step="0.1"><output data-out="elD">0</output></div>
+          <label class="ctrl"><input type="checkbox" id="elOrig" checked> <span>mostra $f$ originale</span></label>
+        </div>
+        <canvas class="plot" id="elPlot"></canvas>
+        <div class="readout" id="elOut"></div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="successioni">3 · Successioni numeriche</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Una <strong>successione</strong> è una funzione $a:\N\to\R$; si scrive $a_n$ per $a(n)$ e $(a_n)_{n\in\N}$ per la successione. Il dominio può essere $\{n\ge n_0\}$. Il grafico è un insieme di <em>punti isolati</em> $(n,a_n)$, non una curva.</p>
+    </div>
+
+    <p>Monotonia, limitatezza, sup e inf si definiscono esattamente come per le funzioni. In pratica, per studiare la monotonia si guarda il segno di $a_{n+1}-a_n$, oppure — se $a_n>0$ — si confronta $\frac{a_{n+1}}{a_n}$ con $1$.</p>
+
+    <h3 id="definitivamente">Proprietà vere definitivamente</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$P(n)$ è vera <strong>definitivamente</strong> se $\exists N\in\N$ tale che $P(n)$ è vera per ogni $n>N$. Equivalentemente: $P(n)$ è falsa al più per un numero <em>finito</em> di indici.</p>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ Perché è la nozione giusta</div>
+      <p class="mb0">Il limite dipende solo dalla <strong>coda</strong> della successione: modificare o eliminare finiti termini non cambia né l'esistenza né il valore del limite. Per questo quasi tutte le ipotesi dei teoremi che seguono sono richieste solo «definitivamente».<br><br>
+      <strong>Da non confondere con «per infiniti indici»:</strong> $(-1)^n>0$ vale per infiniti $n$, ma non definitivamente.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="limite">4 · Il limite di una successione</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione — limite finito</div>
+      <p class="mb0">$$\lim_{n\to\infty}a_n=L\in\R\quad\overset{\text{def}}{\iff}\quad \forall\eps>0\ \ \exists N\in\N\ :\ \forall n>N,\quad |a_n-L|<\eps.$$</p>
+    </div>
+    <div class="box def">
+      <div class="box-title">Definizione — limiti infiniti</div>
+      <p class="mb0">$$\lim_n a_n=+\infty\iff \forall M\in\R\ \exists N:\ \forall n>N,\ a_n>M;$$
+      $$\lim_n a_n=-\infty\iff \forall M\in\R\ \exists N:\ \forall n>N,\ a_n<M.$$</p>
+    </div>
+
+    <p><strong>Come leggerla.</strong> «Comunque si scelga una striscia orizzontale attorno a $L$, per quanto sottile, tutti i termini <em>da un certo indice in poi</em> ci cadono dentro.» Fuori dalla striscia restano al più finiti termini. L'indice $N$ dipende da $\eps$ — più sottile è la striscia, più in là bisogna spostarsi — e per questo si scrive spesso $N(\eps)$.</p>
+
+    <h3 id="epsN">Il gioco di ε e N</h3>
+    <div class="widget">
+      <div class="widget-head"><span>Visualizzatore della definizione di limite</span><span class="faint" style="text-transform:none;font-weight:400">stringi ε e guarda dove si sposta N</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="limSel">successione</label>
+            <select id="limSel">
+              <option value="0">$a_n=\dfrac{2n+1}{n+3}$</option>
+              <option value="1">$a_n=\dfrac1n$</option>
+              <option value="2">$a_n=\dfrac{(-1)^n}{n}$</option>
+              <option value="3">$a_n=\left(1+\dfrac1n\right)^n$</option>
+              <option value="4">$a_n=(-1)^n$ &nbsp;(irregolare)</option>
+              <option value="5">$a_n=\dfrac{\sin n}{n}$</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="limEps">$\eps$</label><input type="range" id="limEps" min="0.01" max="0.8" value="0.3" step="0.005"><output data-out="limEps">0.30</output></div>
+          <div class="ctrl"><label for="limMax">mostra fino a $n$</label><input type="range" id="limMax" min="15" max="90" value="40" step="1"><output data-out="limMax">40</output></div>
+        </div>
+        <canvas class="plot" id="limPlot"></canvas>
+        <div class="readout" id="limOut"></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Terminologia</div>
+      <ul class="mb0">
+        <li><strong>convergente:</strong> ha limite finito;</li>
+        <li><strong>divergente:</strong> ha limite $+\infty$ o $-\infty$;</li>
+        <li><strong>regolare:</strong> ha limite (finito o infinito) — cioè convergente oppure divergente;</li>
+        <li><strong>irregolare</strong> (indeterminata, oscillante): non ha limite.</li>
+      </ul>
+    </div>
+    <details class="reveal"><summary>Come si dimostra che una successione è irregolare?</summary><div class="reveal-body">
+      <p class="mb0">Esibendo <strong>due sottosuccessioni con limiti diversi</strong>. Se il limite esistesse, per unicità ogni sottosuccessione dovrebbe tendere allo stesso valore. Per $a_n=(-1)^n$: $a_{2k}=1\to1$ e $a_{2k+1}=-1\to-1$, dunque il limite non esiste. È l'unico metodo che ti serve nella prima parte del corso.</p>
+    </div></details>
+
+    <h3 id="unicita">Unicità del limite <span class="badge star">dim. scritto · n° 5</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Se $a_n\to L$ e $a_n\to M$, allora $L=M$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Impostazione</div>
+          <div class="step-content">Per assurdo $L\ne M$; senza perdita di generalità $L<M$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Qual è la scelta furba di $\eps$, e perché?</div>
+          <div class="step-content">$\eps=\dfrac{M-L}{2}>0$: metà della distanza, così gli intorni $(L-\eps,L+\eps)$ e $(M-\eps,M+\eps)$ sono <strong>disgiunti</strong>, perché $L+\eps=M-\eps=\frac{L+M}{2}$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Le due code</div>
+          <div class="step-content">$\exists N_1: n>N_1\Rightarrow a_n<L+\eps=\frac{L+M}{2}$; &nbsp; $\exists N_2: n>N_2\Rightarrow a_n>M-\eps=\frac{L+M}{2}$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">L'assurdo</div>
+          <div class="step-content">Per $n>\max\{N_1,N_2\}$ si avrebbe $a_n<\frac{L+M}{2}<a_n$: impossibile. Dunque $L=M$. $\blacksquare$</div></div></div>
+      </div>
+      <p class="small muted mb0">Errore tipico: scegliere $\eps=M-L$ invece di metà — gli intorni allora si sovrappongono e non nasce alcuna contraddizione.</p>
+    </div></details>
+
+    <h3 id="limitata">Ogni successione convergente è limitata <span class="badge star">dim. scritto · n° 6</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Se $a_n\to L\in\R$, allora esiste $M>0$ con $|a_n|\le M$ per ogni $n\in\N$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Quale $\eps$ si sceglie?</div>
+          <div class="step-content">Uno qualunque, per esempio $\eps=1$: la definizione vale per <em>ogni</em> $\eps$, quindi in particolare per questo. $\exists N:\ \forall n>N,\ |a_n-L|<1$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Come si stima la coda?</div>
+          <div class="step-content">Con la disuguaglianza triangolare: $|a_n|=|(a_n-L)+L|\le|a_n-L|+|L|<1+|L|$ per $n>N$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">E i primi termini?</div>
+          <div class="step-content">Sono in numero <strong>finito</strong>: l'insieme $\{|a_0|,\dots,|a_N|\}$ è finito, quindi ammette massimo.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">La conclusione</div>
+          <div class="step-content">$M:=\max\{|a_0|,\dots,|a_N|,\,1+|L|\}$ maggiora tutti i termini. $\blacksquare$</div></div></div>
+      </div>
+      <div class="box trap" style="margin-bottom:0">
+        <div class="box-title">✗ Il viceversa è falso</div>
+        <p class="mb0">$a_n=(-1)^n$ è limitata ma non converge. Tieni pronto questo controesempio: la domanda «vale anche il viceversa?» compare quasi sempre. Conseguenza utile in senso contrario: una successione <em>non limitata</em> non può convergere.</p>
+      </div>
+    </div></details>
+
+    <!-- ============================================================ -->
+    <h2 id="teoremi">5 · I teoremi sui limiti</h2>
+
+    <div class="box prop">
+      <div class="box-title">Algebra dei limiti <span class="badge star2">dim. orale</span></div>
+      <p class="mb0">Se $a_n\to L\in\R$ e $b_n\to M\in\R$:
+      $$a_n\pm b_n\to L\pm M,\qquad a_nb_n\to LM,\qquad \frac{a_n}{b_n}\to\frac LM\ (M\ne0),\qquad |a_n|\to|L|.$$</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Aritmetica estesa e forme indeterminate</div>
+      <p>Per $L\in\R$: $L+\infty=+\infty$, $L\cdot(+\infty)=\pm\infty$ secondo il segno di $L$, $\frac{L}{\pm\infty}=0$, $\frac{L}{0^+}=\pm\infty$ secondo il segno di $L$.</p>
+      <p class="mb0">Le <strong>sette forme indeterminate</strong>:
+      $$\infty-\infty,\qquad 0\cdot\infty,\qquad \frac\infty\infty,\qquad \frac00,\qquad 1^\infty,\qquad \infty^0,\qquad 0^0.$$</p>
+    </div>
+    <details class="reveal"><summary>Perché «indeterminata» e non «impossibile»?</summary><div class="reveal-body">
+      <p class="mb0">Perché il limite esiste eccome, ma <em>non è determinato dai soli limiti dei fattori</em>. Con $a_n=n^2$ e $b_n=n$, entrambe $\to+\infty$: $a_n-b_n\to+\infty$; $b_n-a_n\to-\infty$; ma $(n+1)-n\to1$. Stessa forma $\infty-\infty$, tre risultati diversi. Servono informazioni più fini: gerarchia degli infiniti, limiti notevoli, o-piccoli.</p>
+    </div></details>
+
+    <h3 id="segno">Permanenza del segno <span class="badge star">dim. scritto · n° 7</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Se $a_n\to L$ con $L>0$, allora $a_n>\dfrac L2>0$ definitivamente. Simmetricamente per $L<0$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione</summary><div class="reveal-body">
+      <p>Poiché $L>0$, la scelta $\eps=\frac L2>0$ è lecita. Per definizione $\exists N$ tale che, per $n>N$,
+      $$|a_n-L|<\frac L2\iff L-\frac L2<a_n<L+\frac L2,$$
+      quindi in particolare $a_n>\frac L2>0$. $\blacksquare$</p>
+      <p class="mb0">Se $L=+\infty$: applicando la definizione con $M=1$ si ottiene $a_n>1>0$ definitivamente.</p>
+    </div></details>
+    <div class="box trap">
+      <div class="box-title">✗ La forma inversa — l'errore più frequente del corso</div>
+      <p class="mb0">Se $a_n\ge0$ definitivamente e $a_n\to L$, allora $L\ge0$ — <strong>non</strong> $L>0$. Passando al limite, la disuguaglianza <em>stretta si indebolisce</em>. Controesempio: $a_n=\frac1n>0$ per ogni $n$, ma $L=0$. Lo stesso vale per la proprietà del confronto: da $a_n<b_n$ segue solo $L\le M$.</p>
+    </div>
+
+    <h3 id="carabinieri">Teorema del confronto (due carabinieri) <span class="badge star">dim. scritto · n° 8</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Se $a_n\le b_n\le c_n$ definitivamente e $a_n\to L$, $c_n\to L$ con $L\in\R$, allora $b_n\to L$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>I due carabinieri</span><span class="faint" style="text-transform:none;font-weight:400">$-\frac1n\le\frac{\sin n}{n}\le\frac1n$</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="carN">mostra fino a $n$</label><input type="range" id="carN" min="10" max="70" value="34" step="1"><output data-out="carN">34</output></div>
+        </div>
+        <canvas class="plot" id="carPlot"></canvas>
+        <div class="readout" id="carOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Da dove si parte</div>
+          <div class="step-content">Sia $\eps>0$ fissato ad arbitrio. Bisogna esibire $N$ tale che $|b_n-L|<\eps$ per $n>N$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Le tre ipotesi tradotte</div>
+          <div class="step-content">$\exists N_1: n>N_1\Rightarrow L-\eps<a_n<L+\eps$; $\exists N_2: n>N_2\Rightarrow L-\eps<c_n<L+\eps$; $\exists N_3: n>N_3\Rightarrow a_n\le b_n\le c_n$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Come si combinano?</div>
+          <div class="step-content">Con $N=\max\{N_1,N_2,N_3\}$ valgono tutte e tre insieme: $L-\eps<a_n\le b_n\le c_n<L+\eps$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Conclusione</div>
+          <div class="step-content">Dalla catena, $|b_n-L|<\eps$ per ogni $n>N$. Per l'arbitrarietà di $\eps$, $b_n\to L$. $\blacksquare$</div></div></div>
+      </div>
+      <p class="small muted mb0"><strong>Nota cruciale:</strong> l'esistenza del limite di $(b_n)$ non è ipotesi — è la tesi. È proprio questo a rendere il teorema utile su successioni «brutte» come $\frac{\sin n}{n}$.</p>
+    </div></details>
+
+    <div class="box prop">
+      <div class="box-title">Corollario — infinitesima × limitata</div>
+      <p class="mb0">Se $a_n\to0$ e $(b_n)$ è limitata, allora $a_nb_n\to0$. <em>Dimostrazione:</em> con $|b_n|\le K$, si ha $|a_nb_n|\le K|a_n|\to0$, e $|x_n|\to0\iff x_n\to0$. $\blacksquare$<br><br>
+      Risolve forme $0\cdot(\text{oscillante})$ dove l'algebra dei limiti non si applica: $\frac{\sin n}{n}\to0$, $\frac{(-1)^n}{n}\to0$, $\frac{\cos(n!)}{\sqrt n}\to0$. Non serve che $(b_n)$ abbia limite.</p>
+    </div>
+
+    <h3 id="monotone">Regolarità delle successioni monotòne <span class="badge star">dim. scritto · n° 9</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Ogni successione monotòna è <strong>regolare</strong>. Se $(a_n)$ è crescente, $$\lim_n a_n=\sup_n a_n,$$ finito se limitata superiormente, $+\infty$ altrimenti. Simmetricamente, se decrescente il limite è $\inf_n a_n$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Chi è il candidato limite, e perché esiste?</div>
+          <div class="step-content">$L=\sup\{a_n:n\in\N\}$. Esiste finito per la <strong>proprietà di completezza</strong> di $\R$, perché l'insieme è non vuoto e limitato superiormente.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Quale proprietà del sup si usa?</div>
+          <div class="step-content">La caratterizzazione (2): dato $\eps>0$, $L-\eps$ non è un maggiorante, quindi $\exists N$ con $a_N>L-\eps$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Dove entra la monotonia?</div>
+          <div class="step-content">Propaga la disuguaglianza da <em>un solo</em> indice a tutta la coda: per $n>N$, $a_n\ge a_N>L-\eps$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">La stima dall'alto e la conclusione</div>
+          <div class="step-content">$L$ è maggiorante, quindi $a_n\le L<L+\eps$ per ogni $n$. Insieme: $L-\eps<a_n<L+\eps$ per $n>N$, cioè $|a_n-L|<\eps$. Dunque $a_n\to L$. $\blacksquare$</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Caso illimitato superiormente</div>
+          <div class="step-content">Dato $M\in\R$, esso non è maggiorante, quindi $\exists N: a_N>M$; per monotonia $a_n\ge a_N>M$ per $n>N$. Dunque $a_n\to+\infty$. $\blacksquare$</div></div></div>
+      </div>
+    </div></details>
+
+    <h3 id="nepero">Il numero di Nepero</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$$e:=\lim_{n\to\infty}\left(1+\frac1n\right)^{n}.$$</p>
+    </div>
+    <div class="widget">
+      <div class="widget-head"><span>Perché la definizione di $e$ è ben posta</span><span class="faint" style="text-transform:none;font-weight:400">crescente e limitata ⇒ converge</span></div>
+      <div class="widget-body">
+        <canvas class="plot" id="nepPlot"></canvas>
+        <div class="readout" id="nepOut"></div>
+      </div>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ La risposta alla domanda «perché è ben posta?»</div>
+      <p class="mb0">È una forma indeterminata $1^\infty$: non si può concludere direttamente. Si dimostra invece che $a_n=\left(1+\frac1n\right)^n$ è <strong>strettamente crescente</strong> e <strong>limitata superiormente</strong> (per esempio da $3$); per il teorema sulla regolarità delle successioni monotòne essa converge, e il limite si <em>chiama</em> $e$. Dietro, ancora una volta, c'è la completezza di $\R$.<br><br>
+      Generalizzazione da ricordare: $\left(1+\frac cn\right)^{\alpha n}\to e^{\,\alpha c}$.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="calcolo">6 · Calcolo dei limiti</h2>
+
+    <h3 id="notevoli">Limiti notevoli <span class="badge star2">dim. orale</span></h3>
+    <div class="box">
+      <p>Per $x_n\to0$ (con $x_n\ne0$ definitivamente):</p>
+      <p class="mb0">$$\frac{\sin x_n}{x_n}\to1,\quad \frac{1-\cos x_n}{x_n^{2}}\to\frac12,\quad \frac{\tan x_n}{x_n}\to1,\quad \frac{\arctan x_n}{x_n}\to1,$$
+      $$\frac{e^{x_n}-1}{x_n}\to1,\quad \frac{\ln(1+x_n)}{x_n}\to1,\quad \frac{(1+x_n)^{\alpha}-1}{x_n}\to\alpha.$$</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>I limiti notevoli, visti da vicino</span><span class="faint" style="text-transform:none;font-weight:400">zooma verso $x=0$</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="notSel">rapporto</label>
+            <select id="notSel">
+              <option value="0">$\dfrac{\sin x}{x}\to1$</option>
+              <option value="1">$\dfrac{1-\cos x}{x^2}\to\dfrac12$</option>
+              <option value="2">$\dfrac{e^x-1}{x}\to1$</option>
+              <option value="3">$\dfrac{\ln(1+x)}{x}\to1$</option>
+              <option value="4">$\dfrac{\tan x}{x}\to1$</option>
+              <option value="5">$\dfrac{1-\cos x}{x}\to0$ &nbsp;(attenzione!)</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="notZoom">zoom</label><input type="range" id="notZoom" min="0.15" max="6" value="4" step="0.05"><output data-out="notZoom">4</output></div>
+        </div>
+        <canvas class="plot" id="notPlot"></canvas>
+        <div class="readout" id="notOut"></div>
+      </div>
+    </div>
+
+    <h3 id="gerarchia">Gerarchia degli infiniti <span class="badge star2">dim. orale</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Per $n\to+\infty$, con $\alpha,\beta>0$ e $a>1$:
+      $$(\ln n)^{\beta}\ \ll\ n^{\alpha}\ \ll\ a^{\,n}\ \ll\ n!\ \ll\ n^{\,n},$$
+      dove $x_n\ll y_n$ significa $\dfrac{x_n}{y_n}\to0$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Gerarchia degli infiniti</span><span class="faint" style="text-transform:none;font-weight:400">scala logaritmica: si confrontano gli ordini</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="gerN">fino a $n$</label><input type="range" id="gerN" min="5" max="40" value="22" step="1"><output data-out="gerN">22</output></div>
+        </div>
+        <canvas class="plot" id="gerPlot"></canvas>
+        <div class="readout" id="gerOut"></div>
+      </div>
+    </div>
+
+    <details class="reveal proof"><summary>Come si dimostra ogni anello</summary><div class="reveal-body">
+      <p>Si usa il <strong>criterio del rapporto per successioni</strong>: se $c_n>0$ e $\frac{c_{n+1}}{c_n}\to\ell<1$, allora $c_n\to0$.</p>
+      <ul class="mb0">
+        <li>$\dfrac{n^\alpha}{a^n}$: &nbsp; $\dfrac{c_{n+1}}{c_n}=\left(\dfrac{n+1}{n}\right)^{\alpha}\cdot\dfrac1a\to\dfrac1a<1$.</li>
+        <li>$\dfrac{a^n}{n!}$: &nbsp; $\dfrac{c_{n+1}}{c_n}=\dfrac{a}{n+1}\to0<1$.</li>
+        <li>$\dfrac{n!}{n^n}$: &nbsp; $\dfrac{c_{n+1}}{c_n}=\left(\dfrac{n}{n+1}\right)^{n}=\dfrac{1}{\left(1+\frac1n\right)^{n}}\to\dfrac1e<1$.</li>
+        <li>$\dfrac{(\ln n)^\beta}{n^\alpha}$: &nbsp; con $n=e^{t}$ diventa $\dfrac{t^\beta}{(e^{\alpha})^{t}}\to0$, cioè il primo caso.</li>
+      </ul>
+    </div></details>
+
+    <h3 id="asintotico">Equivalenze asintotiche e o-piccoli</h3>
+    <div class="box def">
+      <div class="box-title">Definizioni</div>
+      <p class="mb0">Con $b_n\ne0$ definitivamente:
+      $$a_n=o(b_n)\ \overset{\text{def}}{\iff}\ \frac{a_n}{b_n}\to0\quad\text{(«$a_n$ è trascurabile rispetto a $b_n$»)},$$
+      $$a_n\sim b_n\ \overset{\text{def}}{\iff}\ \frac{a_n}{b_n}\to1\quad\text{(«asintoticamente equivalenti»)}.$$
+      Legame: $a_n\sim b_n\iff a_n=b_n+o(b_n)$. Inoltre $a_n\to0\iff a_n=o(1)$.</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Algebra degli o-piccoli</div>
+      <ul class="mb0">
+        <li>$o(b_n)\pm o(b_n)=o(b_n)$ &nbsp;e&nbsp; $c\cdot o(b_n)=o(b_n)$ per $c\ne0$;</li>
+        <li>$a_n\cdot o(b_n)=o(a_nb_n)$; &nbsp; $o(a_n)\cdot o(b_n)=o(a_nb_n)$; &nbsp; $o(o(b_n))=o(b_n)$;</li>
+        <li><strong>assorbimento:</strong> se $a_n=o(b_n)$ allora $a_n+b_n\sim b_n$;</li>
+        <li>per $x\to0$: $o(x^{\alpha})+o(x^{\beta})=o(x^{\beta})$ se $\alpha>\beta$ — <em>vince l'esponente più piccolo</em>.</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Sviluppi di Mac-Laurin da sapere a memoria ($x\to0$)</div>
+      <p class="mb0">$$\sin x=x-\frac{x^3}{6}+o(x^3),\qquad \cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+o(x^4),\qquad \tan x=x+\frac{x^3}{3}+o(x^3),$$
+      $$e^{x}=1+x+\frac{x^2}{2}+o(x^2),\qquad \ln(1+x)=x-\frac{x^2}{2}+o(x^2),\qquad (1+x)^{\alpha}=1+\alpha x+o(x),$$
+      $$\arctan x=x-\frac{x^3}{3}+o(x^3).$$</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Quanto bene approssima lo sviluppo?</span><span class="faint" style="text-transform:none;font-weight:400">più ordini ⇒ più aderenza vicino a 0</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="tayF">funzione</label>
+            <select id="tayF"><option value="sin">$\sin x$</option><option value="cos">$\cos x$</option><option value="exp">$e^x$</option><option value="ln">$\ln(1+x)$</option></select>
+          </div>
+          <div class="ctrl"><label for="tayK">ordine</label><input type="range" id="tayK" min="1" max="7" value="3" step="1"><output data-out="tayK">3</output></div>
+          <div class="ctrl"><label for="tayZ">zoom</label><input type="range" id="tayZ" min="0.5" max="6" value="4" step="0.1"><output data-out="tayZ">4</output></div>
+        </div>
+        <canvas class="plot" id="tayPlot"></canvas>
+        <div class="readout" id="tayOut"></div>
+      </div>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ Le due regole d'oro degli asintotici</div>
+      <ol class="mb0">
+        <li><strong>Mai sostituire dentro una somma.</strong> Da $n+1\sim n$ e $-n\sim-n$ <em>non</em> segue $(n+1)-n\sim n-n$: il primo membro vale $1$, il secondo $0$. Si sostituisce solo in prodotti, quozienti e potenze.</li>
+        <li><strong>Spingi tutti gli sviluppi allo stesso ordine.</strong> Se ti fermi troppo presto ottieni $\frac{o(x)}{x^2}$, che non è determinato; se ti fermi a ordini diversi, produci cancellazioni illecite. Guarda quale ordine serve al denominatore e sviluppa il numeratore <em>almeno</em> fino a lì.</li>
+      </ol>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="test">Mettiti alla prova</h2>
+    <div id="quizBox"></div>
+
+    <h2 id="errori">Errori tipici della Sezione 2</h2>
+    <div class="box trap">
+      <ul class="mb0">
+        <li><strong>Passare al limite conservando la disuguaglianza stretta.</strong> $a_n>0\Rightarrow L\ge0$, non $L>0$.</li>
+        <li><strong>Credere che «limitata» implichi «convergente».</strong> $(-1)^n$.</li>
+        <li><strong>Dedurre $a_n\to L$ da $|a_n|\to|L|$.</strong> Vale solo per $L=0$.</li>
+        <li><strong>Usare l'algebra dei limiti su forme indeterminate</strong>, oppure su successioni di cui non si è verificata l'esistenza del limite.</li>
+        <li><strong>Nel teorema dei carabinieri, supporre che $b_n$ abbia limite.</strong> È la tesi.</li>
+        <li><strong>Sostituire equivalenze asintotiche dentro somme</strong> o dentro esponenti e logaritmi.</li>
+        <li><strong>Fermare gli sviluppi all'ordine sbagliato</strong> e ritrovarsi con $\frac{o(x)}{x^2}$.</li>
+        <li><strong>Scrivere $\frac{1-\cos x}{x^2}\to1$.</strong> Fa $\frac12$.</li>
+        <li><strong>Passare al limite in una successione ricorsiva</strong> prima di aver dimostrato che il limite esiste. Monotonia + limitatezza vanno provate <em>prima</em>.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="3-serie.html">Sezione 3 · Serie numeriche →</a>
+      <a class="btn" href="1-numeri.html">← Sezione 1</a>
+      <a class="btn" href="../esercizi.html?sez=2">Esercizi della Sezione 2</a>
+    </div>
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Sezione 2 · Guida di studio non ufficiale</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data/topics.js"></script>
+<script src="../assets/js/data/quiz.js"></script>
+<script src="../assets/js/plot.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 2);
+  AM.mountQuiz('#quizBox', AM.quizPerSezione(2), { statKey: 'sez2' });
+
+  /* ---------- Test della retta orizzontale ---------- */
+  (function () {
+    var FS = [
+      { f: function (x) { return x * x; }, nome: 'x²', sol: function (y) { return y > 0 ? 2 : (y === 0 ? 1 : 0); }, inj: false, img: '[0,+∞)' },
+      { f: function (x) { return x * x * x; }, nome: 'x³', sol: function () { return 1; }, inj: true, img: 'ℝ' },
+      { f: function (x) { return Math.exp(x); }, nome: 'eˣ', sol: function (y) { return y > 0 ? 1 : 0; }, inj: true, img: '(0,+∞)' },
+      { f: function (x) { return Math.sin(x); }, nome: 'sen x', sol: function (y) { return (y >= -1 && y <= 1) ? '∞' : 0; }, inj: false, img: '[−1,1]' },
+      { f: function (x) { return x * x * x - 3 * x; }, nome: 'x³−3x', sol: function (y) { return (y > -2 && y < 2) ? 3 : (Math.abs(y) === 2 ? 2 : 1); }, inj: false, img: 'ℝ' }
+    ];
+    var i = 0, y = 1.5, out = document.getElementById('injOut');
+    var p = new Plot('injPlot', { xmin: -4, xmax: 4, ymin: -4.5, ymax: 4.5, height: 320 });
+    p.draw(function (g) {
+      g.fn(FS[i].f, { color: 'accent', width: 2.5 });
+      g.hline(y, { color: 'danger', width: 2, dash: [6, 4] });
+      // intersezioni numeriche
+      var prev = null, N = 1600;
+      for (var k = 0; k <= N; k++) {
+        var x = g.xmin + (g.xmax - g.xmin) * k / N, v = FS[i].f(x) - y;
+        if (prev !== null && isFinite(v) && isFinite(prev) && prev * v <= 0 && Math.abs(v - prev) < 2) {
+          g.dot(x, y, { color: 'danger', r: 4.5, ring: true });
+        }
+        prev = v;
+      }
+    });
+    function refresh() {
+      var F = FS[i], n = F.sol(y);
+      out.innerHTML = 'f(x) = ' + F.nome + ' &nbsp;·&nbsp; y = ' + y.toFixed(2) + '<br>' +
+        'soluzioni di f(x) = y: <b>' + n + '</b><br>' +
+        (F.inj ? '<span style="color:var(--ok)">Ogni retta orizzontale interseca al più una volta → <b>iniettiva</b>.</span>'
+               : '<span style="color:var(--danger)">Esistono rette che intersecano più volte → <b>non iniettiva</b> su ℝ.</span>') +
+        '<br>immagine f(ℝ) = <b>' + F.img + '</b> → suriettiva su ℝ: ' + (F.img === 'ℝ' ? '<b>sì</b>' : '<b>no</b>, ma lo diventa restringendo il codominio a ' + F.img);
+    }
+    document.getElementById('injSel').onchange = function () { i = +this.value; p.redraw(); refresh(); };
+    plotSlider('injY', function (v) { y = v; p.redraw(); refresh(); });
+  })();
+
+  /* ---------- Galleria funzioni elementari ---------- */
+  (function () {
+    var LIB = {
+      x2: { f: function (x) { return x * x; }, n: 'x²' },
+      x3: { f: function (x) { return x * x * x; }, n: 'x³' },
+      sqrt: { f: function (x) { return x >= 0 ? Math.sqrt(x) : NaN; }, n: '√x' },
+      inv: { f: function (x) { return Math.abs(x) < 1e-6 ? NaN : 1 / x; }, n: '1/x' },
+      exp: { f: function (x) { return Math.exp(x); }, n: 'eˣ' },
+      ln: { f: function (x) { return x > 0 ? Math.log(x) : NaN; }, n: 'ln x' },
+      sin: { f: Math.sin, n: 'sen x' }, cos: { f: Math.cos, n: 'cos x' },
+      tan: { f: function (x) { var t = Math.tan(x); return Math.abs(t) > 40 ? NaN : t; }, n: 'tan x' },
+      abs: { f: Math.abs, n: '|x|' }, atan: { f: Math.atan, n: 'arctan x' }
+    };
+    var key = 'x2', a = 1, b = 1, c = 0, d = 0, out = document.getElementById('elOut');
+    var orig = document.getElementById('elOrig');
+    var p = new Plot('elPlot', { xmin: -6, xmax: 6, ymin: -4.5, ymax: 4.5, height: 340 });
+    p.draw(function (g) {
+      var f = LIB[key].f;
+      if (orig.checked) g.fn(f, { color: 'faint', width: 1.6, dash: [5, 4], alpha: .8 });
+      g.fn(function (x) { return a * f(b * x + c) + d; }, { color: 'accent', width: 2.6 });
+      g.legend(orig.checked
+        ? [{ label: 'f(x)', color: 'faint', dash: true }, { label: 'a·f(bx+c)+d', color: 'accent' }]
+        : [{ label: 'a·f(bx+c)+d', color: 'accent' }], { left: true });
+    });
+    function refresh() {
+      var msg = [];
+      if (Math.abs(a) !== 1 || a < 0) msg.push('a = ' + a.toFixed(1) + ': dilatazione verticale' + (a < 0 ? ' + riflessione rispetto all\'asse x' : ''));
+      if (Math.abs(b) !== 1 || b < 0) msg.push('b = ' + b.toFixed(1) + ': compressione orizzontale di fattore 1/|b|' + (b < 0 ? ' + riflessione rispetto all\'asse y' : ''));
+      if (c !== 0) msg.push('c = ' + c.toFixed(1) + ': traslazione orizzontale di −c/b = ' + (b ? (-c / b).toFixed(2) : '—') + ' (attenzione al segno!)');
+      if (d !== 0) msg.push('d = ' + d.toFixed(1) + ': traslazione verticale');
+      out.innerHTML = '<b>y = ' + a.toFixed(1) + '·' + LIB[key].n.replace('x', '(' + b.toFixed(1) + 'x' + (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ')') + (d >= 0 ? ' + ' : ' − ') + Math.abs(d).toFixed(1) + '</b><br>' +
+        (msg.length ? msg.join('<br>') : 'Nessuna trasformazione: è la funzione elementare.');
+    }
+    document.getElementById('elSel').onchange = function () { key = this.value; p.redraw(); refresh(); };
+    orig.onchange = function () { p.redraw(); };
+    plotSlider('elA', function (v) { a = v; p.redraw(); refresh(); });
+    plotSlider('elB', function (v) { b = v; p.redraw(); refresh(); });
+    plotSlider('elC', function (v) { c = v; p.redraw(); refresh(); });
+    plotSlider('elD', function (v) { d = v; p.redraw(); refresh(); });
+  })();
+
+  /* ---------- Visualizzatore ε–N ---------- */
+  (function () {
+    var SEQ = [
+      { a: function (n) { return (2 * n + 1) / (n + 3); }, L: 2, nome: '(2n+1)/(n+3)', ok: true },
+      { a: function (n) { return 1 / n; }, L: 0, nome: '1/n', ok: true },
+      { a: function (n) { return Math.pow(-1, n) / n; }, L: 0, nome: '(−1)ⁿ/n', ok: true },
+      { a: function (n) { return Math.pow(1 + 1 / n, n); }, L: Math.E, nome: '(1+1/n)ⁿ', ok: true },
+      { a: function (n) { return Math.pow(-1, n); }, L: null, nome: '(−1)ⁿ', ok: false },
+      { a: function (n) { return Math.sin(n) / n; }, L: 0, nome: 'sen(n)/n', ok: true }
+    ];
+    var i = 0, eps = 0.3, nmax = 40, out = document.getElementById('limOut');
+    var p = new Plot('limPlot', { xmin: 0, xmax: 41, ymin: -1.6, ymax: 3.2, height: 320, xlabel: 'n' });
+
+    // il più piccolo N che funziona = ultimo indice in cui la condizione fallisce
+    function Nof() {
+      var S = SEQ[i]; if (!S.ok) return null;
+      for (var n = 4000; n >= 1; n--) {
+        if (Math.abs(S.a(n) - S.L) >= eps) return n;
+      }
+      return 0;
+    }
+
+    p.draw(function (g) {
+      var S = SEQ[i];
+      if (S.ok) {
+        g.hband(S.L - eps, S.L + eps, { color: 'ok', alpha: .16 });
+        g.hline(S.L, { color: 'ok', width: 1.8 });
+        g.hline(S.L + eps, { color: 'ok', width: 1, dash: [4, 3] });
+        g.hline(S.L - eps, { color: 'ok', width: 1, dash: [4, 3] });
+        g.text(g.xmax - 0.5, S.L, 'L = ' + S.L.toFixed(3), { color: 'ok', size: 11.5, bold: true, align: 'right', dy: -5, halo: true });
+        var N = Nof();
+        if (N !== null && N < nmax) {
+          g.vline(N, { color: 'danger', width: 1.8, dash: [5, 4] });
+          g.text(N, g.ymax - 0.15, ' N = ' + N, { color: 'danger', size: 12, bold: true, align: 'left', halo: true });
+        }
+      } else {
+        g.hline(1, { color: 'faint', width: 1, dash: [4, 3] });
+        g.hline(-1, { color: 'faint', width: 1, dash: [4, 3] });
+      }
+      for (var n = 1; n <= nmax; n++) {
+        var v = S.a(n);
+        if (!isFinite(v)) continue;
+        var inside = S.ok && Math.abs(v - S.L) < eps;
+        g.dot(n, v, { color: inside ? 'ok' : 'danger', r: 3.4, ring: true });
+      }
+    });
+
+    function refresh() {
+      var S = SEQ[i];
+      if (!S.ok) {
+        out.innerHTML = '<b>a_n = (−1)ⁿ è irregolare.</b><br>Nessun L funziona: per qualunque candidato, scegliendo ε &lt; 1 infiniti termini restano fuori dalla striscia.<br>' +
+          'Dimostrazione: le sottosuccessioni a₂ₖ = 1 → 1 e a₂ₖ₊₁ = −1 → −1 hanno limiti diversi, quindi per unicità il limite non esiste.';
+        return;
+      }
+      var N = Nof();
+      var fuori = 0; for (var n = 1; n <= nmax; n++) if (Math.abs(S.a(n) - S.L) >= eps) fuori++;
+      out.innerHTML = 'a_n = ' + S.nome + ' &nbsp;·&nbsp; L = ' + S.L.toFixed(4) + ' &nbsp;·&nbsp; ε = ' + eps.toFixed(3) + '<br>' +
+        'il più piccolo N che funziona: <b>N(ε) = ' + (N === null ? '&gt; 4000' : N) + '</b> &nbsp;<span style="color:var(--text-faint)">(per ogni n &gt; N la distanza da L è &lt; ε)</span><br>' +
+        'termini fuori dalla striscia fra i primi ' + nmax + ': <b>' + fuori + '</b> (sempre un numero <i>finito</i>)<br>' +
+        '<span style="color:var(--text-faint)">Stringi ε: la striscia si assottiglia e N si sposta a destra — ma esiste sempre.</span>';
+    }
+    document.getElementById('limSel').onchange = function () {
+      i = +this.value;
+      var S = SEQ[i];
+      if (S.ok) { var c = S.L; p.setWindow({ ymin: Math.min(-1.2, c - 1.6), ymax: c + 1.6 }); }
+      else p.setWindow({ ymin: -1.6, ymax: 1.6 });
+      p.redraw(); refresh();
+    };
+    plotSlider('limEps', function (v) { eps = v; p.redraw(); refresh(); });
+    plotSlider('limMax', function (v) { nmax = v; p.setWindow({ xmax: nmax + 1 }); p.redraw(); refresh(); });
+  })();
+
+  /* ---------- Due carabinieri ---------- */
+  (function () {
+    var N = 34, out = document.getElementById('carOut');
+    var p = new Plot('carPlot', { xmin: 0, xmax: 35, ymin: -0.7, ymax: 0.7, height: 300, xlabel: 'n' });
+    p.draw(function (g) {
+      g.fn(function (x) { return x >= 1 ? 1 / x : NaN; }, { color: 'ok', width: 1.4, alpha: .5 });
+      g.fn(function (x) { return x >= 1 ? -1 / x : NaN; }, { color: 'ok', width: 1.4, alpha: .5 });
+      for (var n = 1; n <= N; n++) {
+        g.dot(n, 1 / n, { color: 'ok', r: 3, ring: true });
+        g.dot(n, -1 / n, { color: 'ok', r: 3, ring: true });
+        g.dot(n, Math.sin(n) / n, { color: 'danger', r: 3.6, ring: true });
+      }
+      g.hline(0, { color: 'muted', width: 1.4 });
+      g.legend([{ label: '±1/n  (i carabinieri)', color: 'ok' }, { label: 'sen(n)/n  (l\'arrestato)', color: 'danger' }]);
+    });
+    plotSlider('carN', function (v) {
+      N = v; p.setWindow({ xmax: N + 1 }); p.redraw();
+      out.innerHTML = 'Per ogni n ≥ 1: &nbsp;−1/n ≤ sen(n)/n ≤ 1/n, perché |sen n| ≤ 1.<br>' +
+        'Entrambi i carabinieri tendono a 0, quindi <b>sen(n)/n → 0</b>.<br>' +
+        'n = ' + N + ': &nbsp;−' + (1 / N).toFixed(5) + ' ≤ ' + (Math.sin(N) / N).toFixed(5) + ' ≤ ' + (1 / N).toFixed(5) + '<br>' +
+        '<span style="color:var(--text-faint)">Nota: sen(n) non ha limite. Il teorema non lo richiede — è esattamente il suo punto di forza.</span>';
+    });
+  })();
+
+  /* ---------- Numero di Nepero ---------- */
+  (function () {
+    var out = document.getElementById('nepOut');
+    var p = new Plot('nepPlot', { xmin: 0, xmax: 41, ymin: 1.8, ymax: 3.15, height: 290, xlabel: 'n' });
+    p.draw(function (g) {
+      g.hline(Math.E, { color: 'ok', width: 1.8 });
+      g.text(g.xmax - 0.5, Math.E, 'e ≈ 2,71828', { color: 'ok', size: 11.5, bold: true, align: 'right', dy: -5, halo: true });
+      g.hline(3, { color: 'danger', width: 1.4, dash: [5, 4] });
+      g.text(g.xmax - 0.5, 3, 'maggiorante: 3', { color: 'danger', size: 11, align: 'right', dy: -5, halo: true });
+      g.seq(function (n) { return Math.pow(1 + 1 / n, n); }, { from: 1, to: 40, color: 'accent', stem: false, r: 3.4 });
+      g.fn(function (x) { return x >= 1 ? Math.pow(1 + 1 / x, x) : NaN; }, { color: 'accent', width: 1.2, alpha: .35 });
+    });
+    var rows = [1, 2, 5, 10, 50, 100, 1000, 100000].map(function (n) {
+      return 'n = ' + String(n).padStart(6) + '  →  ' + Math.pow(1 + 1 / n, n).toFixed(6);
+    }).join('<br>');
+    out.innerHTML = '<b>La successione è strettamente crescente e limitata superiormente da 3.</b><br>' +
+      'Per il teorema sulle successioni monotòne converge, e il limite si chiama e.<br><br>' +
+      '<span style="white-space:pre">' + rows + '</span><br>' +
+      '<span style="color:var(--text-faint)">La convergenza è lenta: serve n ≈ 10⁵ per tre cifre decimali corrette.</span>';
+  })();
+
+  /* ---------- Limiti notevoli ---------- */
+  (function () {
+    var LN = [
+      { f: function (x) { return Math.sin(x) / x; }, L: 1, nome: 'sen x / x', eq: 'sen x = x + o(x)' },
+      { f: function (x) { return (1 - Math.cos(x)) / (x * x); }, L: 0.5, nome: '(1−cos x)/x²', eq: 'cos x = 1 − x²/2 + o(x²)' },
+      { f: function (x) { return (Math.exp(x) - 1) / x; }, L: 1, nome: '(eˣ−1)/x', eq: 'eˣ = 1 + x + o(x)' },
+      { f: function (x) { return x > -1 ? Math.log(1 + x) / x : NaN; }, L: 1, nome: 'ln(1+x)/x', eq: 'ln(1+x) = x + o(x)' },
+      { f: function (x) { return Math.tan(x) / x; }, L: 1, nome: 'tan x / x', eq: 'tan x = x + o(x)' },
+      { f: function (x) { return (1 - Math.cos(x)) / x; }, L: 0, nome: '(1−cos x)/x', eq: 'attenzione: il denominatore è x, non x²' }
+    ];
+    var i = 0, z = 4, out = document.getElementById('notOut');
+    var p = new Plot('notPlot', { xmin: -4, xmax: 4, ymin: -0.4, ymax: 1.6, height: 300 });
+    p.draw(function (g) {
+      var S = LN[i];
+      g.hline(S.L, { color: 'ok', width: 1.6, dash: [6, 4] });
+      g.fn(function (x) { return Math.abs(x) < 1e-9 ? NaN : S.f(x); }, { color: 'accent', width: 2.6 });
+      g.dot(0, S.L, { color: 'ok', r: 5, hollow: true, width: 2.2 });
+      g.text(g.xmax * 0.97, S.L, 'L = ' + S.L, { color: 'ok', size: 11.5, bold: true, align: 'right', dy: -6, halo: true });
+    });
+    function refresh() {
+      var S = LN[i];
+      var vals = [1, 0.1, 0.01, 0.001].map(function (h) { return 'x = ' + h + ' → ' + S.f(h).toFixed(6); }).join('<br>');
+      out.innerHTML = '<b>' + S.nome + ' → ' + S.L + '</b> &nbsp; per x → 0<br>' + S.eq + '<br><br>' + vals +
+        '<br><span style="color:var(--text-faint)">La funzione non è definita in x = 0 (cerchio vuoto): il limite descrive il comportamento <i>attorno</i> a 0, non in 0.</span>';
+    }
+    document.getElementById('notSel').onchange = function () {
+      i = +this.value; var S = LN[i];
+      p.setWindow({ ymin: S.L - 1, ymax: S.L + 1 }); p.redraw(); refresh();
+    };
+    plotSlider('notZoom', function (v) { z = v; p.setWindow({ xmin: -z, xmax: z }); p.redraw(); });
+    refresh();
+  })();
+
+  /* ---------- Gerarchia degli infiniti ---------- */
+  (function () {
+    var N = 22, out = document.getElementById('gerOut');
+    function lnfact(n) { var s = 0; for (var k = 2; k <= n; k++) s += Math.log(k); return s; }
+    var CURVE = [
+      { g: function (n) { return Math.log(Math.max(Math.log(Math.max(n, 1.01)), 1e-9)); }, c: 'muted', l: 'ln n' },
+      { g: function (n) { return Math.log(n); }, c: 'ok', l: 'n' },
+      { g: function (n) { return 2 * Math.log(n); }, c: 'accent', l: 'n²' },
+      { g: function (n) { return n * Math.log(2); }, c: 'warn', l: '2ⁿ' },
+      { g: function (n) { return lnfact(n); }, c: 'purple', l: 'n!' },
+      { g: function (n) { return n * Math.log(n); }, c: 'danger', l: 'nⁿ' }
+    ];
+    var p = new Plot('gerPlot', { xmin: 1, xmax: 23, ymin: -1, ymax: 70, height: 330, xlabel: 'n', ylabel: 'ln(valore)' });
+    p.draw(function (g) {
+      CURVE.forEach(function (C) {
+        g.fn(function (x) { return C.g(x); }, { color: C.c, width: 2.2, from: 1.05, to: N });
+        var yv = C.g(N);
+        if (yv <= g.ymax && yv >= g.ymin) g.text(N, yv, ' ' + C.l, { color: C.c, size: 11.5, bold: true, align: 'left', halo: true });
+      });
+    });
+    plotSlider('gerN', function (v) {
+      N = v; p.setWindow({ xmax: N + 2, ymax: Math.max(12, N * Math.log(N) * 1.06) }); p.redraw();
+      function fmt(x) { return x > 1e6 ? x.toExponential(2) : Math.round(x).toLocaleString('it-IT'); }
+      out.innerHTML = '<b>n = ' + N + '</b> &nbsp;(scala logaritmica: le distanze verticali sono <i>rapporti</i>)<br>' +
+        'ln n = ' + Math.log(N).toFixed(2) + ' &nbsp;·&nbsp; n = ' + N + ' &nbsp;·&nbsp; n² = ' + fmt(N * N) +
+        ' &nbsp;·&nbsp; 2ⁿ = ' + fmt(Math.pow(2, N)) + ' &nbsp;·&nbsp; n! = ' + fmt(Math.exp(lnfact(N))) +
+        ' &nbsp;·&nbsp; nⁿ = ' + fmt(Math.exp(N * Math.log(N))) + '<br>' +
+        '<span style="color:var(--text-faint)">Regola operativa: in un quoziente di infiniti comanda il termine più avanti nella gerarchia; tutto il resto è o-piccolo.</span>';
+    });
+  })();
+
+  /* ---------- Sviluppi di Taylor ---------- */
+  (function () {
+    function fact(n) { var r = 1; for (var i = 2; i <= n; i++) r *= i; return r; }
+    var TAY = {
+      sin: { f: Math.sin, c: function (k) { return k % 2 === 0 ? 0 : (k % 4 === 1 ? 1 / fact(k) : -1 / fact(k)); }, n: 'sen x' },
+      cos: { f: Math.cos, c: function (k) { return k % 2 === 1 ? 0 : (k % 4 === 0 ? 1 / fact(k) : -1 / fact(k)); }, n: 'cos x' },
+      exp: { f: Math.exp, c: function (k) { return 1 / fact(k); }, n: 'eˣ' },
+      ln: { f: function (x) { return x > -1 ? Math.log(1 + x) : NaN; }, c: function (k) { return k === 0 ? 0 : (k % 2 === 1 ? 1 / k : -1 / k); }, n: 'ln(1+x)' }
+    };
+    var key = 'sin', K = 3, z = 4, out = document.getElementById('tayOut');
+    var p = new Plot('tayPlot', { xmin: -4, xmax: 4, ymin: -3, ymax: 3, height: 330 });
+    function poly(x) { var T = TAY[key], s = 0; for (var k = 0; k <= K; k++) s += T.c(k) * Math.pow(x, k); return s; }
+    p.draw(function (g) {
+      g.fn(TAY[key].f, { color: 'accent', width: 2.6 });
+      g.fn(poly, { color: 'danger', width: 2, dash: [6, 4] });
+      g.dot(0, TAY[key].f(0), { color: 'ok', r: 4.5, ring: true });
+      g.legend([{ label: TAY[key].n, color: 'accent' }, { label: 'polinomio di grado ' + K, color: 'danger', dash: true }], { left: true });
+    });
+    function refresh() {
+      var T = TAY[key], terms = [];
+      for (var k = 0; k <= K; k++) {
+        var c = T.c(k); if (Math.abs(c) < 1e-12) continue;
+        terms.push((c > 0 && terms.length ? '+ ' : c < 0 ? '− ' : '') + (Math.abs(c) === 1 && k > 0 ? '' : Math.abs(c).toFixed(4).replace(/0+$/, '').replace(/\.$/, '') + '·') + (k === 0 ? '1' : k === 1 ? 'x' : 'x^' + k));
+      }
+      var errs = [0.1, 0.5, 1, 2].map(function (x) {
+        return 'x = ' + x + ': errore = ' + Math.abs(T.f(x) - poly(x)).toExponential(2);
+      }).join('<br>');
+      out.innerHTML = '<b>' + T.n + ' ≈ ' + terms.join(' ') + ' + o(x^' + K + ')</b><br><br>' + errs +
+        '<br><span style="color:var(--text-faint)">L\'errore crolla vicino a 0 e cresce allontanandosene: lo sviluppo è un\'informazione <i>locale</i>. Nei limiti serve solo per x → 0.</span>';
+    }
+    document.getElementById('tayF').onchange = function () { key = this.value; p.redraw(); refresh(); };
+    plotSlider('tayK', function (v) { K = v; p.redraw(); refresh(); });
+    plotSlider('tayZ', function (v) { z = v; p.setWindow({ xmin: -z, xmax: z, ymin: -Math.max(1.5, z * 0.75), ymax: Math.max(1.5, z * 0.75) }); p.redraw(); });
+  })();
+});
+</script>
+</body>
+</html>

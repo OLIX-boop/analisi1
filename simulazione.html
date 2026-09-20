@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulazione del primo parziale — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="index.html">Piano</a>
+      <a href="sezioni/1-numeri.html">1 · Numeri</a>
+      <a href="sezioni/2-successioni.html">2 · Successioni</a>
+      <a href="sezioni/3-serie.html">3 · Serie</a>
+      <a href="teoremi.html">Teoremi</a>
+      <a href="quesiti.html">Quesiti</a>
+      <a href="esercizi.html">Esercizi</a>
+      <a href="simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout no-sidebar">
+  <main>
+
+    <!-- ===== SCHERMATA INIZIALE ===== -->
+    <div id="intro">
+      <div class="page-head">
+        <div class="eyebrow">Prima prova in itinere · simulazione</div>
+        <h1>Simulazione d'esame</h1>
+        <p class="lead">Un'ora, 32 punti, la stessa articolazione in tre parti della prova vera — comprese le soglie minime per parte, che sono la vera insidia.</p>
+      </div>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Parte</th><th>Contenuto</th><th class="c">Punti</th><th class="c">Soglia</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Prima</strong></td><td>14 domande a risposta multipla</td><td class="c">14</td><td class="c"><strong>≥ 7</strong></td></tr>
+            <tr><td><strong>Seconda</strong></td><td>2 quesiti di teoria a risposta aperta (autovalutazione)</td><td class="c">10</td><td class="c"><strong>≥ 5</strong></td></tr>
+            <tr><td><strong>Terza</strong></td><td>2 esercizi con svolgimento completo (autovalutazione)</td><td class="c">8</td><td class="c">—</td></tr>
+            <tr><td colspan="2"><strong>Totale</strong></td><td class="c"><strong>32</strong></td><td class="c"><strong>≥ 15</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box warnb">
+        <div class="box-title">⚠ Come farla sul serio</div>
+        <ul class="mb0">
+          <li><strong>Foglio e penna</strong> per le parti seconda e terza: scrivi davvero le risposte, non limitarti a pensarle.</li>
+          <li><strong>Niente appunti, niente altre schede del browser.</strong> Come in aula.</li>
+          <li><strong>Non fermare il cronometro.</strong> Il tempo è parte della prova: un'ora per 32 punti significa meno di due minuti a punto.</li>
+          <li>Alla fine ti autovaluti sulle parti aperte confrontando con le risposte modello. Sii severo: un enunciato senza ipotesi vale zero.</li>
+        </ul>
+      </div>
+
+      <div class="box tip">
+        <div class="box-title">✓ Strategia di gestione del tempo</div>
+        <p class="mb0">Suggerimento: <strong>20 minuti</strong> alla prima parte (test), <strong>20</strong> alla seconda (teoria), <strong>20</strong> alla terza (esercizi). Se ti blocchi su un esercizio, passa oltre e torna dopo: la soglia si supera raccogliendo i punti facili, non insistendo su quello difficile.</p>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn primary" id="startBtn">▶ Inizia la simulazione (60 min)</button>
+        <button class="btn" id="start30">Versione breve (30 min, metà domande)</button>
+      </div>
+    </div>
+
+    <!-- ===== PROVA ===== -->
+    <div id="exam" class="hidden">
+      <div class="card" style="position:sticky;top:66px;z-index:40;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
+        <div>
+          <div class="timer" id="timer" style="padding:0;text-align:left">60:00</div>
+          <div class="small muted" id="progressTxt">parte 1 di 3</div>
+        </div>
+        <div class="btnrow" style="margin:0">
+          <button class="btn sm" id="pauseBtn">⏸ Pausa</button>
+          <button class="btn sm primary" id="submitBtn">Consegna</button>
+        </div>
+      </div>
+
+      <h2 style="margin-top:0">Prima parte — test <span class="badge">14 punti · soglia 7</span></h2>
+      <p class="small muted">Una sola risposta corretta. 1 punto ciascuna, nessuna penalità per le risposte sbagliate.</p>
+      <div id="part1"></div>
+
+      <h2>Seconda parte — teoria <span class="badge">10 punti · soglia 5</span></h2>
+      <p class="small muted">Rispondi <strong>su un foglio</strong>. 5 punti ciascuna. Le risposte modello compariranno alla consegna.</p>
+      <div id="part2"></div>
+
+      <h2>Terza parte — esercizi <span class="badge">8 punti</span></h2>
+      <p class="small muted">Svolgimento completo e dettagliato, su foglio. 4 punti ciascuno.</p>
+      <div id="part3"></div>
+
+      <div class="btnrow" style="margin-top:36px">
+        <button class="btn primary" id="submitBtn2">Consegna e correggi</button>
+      </div>
+    </div>
+
+    <!-- ===== CORREZIONE ===== -->
+    <div id="review" class="hidden">
+      <div class="page-head">
+        <div class="eyebrow">Correzione</div>
+        <h1>Il tuo risultato</h1>
+      </div>
+      <div id="scoreBox"></div>
+      <div id="reviewBody"></div>
+      <div class="btnrow" style="margin-top:34px">
+        <button class="btn primary" id="againBtn">Rifai la simulazione</button>
+        <a class="btn" href="index.html">Torna al piano di studio</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Simulazione della prima prova in itinere</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="assets/js/data/topics.js"></script>
+<script src="assets/js/data/quiz.js"></script>
+<script src="assets/js/data/quesiti.js"></script>
+<script src="assets/js/data/esercizi.js"></script>
+<script src="assets/js/plot.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  var LET = ['A', 'B', 'C', 'D'];
+  var state = null, timer = null;
+
+  function pick(arr, n) { return AM.shuffle(arr).slice(0, n); }
+
+  /* preferisci quesiti "sostanziosi" per la seconda parte */
+  function quesitiPool() {
+    return AM.QUESITI.filter(function (q) { return q.mark === '*' || q.mark === '**' || q.a.length > 900; });
+  }
+
+  function build(minuti, nq) {
+    var q1 = pick(AM.QUIZ, nq);
+    var q2 = pick(quesitiPool(), 2);
+    var q3 = pick(AM.ESERCIZI.filter(function (e) { return e.d >= 2; }), 2);
+    return {
+      minuti: minuti, nq: nq,
+      part1: q1.map(function (q) { return { q: q, order: AM.shuffle(q.opts.map(function (_, i) { return i; })), scelta: null }; }),
+      part2: q2, part3: q3,
+      puntiQ: 14 / nq
+    };
+  }
+
+  function renderExam() {
+    /* ---- parte 1 ---- */
+    document.getElementById('part1').innerHTML = state.part1.map(function (it, i) {
+      return '<div class="quiz" data-i="' + i + '">' +
+        '<div class="quiz-meta"><span>Domanda ' + (i + 1) + '</span><span class="badge">' + state.puntiQ.toFixed(state.puntiQ % 1 ? 1 : 0) + ' pt</span></div>' +
+        '<div class="quiz-q">' + it.q.q + '</div>' +
+        '<div class="quiz-opts">' +
+        it.order.map(function (oi, k) {
+          return '<button class="quiz-opt" data-oi="' + oi + '"><span class="k">' + LET[k] + '</span><span>' + it.q.opts[oi] + '</span></button>';
+        }).join('') + '</div></div>';
+    }).join('');
+
+    document.querySelectorAll('#part1 .quiz').forEach(function (box) {
+      var i = +box.dataset.i;
+      box.querySelectorAll('.quiz-opt').forEach(function (b) {
+        b.onclick = function () {
+          box.querySelectorAll('.quiz-opt').forEach(function (x) { x.style.borderColor = ''; x.style.background = ''; });
+          b.style.borderColor = 'var(--accent)'; b.style.background = 'var(--accent-soft)';
+          state.part1[i].scelta = +b.dataset.oi;
+          updateProgress();
+        };
+      });
+    });
+
+    /* ---- parte 2 ---- */
+    document.getElementById('part2').innerHTML = state.part2.map(function (q, i) {
+      return '<div class="card" style="margin-bottom:16px">' +
+        '<div style="display:flex;gap:8px;margin-bottom:10px"><span class="badge">Quesito ' + q.id + '</span>' +
+        '<span class="badge">5 pt</span></div>' +
+        '<div style="font-size:16.5px">' + q.t + '</div>' +
+        '<textarea id="t2-' + i + '" rows="4" placeholder="Traccia della tua risposta (facoltativo: l\'importante è scriverla sul foglio)" style="width:100%;margin-top:12px"></textarea>' +
+        '</div>';
+    }).join('');
+
+    /* ---- parte 3 ---- */
+    document.getElementById('part3').innerHTML = state.part3.map(function (e, i) {
+      return '<div class="card" style="margin-bottom:16px">' +
+        '<div style="display:flex;gap:8px;margin-bottom:10px"><span class="badge">' + e.id + '</span>' +
+        '<span class="badge purple">' + e.tema + '</span><span class="badge">4 pt</span></div>' +
+        '<div style="font-size:16.5px">' + e.t + '</div>' +
+        '<textarea id="t3-' + i + '" rows="3" placeholder="Risultato finale (lo svolgimento va sul foglio)" style="width:100%;margin-top:12px"></textarea>' +
+        '</div>';
+    }).join('');
+
+    AM.typeset(document.getElementById('exam'));
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var fatte = state.part1.filter(function (x) { return x.scelta !== null; }).length;
+    document.getElementById('progressTxt').textContent =
+      'test: ' + fatte + '/' + state.nq + ' risposte' + (fatte === state.nq ? ' ✓' : '');
+  }
+
+  function start(minuti, nq) {
+    state = build(minuti, nq);
+    document.getElementById('intro').classList.add('hidden');
+    document.getElementById('review').classList.add('hidden');
+    document.getElementById('exam').classList.remove('hidden');
+    renderExam();
+    window.scrollTo(0, 0);
+    timer = AM.timer(document.getElementById('timer'), minuti * 60, function () {
+      AM.toast('⏰ Tempo scaduto');
+      correggi(true);
+    });
+    timer.start();
+  }
+
+  function correggi(scaduto) {
+    if (timer) timer.pause();
+    var giusteN = state.part1.filter(function (it) { return it.scelta === it.q.a; }).length;
+    var p1 = giusteN * state.puntiQ;
+
+    document.getElementById('exam').classList.add('hidden');
+    document.getElementById('review').classList.remove('hidden');
+    window.scrollTo(0, 0);
+
+    /* ---- riepilogo parte 1 ---- */
+    var rev = '<h2>Prima parte — correzione automatica</h2>' +
+      '<p class="muted small">Risposte corrette: <strong>' + giusteN + ' su ' + state.nq + '</strong> → <strong>' + p1.toFixed(1) + '/14 punti</strong>' +
+      (p1 >= 7 ? ' <span class="badge ok">soglia superata</span>' : ' <span class="badge star">sotto la soglia di 7</span>') + '</p>';
+
+    rev += state.part1.map(function (it, i) {
+      var ok = it.scelta === it.q.a;
+      return '<div class="quiz" style="border-left:3px solid ' + (ok ? 'var(--ok)' : 'var(--danger)') + '">' +
+        '<div class="quiz-meta"><span>Domanda ' + (i + 1) + (it.q.tag ? ' · ' + it.q.tag : '') + '</span>' +
+        '<span class="badge ' + (ok ? 'ok' : 'star') + '">' + (ok ? '✓ corretta' : it.scelta === null ? '— non data' : '✗ errata') + '</span></div>' +
+        '<div class="quiz-q">' + it.q.q + '</div>' +
+        '<div class="quiz-opts">' + it.order.map(function (oi, k) {
+          var cls = oi === it.q.a ? ' right' : (oi === it.scelta ? ' wrong' : '');
+          return '<div class="quiz-opt locked' + cls + '"><span class="k">' + LET[k] + '</span><span>' + it.q.opts[oi] + '</span></div>';
+        }).join('') + '</div>' +
+        '<div class="quiz-fb ' + (ok ? 'right' : 'wrong') + '">' + it.q.why + '</div></div>';
+    }).join('');
+
+    /* ---- autovalutazione parte 2 e 3 ---- */
+    rev += '<h2>Seconda parte — confronta e autovalutati</h2>' +
+      '<p class="muted small">Confronta la tua risposta con quella modello e assegnati un punteggio da 0 a 5. Sii severo: un enunciato senza ipotesi, o una dimostrazione senza il passaggio chiave, non vale pieni voti.</p>';
+
+    rev += state.part2.map(function (q, i) {
+      var mia = (document.getElementById('t2-' + i) || {}).value || '';
+      return '<div class="card" style="margin-bottom:18px">' +
+        '<div style="display:flex;gap:8px;margin-bottom:10px"><span class="badge">Quesito ' + q.id + '</span><span class="badge">5 pt</span></div>' +
+        '<div style="font-size:16.5px;font-weight:600">' + q.t + '</div>' +
+        (mia.trim() ? '<div class="readout" style="white-space:pre-wrap">La tua traccia: ' + mia.replace(/</g, '&lt;') + '</div>' : '') +
+        '<details class="reveal sol" style="margin-top:12px"><summary>Risposta modello</summary><div class="reveal-body">' + q.a +
+        (q.teo ? '<p class="small" style="margin-top:12px"><a href="teoremi.html#' + q.teo + '">→ dimostrazione passo per passo</a></p>' : '') +
+        '</div></details>' +
+        '<div class="controls" style="margin-top:12px"><div class="ctrl"><label>il tuo punteggio</label>' +
+        '<input type="range" class="selfscore" data-max="5" min="0" max="5" step="0.5" value="0"><output>0</output> / 5</div></div>' +
+        '</div>';
+    }).join('');
+
+    rev += '<h2>Terza parte — confronta e autovalutati</h2>';
+    rev += state.part3.map(function (e, i) {
+      var mia = (document.getElementById('t3-' + i) || {}).value || '';
+      return '<div class="card" style="margin-bottom:18px">' +
+        '<div style="display:flex;gap:8px;margin-bottom:10px"><span class="badge">' + e.id + '</span><span class="badge purple">' + e.tema + '</span><span class="badge">4 pt</span></div>' +
+        '<div style="font-size:16.5px">' + e.t + '</div>' +
+        (mia.trim() ? '<div class="readout" style="white-space:pre-wrap">Il tuo risultato: ' + mia.replace(/</g, '&lt;') + '</div>' : '') +
+        '<details class="reveal sol" style="margin-top:12px"><summary>Svolgimento completo</summary><div class="reveal-body">' + e.sol + '</div></details>' +
+        '<div class="controls" style="margin-top:12px"><div class="ctrl"><label>il tuo punteggio</label>' +
+        '<input type="range" class="selfscore" data-max="4" min="0" max="4" step="0.5" value="0"><output>0</output> / 4</div></div>' +
+        '</div>';
+    }).join('');
+
+    document.getElementById('reviewBody').innerHTML = rev;
+    AM.typeset(document.getElementById('review'));
+
+    function totale() {
+      var s2 = 0, s3 = 0;
+      document.querySelectorAll('.selfscore').forEach(function (r) {
+        var v = parseFloat(r.value);
+        if (+r.dataset.max === 5) s2 += v; else s3 += v;
+        r.nextElementSibling.textContent = v;
+      });
+      var tot = p1 + s2 + s3;
+      var passa = tot >= 15 && p1 >= 7 && s2 >= 5;
+      document.getElementById('scoreBox').innerHTML =
+        '<div class="grid g4">' +
+        '<div class="card stat"><div class="stat-val" style="color:' + (p1 >= 7 ? 'var(--ok)' : 'var(--danger)') + '">' + p1.toFixed(1) + '</div><div class="stat-lab">parte 1 / 14 &nbsp;(min 7)</div></div>' +
+        '<div class="card stat"><div class="stat-val" style="color:' + (s2 >= 5 ? 'var(--ok)' : 'var(--danger)') + '">' + s2.toFixed(1) + '</div><div class="stat-lab">parte 2 / 10 &nbsp;(min 5)</div></div>' +
+        '<div class="card stat"><div class="stat-val">' + s3.toFixed(1) + '</div><div class="stat-lab">parte 3 / 8</div></div>' +
+        '<div class="card stat"><div class="stat-val" style="color:' + (passa ? 'var(--ok)' : 'var(--warn)') + '">' + tot.toFixed(1) + '</div><div class="stat-lab">totale / 32 &nbsp;(min 15)</div></div>' +
+        '</div>' +
+        '<div class="box ' + (passa ? 'tip' : 'warnb') + '" style="margin-top:16px"><div class="box-title">' +
+        (passa ? '✓ Prova superata' : '⚠ Prova non superata') + '</div><p class="mb0">' +
+        (passa
+          ? 'Hai raggiunto tutte e tre le condizioni: totale ≥ 15, parte 1 ≥ 7, parte 2 ≥ 5. Ricorda che per superare l\'esame serve anche una <strong>media ≥ 18</strong> fra le due prove in itinere: qui sei a ' + tot.toFixed(1) + '/32.'
+          : (p1 < 7 ? '<strong>Manca la soglia della prima parte</strong> (' + p1.toFixed(1) + '/14, serve 7): ripassa definizioni, controesempi e le distinzioni fini — è lì che si perdono i punti facili. '
+                    : '') +
+            (s2 < 5 ? '<strong>Manca la soglia della seconda parte</strong> (' + s2.toFixed(1) + '/10, serve 5): allena i <a href="quesiti.html">quesiti teorici</a> e le <a href="teoremi.html">dimostrazioni</a>. '
+                    : '') +
+            (tot < 15 && p1 >= 7 && s2 >= 5 ? 'Le soglie di parte sono a posto, ma il totale è sotto 15: serve più velocità e più esercizio. ' : '') +
+            'Nessun problema: per questo esiste la simulazione.') +
+        '</p></div>' +
+        (scaduto ? '<div class="box trap"><p class="mb0">⏰ Il tempo è scaduto prima della consegna. In aula le risposte non date valgono zero: allena anche la <strong>gestione del tempo</strong>.</p></div>' : '');
+    }
+    document.querySelectorAll('.selfscore').forEach(function (r) { r.addEventListener('input', totale); });
+    totale();
+  }
+
+  document.getElementById('startBtn').onclick = function () { start(60, 14); };
+  document.getElementById('start30').onclick = function () { start(30, 7); };
+  document.getElementById('submitBtn').onclick = function () {
+    var manca = state.part1.filter(function (x) { return x.scelta === null; }).length;
+    if (manca && !confirm('Ci sono ancora ' + manca + ' domande senza risposta nella prima parte. Consegno lo stesso?')) return;
+    correggi(false);
+  };
+  document.getElementById('submitBtn2').onclick = function () { document.getElementById('submitBtn').click(); };
+  document.getElementById('pauseBtn').onclick = function () {
+    if (timer.running) { timer.pause(); this.textContent = '▶ Riprendi'; AM.toast('In pausa — in aula non potresti'); }
+    else { timer.start(); this.textContent = '⏸ Pausa'; }
+  };
+  document.getElementById('againBtn').onclick = function () {
+    document.getElementById('review').classList.add('hidden');
+    document.getElementById('intro').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  };
+});
+</script>
+</body>
+</html>

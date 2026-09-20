@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le dimostrazioni — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="index.html">Piano</a>
+      <a href="sezioni/1-numeri.html">1 · Numeri</a>
+      <a href="sezioni/2-successioni.html">2 · Successioni</a>
+      <a href="sezioni/3-serie.html">3 · Serie</a>
+      <a href="teoremi.html">Teoremi</a>
+      <a href="quesiti.html">Quesiti</a>
+      <a href="esercizi.html">Esercizi</a>
+      <a href="simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Dimostrazioni</h4>
+    <div id="tocList"></div>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Prima parte · le dimostrazioni</div>
+      <h1>Teoremi e dimostrazioni</h1>
+      <p class="lead">Le <strong>14 dimostrazioni richieste alla prova scritta</strong> per la prima parte, più quelle richieste solo all'orale. Ogni passo è coperto: prova a ricordare cosa viene dopo, poi clicca per rivelarlo. È l'unico modo per capire se la sai davvero.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ Come usare questa pagina</div>
+      <p class="mb0">Non leggere le dimostrazioni: <strong>ricostruiscile</strong>. Leggi l'enunciato, chiudi gli occhi e prova a dire a voce alta il primo passo. Poi rivelalo e confronta. Quando una dimostrazione ti esce tutta di fila, scrivila <em>a mano</em> su un foglio bianco senza guardare — è quello che dovrai fare all'esame, e la mano ha una memoria diversa dagli occhi.</p>
+    </div>
+
+    <div class="chips" id="filters">
+      <button class="chip on" data-f="all">Tutte</button>
+      <button class="chip" data-f="scritto">Solo scritto (14)</button>
+      <button class="chip" data-f="orale">Solo orale</button>
+      <button class="chip" data-f="s1">Sezione 1</button>
+      <button class="chip" data-f="s2">Sezione 2</button>
+      <button class="chip" data-f="s3">Sezione 3</button>
+    </div>
+
+    <div class="btnrow">
+      <button class="btn primary" id="randomBtn">🎲 Dimostrazione a caso</button>
+      <button class="btn" id="collapseBtn">Chiudi tutto</button>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="box" style="margin-top:40px">
+      <div class="box-title">Le 28 dimostrazioni ufficiali — quali sono della prima parte</div>
+      <p class="small muted">L'elenco completo è nel PDF <a href="Modalit%C3%A0%20di%20esame.pdf">Modalità d'esame</a>. Le prime 14 riguardano il primo parziale, le altre il secondo.</p>
+      <div class="tablewrap" style="margin-bottom:0">
+        <table>
+          <thead><tr><th class="c">n°</th><th>Dimostrazione</th><th class="c">Sez.</th></tr></thead>
+          <tbody id="officialList"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Dimostrazioni della prima parte</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="assets/js/data/topics.js"></script>
+<script src="assets/js/data/teoremi.js"></script>
+<script src="assets/js/plot.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  var T = AM.TEOREMI, filtro = 'all';
+  var list = document.getElementById('list');
+  var toc = document.getElementById('tocList');
+
+  function match(t) {
+    if (filtro === 'all') return true;
+    if (filtro === 'scritto') return t.mark === '*';
+    if (filtro === 'orale') return t.mark === '**';
+    return t.sez === +filtro.slice(1);
+  }
+
+  function badge(t) {
+    return t.mark === '*'
+      ? '<span class="badge star">dim. scritto · n° ' + t.n + '</span>'
+      : '<span class="badge star2">dim. orale</span>';
+  }
+
+  function card(t) {
+    var steps = t.steps.map(function (s) {
+      return '<div class="step"><div class="step-n"></div><div class="step-body">' +
+        '<div class="step-cue">' + s.cue + '</div>' +
+        '<div class="step-content">' + s.body + '</div></div></div>';
+    }).join('');
+    return '<section id="' + t.id + '" style="scroll-margin-top:76px">' +
+      '<h2 style="margin-top:44px">' + t.titolo + ' ' + badge(t) + '</h2>' +
+      '<div class="box teo"><div class="box-title">Enunciato · Sezione ' + t.sez +
+        (t.q ? ' · Quesito ' + t.q : '') + '</div>' + t.enunciato + '</div>' +
+      '<div class="box tip"><div class="box-title">💡 L\'idea in una riga</div><p class="mb0">' + t.idea + '</p></div>' +
+      '<details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">' +
+        '<div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>' +
+        '<div class="steps">' + steps + '</div></div></details>' +
+      (t.note ? '<div class="box warnb"><div class="box-title">⚠ Da non sbagliare</div><p class="mb0">' + t.note + '</p></div>' : '') +
+      '</section>';
+  }
+
+  function render() {
+    var sel = T.filter(match);
+    list.innerHTML = sel.length ? sel.map(card).join('') :
+      '<div class="box"><p class="mb0 muted">Nessuna dimostrazione con questo filtro.</p></div>';
+    toc.innerHTML = [1, 2, 3].map(function (s) {
+      var g = sel.filter(function (t) { return t.sez === s; });
+      if (!g.length) return '';
+      return '<h4>Sezione ' + s + '</h4>' + g.map(function (t) {
+        return '<a href="#' + t.id + '">' + (t.mark === '*' ? '★ ' : '') + t.titolo.replace(/\$/g, '') + '</a>';
+      }).join('');
+    }).join('');
+    AM.typeset(list); AM.typeset(toc);
+  }
+
+  document.querySelectorAll('#filters .chip').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('#filters .chip').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); filtro = b.dataset.f; render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  });
+
+  document.getElementById('randomBtn').onclick = function () {
+    var sel = T.filter(match);
+    var t = sel[Math.floor(Math.random() * sel.length)];
+    var el = document.getElementById(t.id);
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    AM.toast('👉 ' + t.titolo.replace(/\$/g, ''));
+  };
+  document.getElementById('collapseBtn').onclick = function () {
+    document.querySelectorAll('#list details[open]').forEach(function (d) { d.open = false; });
+    document.querySelectorAll('#list .step-content.shown').forEach(function (s) { s.classList.remove('shown'); });
+    AM.toast('Tutto richiuso');
+  };
+
+  // elenco ufficiale
+  var UFFICIALI = [
+    'L\'irrazionalità di √2', 'Disuguaglianza di Bernoulli',
+    'Formule di De Moivre per prodotti e potenze di numeri complessi',
+    'Radici n-esime di un numero complesso', 'Unicità del limite',
+    'Limitatezza delle successioni convergenti', 'Permanenza del segno',
+    'Teorema dei due carabinieri', 'Regolarità delle successioni monotone',
+    'Condizione necessaria per la convergenza di una serie', 'Criterio del confronto',
+    'Criterio del confronto asintotico', 'Criterio del rapporto per le serie numeriche',
+    'La convergenza assoluta implica la convergenza semplice di una serie'
+  ];
+  var SEZ = [1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3];
+  document.getElementById('officialList').innerHTML = UFFICIALI.map(function (s, i) {
+    var t = T.find(function (x) { return x.n === i + 1; });
+    return '<tr><td class="c"><strong>' + (i + 1) + '</strong></td><td>' +
+      (t ? '<a href="#' + t.id + '">' + s + '</a>' : s) + '</td><td class="c">' + SEZ[i] + '</td></tr>';
+  }).join('') +
+    '<tr><td class="c" colspan="3" style="background:var(--bg-sunken);font-size:12.5px;color:var(--text-muted)">' +
+    '↓ le n° 15–28 riguardano la <strong>seconda parte</strong> (secondo parziale): zeri, valori intermedi, Weierstrass, ' +
+    'derivabilità, Fermat, Rolle, Lagrange, Taylor, integrali.</td></tr>';
+
+  render();
+});
+</script>
+</body>
+</html>

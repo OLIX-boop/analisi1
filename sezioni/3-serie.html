@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 3 · Serie numeriche — Analisi 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa8'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%88%AB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../index.html"><span class="brand-mark">∫</span> Analisi 1</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="1-numeri.html">1 · Numeri</a>
+      <a href="2-successioni.html">2 · Successioni</a>
+      <a href="3-serie.html">3 · Serie</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../quesiti.html">Quesiti</a>
+      <a href="../esercizi.html">Esercizi</a>
+      <a href="../simulazione.html">Simulazione</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 3</h4>
+    <a href="#checklist">Checklist del programma</a>
+    <a href="#definizione">1 · Serie e carattere</a>
+    <a href="#necessaria" class="sub">Condizione necessaria</a>
+    <a href="#positive" class="sub">Serie a termini non negativi</a>
+    <a href="#notevoli">2 · Le serie da conoscere</a>
+    <a href="#geometrica" class="sub">Serie geometrica</a>
+    <a href="#armonica" class="sub">Serie armonica</a>
+    <a href="#telescopiche" class="sub">Serie telescopiche</a>
+    <a href="#criteri">3 · I criteri</a>
+    <a href="#confronto" class="sub">Confronto</a>
+    <a href="#confrontoas" class="sub">Confronto asintotico</a>
+    <a href="#rapporto" class="sub">Rapporto</a>
+    <a href="#radice" class="sub">Radice</a>
+    <a href="#alternate">4 · Serie a segno variabile</a>
+    <a href="#leibniz" class="sub">Criterio di Leibniz</a>
+    <a href="#assoluta" class="sub">Convergenza assoluta</a>
+    <a href="#strategia">5 · La strategia operativa</a>
+    <a href="#test">Mettiti alla prova</a>
+    <a href="#errori">Errori tipici</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 3 · Prima parte</div>
+      <h1>Serie numeriche</h1>
+      <p class="lead">Sommare infiniti addendi. La sorpresa della sezione è che quasi mai si calcola la somma: si stabilisce soltanto <em>se esiste</em>. Tutti i criteri che vedrai sono modi diversi per rispondere a questa domanda senza fare il conto.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">↳ Non c'è niente di nuovo</div>
+      <p class="mb0">Una serie <strong>è</strong> una successione: quella delle somme parziali. Tutti i teoremi di questa sezione sono applicazioni di due risultati che conosci già dalla Sezione 2 — <em>«crescente e limitata superiormente ⇒ convergente»</em> e <em>il criterio del confronto</em>. Se ti sembra materia nuova, torna al teorema sulla regolarità delle successioni monotòne.</p>
+    </div>
+
+    <h2 id="checklist">Checklist del programma</h2>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 3</strong>
+        <span class="muted small"><span data-progress-txt="s3">0/12</span> · <span data-progress-pct="s3">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="s3"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <!-- ============================================================ -->
+    <h2 id="definizione">1 · Serie, somme parziali, carattere</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p>Data $(a_n)_{n\ge0}$, la <strong>somma parziale $n$-esima</strong> è $$s_n:=\sum_{k=0}^{n}a_k=a_0+a_1+\dots+a_n.$$
+      La <strong>serie</strong> $\displaystyle\sum_{n=0}^{\infty}a_n$ è, per definizione, la <em>successione</em> $(s_n)$.</p>
+      <p class="mb0">Il <strong>carattere</strong> della serie è il comportamento di $(s_n)$:
+      <strong>convergente</strong> se $s_n\to S\in\R$ ($S$ è la <em>somma</em>); <strong>divergente</strong> se $s_n\to\pm\infty$; <strong>indeterminata</strong> se $(s_n)$ non ha limite.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Somme parziali in azione</span><span class="faint" style="text-transform:none;font-weight:400">i tre caratteri possibili</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="serSel">serie</label>
+            <select id="serSel">
+              <option value="0">$\sum 1/2^n$ &nbsp;(converge)</option>
+              <option value="1">$\sum 1/n$ &nbsp;(armonica, diverge)</option>
+              <option value="2">$\sum 1/n^2$ &nbsp;(converge)</option>
+              <option value="3">$\sum (-1)^n$ &nbsp;(indeterminata)</option>
+              <option value="4">$\sum (-1)^n/n$ &nbsp;(Leibniz)</option>
+              <option value="5">$\sum 1/\sqrt n$ &nbsp;(diverge)</option>
+              <option value="6">$\sum 1/(n(n+1))$ &nbsp;(telescopica)</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="serN">termini</label><input type="range" id="serN" min="5" max="120" value="40" step="1"><output data-out="serN">40</output></div>
+          <label class="ctrl"><input type="checkbox" id="serTerm"> <span>mostra anche $a_n$</span></label>
+        </div>
+        <canvas class="plot" id="serPlot"></canvas>
+        <div class="readout" id="serOut"></div>
+      </div>
+    </div>
+
+    <h3 id="necessaria">Condizione necessaria per la convergenza <span class="badge star">dim. scritto · n° 10</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Se $\displaystyle\sum_n a_n$ converge, allora $a_n\to0$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Notazione e ipotesi</div>
+          <div class="step-content">$s_n=\sum_{k=0}^n a_k$; per ipotesi $s_n\to S\in\R$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">L'osservazione chiave (una riga)</div>
+          <div class="step-content">$a_n=s_n-s_{n-1}$ per ogni $n\ge1$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Conclusione</div>
+          <div class="step-content">$(s_{n-1})$ è una traslazione di $(s_n)$, quindi tende anch'essa a $S$. Per l'algebra dei limiti $a_n=s_n-s_{n-1}\to S-S=0$. $\blacksquare$</div></div></div>
+      </div>
+      <div class="box trap" style="margin-bottom:0">
+        <div class="box-title">✗ Non è sufficiente</div>
+        <p class="mb0">La <strong>serie armonica</strong> $\sum_{n\ge1}\frac1n$ ha $\frac1n\to0$ e tuttavia diverge. Altri controesempi: $\sum\frac{1}{\sqrt n}$, $\sum\ln\left(1+\frac1n\right)$, $\sum(\sqrt{n+1}-\sqrt n)$ — tutte con termine infinitesimo e tutte divergenti.</p>
+      </div>
+    </div></details>
+
+    <div class="box tip">
+      <div class="box-title">✓ Come si usa davvero</div>
+      <p class="mb0">Come <strong>test di non convergenza</strong>, ed è la prima cosa da fare in ogni esercizio: se $a_n\not\to0$, hai già finito — la serie non converge. Se invece $a_n\to0$, il test non dice nulla e devi passare ai criteri. Dieci secondi di controllo che a volte risolvono l'esercizio da soli.</p>
+    </div>
+
+    <h3 id="positive">Serie a termini non negativi <span class="badge star2">dim. orale</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Se $a_n\ge0$ per ogni $n$, la serie $\sum a_n$ è <strong>regolare</strong>: o converge, o diverge a $+\infty$. Non può essere indeterminata. Inoltre
+      $$\sum_n a_n\ \text{converge}\iff (s_n)\ \text{è limitata superiormente},$$ e in tal caso la somma è $\sup_n s_n$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione (due righe)</summary><div class="reveal-body">
+      <p class="mb0">$s_{n+1}-s_n=a_{n+1}\ge0$, dunque $(s_n)$ è <strong>crescente</strong>. Per il teorema sulla regolarità delle successioni monotòne, $(s_n)$ è regolare: converge a $\sup_n s_n$ se limitata superiormente, diverge a $+\infty$ altrimenti. $\blacksquare$</p>
+    </div></details>
+    <p>È il risultato che rende possibili <em>tutti</em> i criteri che seguono: per decidere il carattere di una serie a termini positivi basta stabilire se le somme parziali sono limitate — e per farlo si confronta con una serie di cui si sa già tutto.</p>
+
+    <!-- ============================================================ -->
+    <h2 id="notevoli">2 · Le serie di riferimento</h2>
+
+    <h3 id="geometrica">Serie geometrica <span class="badge star2">dim. orale</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">$$\sum_{n=0}^{\infty}q^{n}=\begin{cases}\dfrac{1}{1-q} & |q|<1\quad\text{(converge)}\\[8pt] +\infty & q\ge1\quad\text{(diverge)}\\[4pt] \text{non esiste} & q\le-1\quad\text{(indeterminata).}\end{cases}$$</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione</summary><div class="reveal-body">
+      <p>Per $q\ne1$ la somma parziale è nota in forma chiusa: $s_n=\dfrac{1-q^{\,n+1}}{1-q}$.</p>
+      <ul class="mb0">
+        <li>$|q|<1$: $q^{n+1}\to0$, quindi $s_n\to\dfrac{1}{1-q}$.</li>
+        <li>$q>1$: $q^{n+1}\to+\infty$ e $1-q<0$, quindi $s_n\to+\infty$.</li>
+        <li>$q=1$: $s_n=n+1\to+\infty$.</li>
+        <li>$q=-1$: $s_n$ vale alternativamente $1$ e $0$: nessun limite.</li>
+        <li>$q<-1$: $q^{n+1}$ è irregolare e illimitata, dunque $s_n$ non ha limite. $\blacksquare$</li>
+      </ul>
+    </div></details>
+    <div class="box tip">
+      <div class="box-title">✓ La forma che serve davvero negli esercizi</div>
+      <p class="mb0">Se la serie parte da $n=n_0$: $$\sum_{n=n_0}^{\infty}q^{n}=\frac{q^{\,n_0}}{1-q}\qquad(|q|<1),$$ cioè <strong>primo termine diviso $1-q$</strong>. È l'errore più comune negli esercizi a risposta numerica: usare $\frac1{1-q}$ quando la serie non parte da zero.</p>
+    </div>
+
+    <h3 id="armonica">Serie armonica e armonica generalizzata</h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">$$\sum_{n=1}^{\infty}\frac{1}{n^{\alpha}}\quad\text{converge}\iff\alpha>1,\qquad\text{diverge}\iff\alpha\le1.$$ In particolare la <strong>serie armonica</strong> ($\alpha=1$) diverge.</p>
+    </div>
+    <details class="reveal"><summary>Perché la serie armonica diverge — la dimostrazione di Oresme</summary><div class="reveal-body">
+      <p>Si raggruppano i termini in blocchi di lunghezza $2^k$:
+      $$1+\frac12+\underbrace{\left(\frac13+\frac14\right)}_{>\,2\cdot\frac14=\frac12}+\underbrace{\left(\frac15+\frac16+\frac17+\frac18\right)}_{>\,4\cdot\frac18=\frac12}+\underbrace{\left(\frac19+\dots+\frac1{16}\right)}_{>\,8\cdot\frac1{16}=\frac12}+\dots$$
+      Ogni blocco ha somma maggiore di $\frac12$, quindi $s_{2^m}>1+\frac m2\to+\infty$: le somme parziali non sono limitate. $\blacksquare$</p>
+      <p class="mb0 small muted">La crescita è lentissima — $s_n\approx\ln n$ — ma è comunque illimitata. Servono più di $10^{43}$ termini per superare $100$.</p>
+    </div></details>
+
+    <div class="widget">
+      <div class="widget-head"><span>La soglia $\alpha=1$</span><span class="faint" style="text-transform:none;font-weight:400">tutta la differenza sta qui</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="armA">$\alpha$</label><input type="range" id="armA" min="0.3" max="2.5" value="1" step="0.01"><output data-out="armA">1.00</output></div>
+          <div class="ctrl"><label for="armN">termini</label><input type="range" id="armN" min="20" max="400" value="150" step="5"><output data-out="armN">150</output></div>
+        </div>
+        <canvas class="plot" id="armPlot"></canvas>
+        <div class="readout" id="armOut"></div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Varianti da ricordare</div>
+      <p class="mb0">$$\sum_{n\ge2}\frac{1}{n(\ln n)^{\beta}}\ \text{converge}\iff\beta>1;\qquad \sum_{n\ge2}\frac{1}{n^{\alpha}(\ln n)^{\beta}}\ \text{converge se }\alpha>1\ \text{(per ogni }\beta\text{)}.$$
+      Quando $\alpha>1$ la potenza domina e il logaritmo è irrilevante; è solo nel caso critico $\alpha=1$ che il logaritmo decide.</p>
+    </div>
+
+    <h3 id="telescopiche">Serie telescopiche</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Una serie si dice <strong>telescopica</strong> se $a_n=b_n-b_{n+1}$ per qualche successione $(b_n)$. Allora
+      $$s_n=\sum_{k=0}^{n}(b_k-b_{k+1})=b_0-b_{n+1},$$ e la serie converge se e solo se $(b_n)$ converge, con somma $b_0-\lim_n b_n$.</p>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ Riconoscerle vale punti</div>
+      <p class="mb0">Sono fra le pochissime serie di cui si sa calcolare la <em>somma esatta</em>: se l'esercizio chiede «calcolare la somma», quasi certamente è telescopica o geometrica. Segnali: un prodotto al denominatore da spezzare in fratti semplici, oppure una differenza di due termini «consecutivi».
+      $$\sum_{n\ge1}\frac{1}{n(n+1)}=\sum_{n\ge1}\left(\frac1n-\frac1{n+1}\right)=1,\qquad \sum_{n\ge1}\ln\!\left(1+\frac1n\right)=\lim_n\ln(n+1)=+\infty.$$
+      Nota il secondo: telescopica <em>divergente</em>. Telescopica non significa convergente.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="criteri">3 · I criteri per serie a termini non negativi</h2>
+
+    <h3 id="confronto">Criterio del confronto <span class="badge star">dim. scritto · n° 11</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Sia $0\le a_n\le b_n$ definitivamente. Allora:
+      <br>• se $\sum b_n$ converge, converge anche $\sum a_n$;
+      <br>• se $\sum a_n$ diverge, diverge anche $\sum b_n$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Riduzione preliminare</div>
+          <div class="step-content">A meno di modificare finiti termini (che non altera il carattere) supponiamo $0\le a_n\le b_n$ per ogni $n$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Confronto fra le somme parziali</div>
+          <div class="step-content">Sommando termine a termine: $0\le A_n\le B_n$ per ogni $n$. Entrambe le successioni sono <strong>crescenti</strong>, perché i termini sono $\ge0$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Prima implicazione</div>
+          <div class="step-content">Se $\sum b_n$ converge a $B$, essendo $(B_n)$ crescente si ha $B_n\le B$. Allora $A_n\le B_n\le B$: $(A_n)$ è crescente e <strong>limitata superiormente</strong>, dunque converge per il teorema sulle monotòne. $\blacksquare$</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Seconda implicazione</div>
+          <div class="step-content">È la <strong>contronominale</strong> della prima: se $\sum b_n$ convergesse, convergerebbe $\sum a_n$, contro l'ipotesi. $\blacksquare$</div></div></div>
+      </div>
+      <p class="small muted mb0"><strong>L'ipotesi $a_n\ge0$ è essenziale:</strong> senza di essa le somme parziali non sono monotòne e l'argomento crolla.</p>
+    </div></details>
+
+    <h3 id="confrontoas">Criterio del confronto asintotico <span class="badge star">dim. scritto · n° 12</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p>Siano $a_n\ge0$, $b_n>0$ definitivamente ed esista $\ \ell=\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}\in[0,+\infty]$.</p>
+      <ul class="mb0">
+        <li>$\ell\in(0,+\infty)$ ⟹ le due serie hanno lo <strong>stesso carattere</strong>;</li>
+        <li>$\ell=0$ e $\sum b_n$ converge ⟹ $\sum a_n$ converge;</li>
+        <li>$\ell=+\infty$ e $\sum b_n$ diverge ⟹ $\sum a_n$ diverge.</li>
+      </ul>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Caso $\ell$ finito e positivo: quale $\eps$?</div>
+          <div class="step-content">$\eps=\dfrac\ell2>0$. Per definizione di limite, definitivamente $\left|\dfrac{a_n}{b_n}-\ell\right|<\dfrac\ell2$, cioè $\dfrac\ell2<\dfrac{a_n}{b_n}<\dfrac{3\ell}{2}$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Come si trasforma in una disuguaglianza fra $a_n$ e $b_n$?</div>
+          <div class="step-content">Moltiplicando per $b_n>0$ (che conserva il verso): $\dfrac\ell2 b_n<a_n<\dfrac{3\ell}2 b_n$ definitivamente.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Prima direzione</div>
+          <div class="step-content">Se $\sum b_n$ converge, converge $\sum\frac{3\ell}{2}b_n$; dalla disuguaglianza di destra e dal <strong>criterio del confronto</strong>, $\sum a_n$ converge.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Seconda direzione</div>
+          <div class="step-content">Se $\sum b_n$ diverge, diverge $\sum\frac\ell2 b_n$; dalla disuguaglianza di sinistra e dal confronto, $\sum a_n$ diverge. Stesso carattere. $\blacksquare$</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Casi $\ell=0$ e $\ell=+\infty$</div>
+          <div class="step-content">$\ell=0$: con $\eps=1$ si ottiene $a_n<b_n$ definitivamente. $\ell=+\infty$: definitivamente $\frac{a_n}{b_n}>1$, cioè $a_n>b_n$. In entrambi i casi si conclude col confronto.</div></div></div>
+      </div>
+    </div></details>
+
+    <div class="box tip">
+      <div class="box-title">✓ La forma operativa — quella che userai il 90% delle volte</div>
+      <p class="mb0">Se $a_n\ge0$ e $\ a_n\sim\dfrac{c}{n^{\alpha}}$ con $c>0$, allora $$\sum a_n\ \text{converge}\iff\alpha>1.$$
+      Il metodo: scrivi $a_n$, tieni solo i termini dominanti di numeratore e denominatore, sostituisci i limiti notevoli ($\sin\frac1n\sim\frac1n$, $1-\cos\frac1n\sim\frac1{2n^2}$, $\ln(1+\frac1n)\sim\frac1n$), leggi l'esponente $\alpha$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Confronto asintotico: laboratorio</span><span class="faint" style="text-transform:none;font-weight:400">l'esponente decide tutto</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="casSel">termine generale</label>
+            <select id="casSel">
+              <option value="0">$a_n=\dfrac{3n+2}{n^3-n+1}$</option>
+              <option value="1">$a_n=\sin\dfrac{1}{\sqrt n}$</option>
+              <option value="2">$a_n=1-\cos\dfrac1n$</option>
+              <option value="3">$a_n=\dfrac{\ln n}{n^2}$</option>
+              <option value="4">$a_n=\dfrac{n+\sqrt n}{n^2+3}$</option>
+              <option value="5">$a_n=\dfrac{1}{\sqrt{n^3+n}}$</option>
+            </select>
+          </div>
+        </div>
+        <div class="readout" id="casOut"></div>
+      </div>
+    </div>
+
+    <h3 id="rapporto">Criterio del rapporto <span class="badge star">dim. scritto · n° 13</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Sia $a_n>0$ definitivamente ed esista $L=\displaystyle\lim_{n\to\infty}\frac{a_{n+1}}{a_n}$. Allora:
+      $L<1$ ⟹ converge; &nbsp; $L>1$ (anche $+\infty$) ⟹ diverge; &nbsp; $L=1$ ⟹ il criterio <strong>non decide</strong>.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Caso $L<1$: come si sceglie la ragione di confronto?</div>
+          <div class="step-content">Si prende $q$ con $L<q<1$ e si pone $\eps=q-L>0$. Definitivamente $\dfrac{a_{n+1}}{a_n}<L+\eps=q$, cioè $a_{n+1}<q\,a_n$ per $n\ge N$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Si itera</div>
+          <div class="step-content">Per induzione: $a_{N+k}<q^{\,k}a_N$ per ogni $k\ge0$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Si confronta con una serie nota</div>
+          <div class="step-content">$\sum_{k\ge0}q^{k}a_N=\dfrac{a_N}{1-q}$ converge, perché $0<q<1$: è geometrica. Per il criterio del confronto converge $\sum_{k}a_{N+k}$, e aggiungendo i primi $N$ termini (finiti) converge $\sum a_n$. $\blacksquare$</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Caso $L>1$</div>
+          <div class="step-content">Definitivamente $a_{n+1}>a_n>0$: la successione è definitivamente crescente e positiva, quindi <strong>non tende a $0$</strong>. Per la condizione necessaria la serie non converge; essendo a termini positivi, diverge. $\blacksquare$</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Perché $L=1$ non decide?</div>
+          <div class="step-content">Perché entrambi i comportamenti si verificano: $\sum\frac1n$ diverge, $\sum\frac1{n^2}$ converge, e in <em>entrambi</em> i casi $\frac{a_{n+1}}{a_n}\to1$. I due controesempi vanno citati.</div></div></div>
+      </div>
+    </div></details>
+
+    <h3 id="radice">Criterio della radice</h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Sia $a_n\ge0$ definitivamente ed esista $L=\displaystyle\lim_{n\to\infty}\sqrt[n]{a_n}$. Allora: $L<1$ ⟹ converge; $L>1$ ⟹ diverge; $L=1$ ⟹ non decide.</p>
+    </div>
+    <p><strong>Idea.</strong> Se $L<1$, scelto $q\in(L,1)$, definitivamente $\sqrt[n]{a_n}<q$ cioè $a_n<q^n$: confronto con la geometrica. Se $L>1$, definitivamente $a_n>1$, quindi $a_n\not\to0$.</p>
+    <p class="small muted">Se esiste il limite del rapporto, esiste anche quello della radice e coincide: la radice è (leggermente) più potente. Ma i casi $L=1$ restano indecisi per entrambi.</p>
+
+    <div class="box">
+      <div class="box-title">Quale criterio usare — la tabella decisionale</div>
+      <div class="tablewrap" style="margin:0">
+        <table>
+          <thead><tr><th>Se nel termine generale vedi…</th><th>Usa…</th><th>Esempio</th></tr></thead>
+          <tbody>
+            <tr><td>polinomi, radici, potenze di $n$</td><td><strong>confronto asintotico</strong> con $n^{-\alpha}$</td><td>$\frac{2n^2+1}{n^4+3n}$</td></tr>
+            <tr><td>fattoriali, o esponenziali $a^n$</td><td><strong>criterio del rapporto</strong></td><td>$\frac{n!}{n^n}$, $\frac{2^n}{n!}$</td></tr>
+            <tr><td>una potenza $n$-esima $(\cdots)^n$</td><td><strong>criterio della radice</strong></td><td>$\left(\frac{n+2}{3n-1}\right)^n$</td></tr>
+            <tr><td>$\sin$, $\cos$, $\ln$, $e$ di qualcosa che $\to0$</td><td>sostituisci col <strong>limite notevole</strong>, poi asintotico</td><td>$\sin\frac1{\sqrt n}$</td></tr>
+            <tr><td>un prodotto al denominatore</td><td>prova i <strong>fratti semplici</strong>: telescopica</td><td>$\frac{1}{n(n+1)}$</td></tr>
+            <tr><td>$(-1)^n$</td><td>assoluta prima, poi <strong>Leibniz</strong></td><td>$\frac{(-1)^n}{\sqrt n}$</td></tr>
+            <tr><td>$a_n\not\to0$</td><td><strong>condizione necessaria</strong>: hai già finito</td><td>$\frac{n}{2n+1}$</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="alternate">4 · Serie a segno variabile</h2>
+
+    <h3 id="leibniz">Criterio di Leibniz</h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p>Sia $\displaystyle\sum_n(-1)^{n}b_n$ con $(b_n)$ tale che
+      <strong>(i)</strong> $b_n\ge0$; &nbsp;<strong>(ii)</strong> $(b_n)$ decrescente (almeno definitivamente); &nbsp;<strong>(iii)</strong> $b_n\to0$.
+      Allora la serie <strong>converge</strong>.</p>
+      <p class="mb0">Inoltre vale la <strong>stima dell'errore</strong>: $\ |S-s_n|\le b_{n+1}$, e la somma $S$ è sempre compresa fra due somme parziali consecutive.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Leibniz: le somme parziali «stringono» la somma</span><span class="faint" style="text-transform:none;font-weight:400">oscillazioni sempre più piccole</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="leiN">termini</label><input type="range" id="leiN" min="4" max="60" value="22" step="1"><output data-out="leiN">22</output></div>
+        </div>
+        <canvas class="plot" id="leiPlot"></canvas>
+        <div class="readout" id="leiOut"></div>
+      </div>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ Servono tutte e tre le ipotesi</div>
+      <p class="mb0">In particolare la <strong>monotonia</strong>: senza di essa il criterio può fallire anche con $b_n\to0$. E se $b_n\not\to0$ il criterio non si applica affatto — in quel caso la condizione necessaria dice già che la serie non converge.</p>
+    </div>
+
+    <h3 id="assoluta">Convergenza assoluta <span class="badge star">dim. scritto · n° 14</span></h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$\sum_n a_n$ converge <strong>assolutamente</strong> se converge $\sum_n|a_n|$.</p>
+    </div>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">La convergenza assoluta implica la convergenza semplice, e $\left|\sum_n a_n\right|\le\sum_n|a_n|$.</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">
+      <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+      <div class="steps">
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Qual è la successione ausiliaria da costruire?</div>
+          <div class="step-content">$b_n:=a_n+|a_n|$. È sempre $\ge0$: se $a_n\ge0$ vale $2a_n$, se $a_n<0$ vale $0$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">La maggiorazione</div>
+          <div class="step-content">$0\le b_n=a_n+|a_n|\le|a_n|+|a_n|=2|a_n|$.</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Quale criterio si applica?</div>
+          <div class="step-content">Il <strong>criterio del confronto</strong>: $\sum2|a_n|$ converge per ipotesi, quindi converge $\sum b_n$ (serie a termini non negativi).</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Come si ricostruisce la serie di partenza?</div>
+          <div class="step-content">$a_n=b_n-|a_n|$, differenza di due serie convergenti; per linearità (algebra dei limiti sulle somme parziali) $\sum a_n$ converge. $\blacksquare$</div></div></div>
+        <div class="step"><div class="step-n"></div><div class="step-body">
+          <div class="step-cue">Vale il viceversa?</div>
+          <div class="step-content"><strong>No.</strong> $\sum_{n\ge1}\frac{(-1)^n}{n}$ converge per Leibniz, ma $\sum\frac1n$ diverge: si dice <em>semplicemente convergente</em>.</div></div></div>
+      </div>
+    </div></details>
+
+    <div class="box">
+      <div class="box-title">Perché la distinzione conta</div>
+      <p class="mb0">In una serie <strong>assolutamente</strong> convergente si possono riordinare i termini senza cambiare la somma. In una serie <strong>semplicemente</strong> convergente no: per il teorema di Riemann sul riordinamento, riordinandola si può ottenere qualunque somma si voglia — anche $+\infty$. La convergenza assoluta è quindi molto più robusta.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="strategia">5 · La strategia operativa</h2>
+    <div class="box tip">
+      <div class="box-title">✓ L'ordine da seguire, sempre</div>
+      <ol class="mb0">
+        <li><strong>$a_n\to0$?</strong> Se no, la serie non converge: hai finito in una riga.</li>
+        <li><strong>È geometrica o telescopica?</strong> Allora si calcola anche la somma.</li>
+        <li><strong>I termini sono definitivamente $\ge0$?</strong>
+          <ul><li>Sì → confronto asintotico con $n^{-\alpha}$; se ci sono fattoriali o esponenziali, rapporto; se c'è una potenza $n$-esima, radice.</li>
+          <li>No → passa ai moduli e studia $\sum|a_n|$. Se converge, hai finito (assoluta ⟹ semplice). Se diverge e la serie è alternata, prova <strong>Leibniz</strong>.</li></ul>
+        </li>
+        <li><strong>Scrivi la conclusione per esteso</strong>, citando il criterio usato e verificandone le ipotesi. Nella terza parte della prova (svolgimento dettagliato) i punti stanno lì, non nel risultato.</li>
+      </ol>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="test">Mettiti alla prova</h2>
+    <div id="quizBox"></div>
+
+    <h2 id="errori">Errori tipici della Sezione 3</h2>
+    <div class="box trap">
+      <ul class="mb0">
+        <li><strong>Concludere che la serie converge perché $a_n\to0$.</strong> Condizione necessaria, non sufficiente. Controesempio: $\sum\frac1n$.</li>
+        <li><strong>Usare $\frac{1}{1-q}$ quando la serie geometrica non parte da $n=0$.</strong> La formula è <em>primo termine diviso $1-q$</em>.</li>
+        <li><strong>Applicare il criterio del confronto a serie con termini di segno variabile.</strong> Serve $a_n\ge0$.</li>
+        <li><strong>Concludere qualcosa quando il rapporto o la radice danno $L=1$.</strong> Il criterio non decide: passa all'asintotico.</li>
+        <li><strong>Sbagliare la semplificazione dei fattoriali.</strong> $(n+1)!=(n+1)\cdot n!$ e $(2n+2)!=(2n+2)(2n+1)(2n)!$.</li>
+        <li><strong>Applicare Leibniz senza verificare la monotonia</strong>, o applicarlo quando $b_n\not\to0$.</li>
+        <li><strong>Confondere «$\sum|a_n|$ diverge» con «$\sum a_n$ diverge».</strong> Dal fallimento dell'assoluta non segue nulla sulla semplice.</li>
+        <li><strong>Nel confronto asintotico con $\ell=0$, concludere anche quando $\sum b_n$ diverge.</strong> Quella implicazione non c'è.</li>
+        <li><strong>Dimenticare di indicare quale criterio si sta usando.</strong> Nella terza parte della prova è richiesto lo svolgimento «completo e dettagliato»: il nome del criterio e la verifica delle ipotesi sono parte della risposta.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="../simulazione.html">Prova la simulazione d'esame →</a>
+      <a class="btn" href="2-successioni.html">← Sezione 2</a>
+      <a class="btn" href="../esercizi.html?sez=3">Esercizi della Sezione 3</a>
+    </div>
+  </main>
+</div>
+
+<footer>Analisi Matematica 1 · Sezione 3 · Guida di studio non ufficiale</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../assets/js/data/topics.js"></script>
+<script src="../assets/js/data/quiz.js"></script>
+<script src="../assets/js/plot.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 3);
+  AM.mountQuiz('#quizBox', AM.quizPerSezione(3), { statKey: 'sez3' });
+
+  /* ---------- Somme parziali ---------- */
+  (function () {
+    var SER = [
+      { a: function (n) { return Math.pow(0.5, n); }, from: 0, nome: 'Σ 1/2ⁿ', S: 2, car: 'converge a 2 (geometrica, q = 1/2)' },
+      { a: function (n) { return 1 / n; }, from: 1, nome: 'Σ 1/n', S: null, car: 'diverge a +∞ (armonica) — lentissimamente, come ln n' },
+      { a: function (n) { return 1 / (n * n); }, from: 1, nome: 'Σ 1/n²', S: Math.PI * Math.PI / 6, car: 'converge a π²/6 ≈ 1,6449 (α = 2 > 1)' },
+      { a: function (n) { return Math.pow(-1, n); }, from: 0, nome: 'Σ (−1)ⁿ', S: null, car: 'indeterminata: le somme parziali oscillano fra 1 e 0' },
+      { a: function (n) { return Math.pow(-1, n) / n; }, from: 1, nome: 'Σ (−1)ⁿ/n', S: -Math.LN2, car: 'converge a −ln 2 ≈ −0,6931 (Leibniz), ma non assolutamente' },
+      { a: function (n) { return 1 / Math.sqrt(n); }, from: 1, nome: 'Σ 1/√n', S: null, car: 'diverge (α = 1/2 ≤ 1), benché aₙ → 0' },
+      { a: function (n) { return 1 / (n * (n + 1)); }, from: 1, nome: 'Σ 1/(n(n+1))', S: 1, car: 'converge a 1 (telescopica: sₙ = 1 − 1/(n+1))' }
+    ];
+    var i = 0, N = 40, out = document.getElementById('serOut');
+    var term = document.getElementById('serTerm');
+    var p = new Plot('serPlot', { xmin: 0, xmax: 41, ymin: -0.4, ymax: 2.4, height: 320, xlabel: 'n' });
+
+    function partials(n) {
+      var S = SER[i], s = 0, v = [];
+      for (var k = S.from; k <= n; k++) { s += S.a(k); v.push([k, s]); }
+      return v;
+    }
+    p.draw(function (g) {
+      var S = SER[i], v = partials(N);
+      if (S.S !== null) {
+        g.hline(S.S, { color: 'ok', width: 1.8, dash: [6, 4] });
+        g.text(g.xmax - 0.5, S.S, 'S = ' + S.S.toFixed(4), { color: 'ok', size: 11.5, bold: true, align: 'right', dy: -5, halo: true });
+      }
+      if (term.checked) v.forEach(function (q) { g.dot(q[0], SER[i].a(q[0]), { color: 'faint', r: 2.6 }); });
+      var prev = null;
+      v.forEach(function (q) {
+        if (prev) g.seg(prev[0], prev[1], q[0], q[1], { color: 'accent', width: 1, alpha: .35 });
+        g.dot(q[0], q[1], { color: 'accent', r: 3.2, ring: true });
+        prev = q;
+      });
+      g.legend(term.checked
+        ? [{ label: 'sₙ (somme parziali)', color: 'accent' }, { label: 'aₙ (termini)', color: 'faint' }]
+        : [{ label: 'sₙ (somme parziali)', color: 'accent' }], { left: true });
+    });
+    function refresh() {
+      var S = SER[i], v = partials(N), last = v[v.length - 1][1];
+      var lo = Math.min.apply(null, v.map(function (q) { return q[1]; }));
+      var hi = Math.max.apply(null, v.map(function (q) { return q[1]; }));
+      var pad = Math.max(0.3, (hi - lo) * 0.25);
+      p.setWindow({ xmax: N + 1, ymin: Math.min(-0.2, lo - pad), ymax: hi + pad });
+      p.redraw();
+      out.innerHTML = '<b>' + S.nome + '</b> — ' + S.car + '<br>' +
+        's_' + N + ' = <b>' + last.toFixed(6) + '</b>' +
+        (S.S !== null ? ' &nbsp;·&nbsp; errore |S − s_' + N + '| = ' + Math.abs(S.S - last).toExponential(2) : '') + '<br>' +
+        'a_' + N + ' = ' + S.a(N).toExponential(3) +
+        '<br><span style="color:var(--text-faint)">Ricorda: la serie <i>è</i> la successione delle somme parziali. Il carattere è il comportamento dei pallini blu.</span>';
+    }
+    document.getElementById('serSel').onchange = function () { i = +this.value; refresh(); };
+    term.onchange = function () { p.redraw(); };
+    plotSlider('serN', function (v) { N = v; refresh(); });
+  })();
+
+  /* ---------- Armonica generalizzata ---------- */
+  (function () {
+    var al = 1, N = 150, out = document.getElementById('armOut');
+    var p = new Plot('armPlot', { xmin: 0, xmax: 151, ymin: 0, ymax: 8, height: 310, xlabel: 'n' });
+    function sums(n, a) { var s = 0, v = []; for (var k = 1; k <= n; k++) { s += Math.pow(k, -a); v.push([k, s]); } return v; }
+    p.draw(function (g) {
+      var v = sums(N, al), prev = null;
+      if (al > 1) {
+        // stima della somma con coda integrale
+        var S = v[v.length - 1][1] + Math.pow(N, 1 - al) / (al - 1);
+        g.hline(S, { color: 'ok', width: 1.6, dash: [6, 4] });
+        g.text(g.xmax - 1, S, 'somma ≈ ' + S.toFixed(3), { color: 'ok', size: 11.5, bold: true, align: 'right', dy: -5, halo: true });
+      }
+      v.forEach(function (q) {
+        if (prev) g.seg(prev[0], prev[1], q[0], q[1], { color: al > 1 ? 'ok' : 'danger', width: 2 });
+        prev = q;
+      });
+    });
+    plotSlider('armA', function (v) { al = v; refresh(); });
+    plotSlider('armN', function (v) { N = v; refresh(); });
+    function refresh() {
+      var v = sums(N, al), last = v[v.length - 1][1];
+      p.setWindow({ xmax: N + 1, ymax: Math.max(2, last * 1.35) });
+      p.redraw();
+      out.innerHTML = 'α = <b>' + al.toFixed(2) + '</b> &nbsp;·&nbsp; s_' + N + ' = <b>' + last.toFixed(5) + '</b><br>' +
+        (al > 1
+          ? '<span style="color:var(--ok)"><b>α &gt; 1 → converge.</b> Le somme parziali si stabilizzano: sono crescenti e limitate superiormente.</span>'
+          : '<span style="color:var(--danger)"><b>α ≤ 1 → diverge.</b> La crescita rallenta ma non si ferma mai: le somme parziali sono illimitate.</span>') +
+        '<br><span style="color:var(--text-faint)">Porta α appena sopra e appena sotto 1: il termine generale cambia pochissimo, il carattere cambia del tutto.</span>';
+    }
+    refresh();
+  })();
+
+  /* ---------- Confronto asintotico: laboratorio ---------- */
+  (function () {
+    var CAS = [
+      { t: '(3n+2)/(n³−n+1)', eq: '∼ 3n/n³ = 3/n²', al: 2, passi: 'Tieni i termini dominanti: 3n sopra, n³ sotto.' },
+      { t: 'sen(1/√n)', eq: '∼ 1/√n = 1/n^(1/2)', al: 0.5, passi: 'Limite notevole sen x ∼ x con x = 1/√n → 0.' },
+      { t: '1 − cos(1/n)', eq: '∼ 1/(2n²)', al: 2, passi: 'Limite notevole 1 − cos x ∼ x²/2 con x = 1/n.' },
+      { t: '(ln n)/n²', eq: 'non è ∼ c/n^α, ma ln n = o(n^ε)', al: 1.5, passi: 'Confronta con 1/n^(3/2): il rapporto (ln n)/√n → 0, e Σ1/n^(3/2) converge. Il logaritmo non salva mai una potenza.' },
+      { t: '(n+√n)/(n²+3)', eq: '∼ n/n² = 1/n', al: 1, passi: 'Dominanti: n sopra, n² sotto. Caso critico.' },
+      { t: '1/√(n³+n)', eq: '∼ 1/n^(3/2)', al: 1.5, passi: 'Dentro la radice domina n³, quindi √(n³) = n^(3/2).' }
+    ];
+    var out = document.getElementById('casOut');
+    function refresh(i) {
+      var C = CAS[i], conv = C.al > 1;
+      out.innerHTML = '<b>a_n = ' + C.t + '</b><br>' + C.passi + '<br>' +
+        'a_n ' + C.eq + ' &nbsp;→&nbsp; α = <b>' + C.al + '</b><br>' +
+        (conv ? '<span style="color:var(--ok)"><b>α &gt; 1 → la serie CONVERGE</b></span>'
+              : '<span style="color:var(--danger)"><b>α ≤ 1 → la serie DIVERGE</b></span>') +
+        '<br><span style="color:var(--text-faint)">Motivazione da scrivere: «per il criterio del confronto asintotico con la serie armonica generalizzata di esponente α = ' + C.al + '».</span>';
+    }
+    document.getElementById('casSel').onchange = function () { refresh(+this.value); };
+    refresh(0);
+  })();
+
+  /* ---------- Leibniz ---------- */
+  (function () {
+    var N = 22, out = document.getElementById('leiOut');
+    var S = -Math.LN2;
+    var p = new Plot('leiPlot', { xmin: 0, xmax: 23, ymin: -1.1, ymax: -0.35, height: 300, xlabel: 'n' });
+    function partials(n) { var s = 0, v = []; for (var k = 1; k <= n; k++) { s += Math.pow(-1, k) / k; v.push([k, s]); } return v; }
+    p.draw(function (g) {
+      var v = partials(N), prev = null;
+      g.hline(S, { color: 'ok', width: 1.8 });
+      g.text(g.xmax - 0.4, S, 'S = −ln 2 ≈ ' + S.toFixed(5), { color: 'ok', size: 11.5, bold: true, align: 'right', dy: -5, halo: true });
+      v.forEach(function (q) {
+        if (prev) g.seg(prev[0], prev[1], q[0], q[1], { color: 'accent', width: 1.2, alpha: .45 });
+        g.seg(q[0], S, q[0], q[1], { color: q[0] % 2 ? 'danger' : 'purple', width: 1, alpha: .35 });
+        g.dot(q[0], q[1], { color: q[0] % 2 ? 'danger' : 'purple', r: 3.4, ring: true });
+        prev = q;
+      });
+      g.legend([{ label: 'n dispari (sotto S)', color: 'danger' }, { label: 'n pari (sopra S)', color: 'purple' }], { bottom: true, left: true });
+    });
+    plotSlider('leiN', function (v) {
+      N = v; p.setWindow({ xmax: N + 1 }); p.redraw();
+      var q = partials(N), last = q[q.length - 1][1];
+      out.innerHTML = '<b>Σ (−1)ⁿ/n</b> con b_n = 1/n: &nbsp;(i) b_n ≥ 0 ✓ &nbsp;(ii) decrescente ✓ &nbsp;(iii) b_n → 0 ✓ → <b>converge</b>.<br>' +
+        's_' + N + ' = ' + last.toFixed(6) + ' &nbsp;·&nbsp; errore reale = ' + Math.abs(S - last).toExponential(3) +
+        ' &nbsp;·&nbsp; stima di Leibniz b_' + (N + 1) + ' = ' + (1 / (N + 1)).toExponential(3) + '<br>' +
+        '<span style="color:var(--text-faint)">La somma è sempre incastrata fra due somme parziali consecutive: è questa l\'idea della dimostrazione.</span><br>' +
+        '<span style="color:var(--warn)">Ma Σ|a_n| = Σ1/n diverge: la convergenza è soltanto <b>semplice</b>.</span>';
+    });
+  })();
+});
+</script>
+</body>
+</html>
