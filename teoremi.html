@@ -50,30 +50,38 @@
     </div>
 
     <div class="box">
-      <div class="box-title">Legenda — i tre livelli di richiesta</div>
+      <div class="box-title">Legenda — cosa vogliono dire le stelline</div>
+      <p style="margin-bottom:12px">
+        <span style="color:var(--danger);font-size:16px">★</span> <strong>una stellina</strong> = dimostrazione da saper scrivere <strong>allo scritto</strong> &nbsp;·&nbsp;
+        <span style="color:var(--accent);font-size:16px">★★</span> <strong>due stelline</strong> = dimostrazione richiesta <strong>solo all'orale</strong> &nbsp;·&nbsp;
+        <span class="faint">—</span> <strong>nessuna stellina</strong> = <strong>nessuna dimostrazione</strong> richiesta (ma l'enunciato sì)
+      </p>
       <div class="tablewrap" style="margin:0 0 12px">
         <table>
-          <thead><tr><th>Etichetta</th><th>Nel programma</th><th>Cosa devi saper fare</th></tr></thead>
+          <thead><tr><th class="c">Stelline</th><th>Etichetta</th><th class="c">Programma</th><th>Cosa devi saper fare</th></tr></thead>
           <tbody>
             <tr>
+              <td class="c nowrap" style="color:var(--danger);font-size:17px">★</td>
               <td><span class="badge star">dim. scritto</span></td>
               <td class="c">$(*)$</td>
               <td>Enunciato, ipotesi e <strong>dimostrazione completa</strong>, da scrivere alla prova scritta. Sono <strong>14</strong> per il primo parziale.</td>
             </tr>
             <tr>
+              <td class="c nowrap" style="color:var(--accent);font-size:17px">★★</td>
               <td><span class="badge star2">dim. orale</span></td>
               <td class="c">$(**)$</td>
               <td>Enunciato, ipotesi, esempi e applicazioni: allo scritto possono essere chiesti <em>tutti i contenuti tranne la dimostrazione</em>. La dimostrazione può essere richiesta solo all'eventuale <strong>orale</strong>.</td>
             </tr>
             <tr>
-              <td><span class="badge">nessuna</span></td>
+              <td class="c faint nowrap">nessuna</td>
+              <td><span class="badge">—</span></td>
               <td class="c">—</td>
-              <td>Nessuna dimostrazione richiesta, ma allo scritto possono essere chiesti <strong>enunciato, comprensione e applicazione</strong>. Li trovi nelle checklist delle sezioni, non in questa pagina.</td>
+              <td>Nessuna dimostrazione richiesta, ma allo scritto possono essere chiesti <strong>enunciato, comprensione e applicazione</strong>. <em>Non compaiono in questa pagina</em>: li trovi nelle checklist delle sezioni.</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="mb0 small muted">Fonte: <a href="Programma%20di%20massima%20e%20bibliografia.pdf">Programma di massima</a> e <a href="Modalit%C3%A0%20di%20esame.pdf">Modalità d'esame</a>. Attenzione a non leggere «senza stellina» come «da leggere e basta»: significa solo che non ti viene chiesta la <em>dimostrazione</em>.</p>
+      <p class="mb0 small muted">Le stelline nell'indice a sinistra ricalcano la notazione del programma: <span style="color:var(--danger)">★</span> per $(*)$, <span style="color:var(--accent)">★★</span> per $(**)$. Fonte: <a href="Programma%20di%20massima%20e%20bibliografia.pdf">Programma di massima</a> e <a href="Modalit%C3%A0%20di%20esame.pdf">Modalità d'esame</a>. Attenzione a non leggere «senza stellina» come «da leggere e basta»: significa solo che non ti viene chiesta la <em>dimostrazione</em>.</p>
     </div>
 
     <div class="chips" id="filters">
@@ -158,7 +166,12 @@ document.addEventListener('am:ready', function () {
       var g = sel.filter(function (t) { return t.sez === s; });
       if (!g.length) return '';
       return '<h4>Sezione ' + s + '</h4>' + g.map(function (t) {
-        return '<a href="#' + t.id + '">' + (t.mark === '*' ? '★ ' : '') + t.titolo.replace(/\$/g, '') + '</a>';
+        var stelle = t.mark === '*'
+          ? '<span style="color:var(--danger)" title="dimostrazione richiesta allo scritto">★</span> '
+          : t.mark === '**'
+            ? '<span style="color:var(--accent)" title="dimostrazione richiesta solo all\'orale">★★</span> '
+            : '';
+        return '<a href="#' + t.id + '">' + stelle + t.titolo + '</a>';
       }).join('');
     }).join('');
     AM.typeset(list); AM.typeset(toc);
