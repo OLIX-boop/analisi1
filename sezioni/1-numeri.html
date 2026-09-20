@@ -45,6 +45,7 @@
     <a href="#supinf">4 · Sup, inf e completezza</a>
     <a href="#completezza" class="sub">Completezza di ℝ</a>
     <a href="#potenze">5 · Radici, potenze, logaritmi</a>
+    <a href="#supcostruzione" class="sub">Perché sono estremi superiori</a>
     <a href="#gonio" class="sub">Goniometria</a>
     <a href="#modulo">6 · Valore assoluto</a>
     <a href="#complessi">7 · Numeri complessi</a>
@@ -100,12 +101,58 @@
     <p>Eseguendo la divisione euclidea fra numeratore e denominatore si ottiene sempre un allineamento finito o periodico, e viceversa. Dunque</p>
     $$\Q\ \longleftrightarrow\ \{\text{allineamenti finiti o infiniti periodici}\}.$$
 
-    <details class="reveal">
-      <summary>Perché si escludono gli allineamenti di periodo 9?</summary>
+    <details class="reveal" id="periodo9">
+      <summary>Perché si escludono gli allineamenti di periodo 9? — e la dimostrazione che $0,\overline9=1$</summary>
       <div class="reveal-body">
-        <p>Perché altrimenti la corrispondenza non sarebbe biunivoca: $0,\overline9$ e $1$ sarebbero due scritture dello stesso numero. Infatti, per la somma della serie geometrica,
-        $$0,\overline9=\sum_{k=1}^{\infty}\frac{9}{10^{k}}=9\cdot\frac{\frac1{10}}{1-\frac1{10}}=9\cdot\frac19=1.$$
-        <p class="mb0">Per convenzione si sceglie sempre la scrittura finita.</p>
+        <p>Perché altrimenti la corrispondenza non sarebbe biunivoca: $0,\overline9$ e $1$ sarebbero <em>due scritture dello stesso numero</em>. Per convenzione si sceglie sempre la scrittura finita. Ecco la dimostrazione, passo per passo.</p>
+
+        <h4 style="margin-top:22px">Passo 1 — scrivere l'allineamento come serie</h4>
+        <p>Per definizione di allineamento decimale, ogni cifra pesa una potenza di $\frac1{10}$:</p>
+        $$0,\overline9=\frac{9}{10}+\frac{9}{100}+\frac{9}{1000}+\dots=\sum_{k=1}^{\infty}\frac{9}{10^{k}}.$$
+        <p>Il $9$ è una costante, quindi si raccoglie fuori dalla somma:</p>
+        $$\sum_{k=1}^{\infty}\frac{9}{10^{k}}=9\sum_{k=1}^{\infty}\left(\frac{1}{10}\right)^{\!k}.$$
+        <p>Poniamo $q=\dfrac1{10}$. Resta da calcolare $\displaystyle\sum_{k=1}^{\infty}q^{k}$.</p>
+
+        <h4 style="margin-top:24px">Passo 2 — attenzione all'indice di partenza</h4>
+        <div class="box warnb" style="margin-top:0">
+          <p class="mb0">La formula che conosci parte da $k=0$: $$\sum_{k=0}^{\infty}q^{k}=\frac{1}{1-q}\qquad (|q|<1).$$ Ma qui la somma parte da $\mathbf{k=1}$, perché la prima cifra decimale è $\frac9{10}$, non $9$. <strong>È tutta qui la differenza</strong>, ed è il motivo per cui compare $\frac{q}{1-q}$ e non $\frac{1}{1-q}$.</p>
+        </div>
+
+        <p>Ci sono due modi per sistemare l'indice, e danno ovviamente lo stesso risultato.</p>
+
+        <p><strong>Modo A — togliere il termine $k=0$.</strong> È il «$-1$» che viene naturale pensare:</p>
+        $$\sum_{k=1}^{\infty}q^{k}\;=\;\underbrace{\sum_{k=0}^{\infty}q^{k}}_{=\,\frac{1}{1-q}}\;-\;\underbrace{q^{0}}_{=\,1}\;=\;\frac{1}{1-q}-1.$$
+        <p>Ora si fa il denominatore comune, ed è qui che il $-1$ «sparisce» riassorbendosi:</p>
+        $$\frac{1}{1-q}-1=\frac{1-(1-q)}{1-q}=\frac{1-1+q}{1-q}=\frac{q}{1-q}.$$
+
+        <p><strong>Modo B — traslare l'indice.</strong> Si pone $j=k-1$, cosicché $k=j+1$ e $k=1$ diventa $j=0$:</p>
+        $$\sum_{k=1}^{\infty}q^{k}=\sum_{j=0}^{\infty}q^{\,j+1}=\sum_{j=0}^{\infty}q\cdot q^{\,j}=q\underbrace{\sum_{j=0}^{\infty}q^{\,j}}_{=\,\frac{1}{1-q}}=\frac{q}{1-q}.$$
+
+        <h4 style="margin-top:24px">Passo 3 — sostituire $q=\frac1{10}$</h4>
+        $$\sum_{k=1}^{\infty}\left(\frac1{10}\right)^{\!k}=\frac{q}{1-q}=\frac{\dfrac{1}{10}}{1-\dfrac{1}{10}}=\frac{\dfrac{1}{10}}{\dfrac{9}{10}}=\frac{1}{10}\cdot\frac{10}{9}=\frac19.$$
+        <p class="small muted">Nota che $|q|=\frac1{10}<1$, quindi la serie geometrica converge davvero e la formula è applicabile.</p>
+
+        <h4 style="margin-top:24px">Passo 4 — rimettere il 9 raccolto all'inizio</h4>
+        $$0,\overline9=9\cdot\frac19=1.$$
+
+        <div class="box tip">
+          <div class="box-title">✓ La regola generale da memorizzare</div>
+          <p class="mb0">$$\sum_{n=n_0}^{\infty}q^{n}=\frac{q^{\,n_0}}{1-q}\qquad(|q|<1),$$ cioè <strong>primo termine diviso $1-q$</strong>. Con $n_0=0$ il primo termine è $q^0=1$ e ritrovi $\frac1{1-q}$; con $n_0=1$ il primo termine è $q$ e ottieni $\frac{q}{1-q}$. Non serve ricordare due formule: serve guardare da dove parte la somma.</p>
+        </div>
+
+        <details class="reveal" style="margin-top:18px">
+          <summary>Verifica «dal basso», per convincersi che non c'è trucco</summary>
+          <div class="reveal-body">
+            <p>Le somme parziali sono $s_n=0,\underbrace{99\dots9}_{n}$, e</p>
+            $$1-s_n=\frac{1}{10^{\,n}}\ \longrightarrow\ 0.$$
+            <p class="mb0">La distanza fra $s_n$ e $1$ diventa più piccola di <em>qualunque</em> $\eps>0$ fissato: per la definizione di limite, $s_n\to1$. Non è che $0,\overline9$ «si avvicina» a $1$ — il simbolo $0,\overline9$ <strong>denota</strong> il limite delle somme parziali, e quel limite <em>è</em> $1$.</p>
+          </div>
+        </details>
+
+        <div class="box trap" style="margin-bottom:0">
+          <div class="box-title">✗ L'errore da evitare</div>
+          <p class="mb0">Applicare $\frac{1}{1-q}$ senza guardare l'indice iniziale: qui darebbe $9\cdot\frac{1}{1-\frac1{10}}=9\cdot\frac{10}{9}=10$, cioè dieci volte il valore giusto. Lo stesso errore ricompare identico negli esercizi sulle <a href="3-serie.html#geometrica">serie geometriche</a> che non partono da $n=0$.</p>
+        </div>
       </div>
     </details>
 
@@ -278,8 +325,14 @@
             <div class="step-cue">Dove entra l'ipotesi $h\ge-1$? (è la domanda d'esame)</div>
             <div class="step-content">Da $h\ge-1$ segue $1+h\ge0$: moltiplicare entrambi i membri per un numero <strong>non negativo</strong> conserva il verso della disuguaglianza. Se fosse $1+h<0$ il verso si invertirebbe.</div></div></div>
           <div class="step"><div class="step-n"></div><div class="step-body">
-            <div class="step-cue">Il conto</div>
-            <div class="step-content">$(1+h)^{n+1}=(1+h)^n(1+h)\ge(1+nh)(1+h)=1+(n+1)h+nh^2$.</div></div></div>
+            <div class="step-cue">Mossa 1: far comparire $(1+h)^n$ — perché?</div>
+            <div class="step-content">Perché l'ipotesi induttiva parla di $(1+h)^n$: bisogna prima farlo <em>apparire</em>. Si stacca un fattore con le proprietà delle potenze: $(1+h)^{n+1}=(1+h)^{n}\cdot(1+h)$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Mossa 2: sostituire $(1+h)^n$ con $1+nh$ — non è un'uguaglianza</div>
+            <div class="step-content">Si usa: <strong>se $A\ge B$ e $c\ge0$ allora $Ac\ge Bc$</strong>, con $A=(1+h)^n$, $B=1+nh$ (ipotesi induttiva) e $c=1+h\ge0$ (ipotesi $h\ge-1$). Moltiplicando i due membri dell'ipotesi induttiva per $(1+h)$: $(1+h)^{n}(1+h)\ge(1+nh)(1+h)$. Il fattore $(1+h)$ resta <strong>identico</strong> da entrambe le parti.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Mossa 3: svolgere il prodotto</div>
+            <div class="step-content">$(1+nh)(1+h)=1+h+nh+nh^2=1+(n+1)h+nh^2$, quindi $(1+h)^{n+1}\ge 1+(n+1)h+nh^2$.</div></div></div>
           <div class="step"><div class="step-n"></div><div class="step-body">
             <div class="step-cue">La conclusione</div>
             <div class="step-content">Poiché $nh^2\ge0$, si ha $1+(n+1)h+nh^2\ge1+(n+1)h$. Per transitività si ottiene $P(n+1)$. $\blacksquare$</div></div></div>
@@ -392,6 +445,94 @@
     <div class="box tip">
       <div class="box-title">✓ Il filo conduttore</div>
       <p class="mb0">Tutte e tre le definizioni — radici, potenze reali, logaritmi — sono estremi superiori di opportuni insiemi. In $\Q$ quegli estremi non esisterebbero. <strong>È sempre la completezza.</strong> Se in sede d'esame ti chiedono «quale proprietà di $\R$ è fondamentale per definirli?», la risposta è una sola.</p>
+    </div>
+
+    <h3 id="supcostruzione">Perché sono <em>tutti</em> estremi superiori</h3>
+
+    <p>Questo è il punto concettuale più importante della sezione, e di solito viene detto troppo in fretta. Il problema di fondo è sempre lo stesso:</p>
+
+    <div class="box warnb">
+      <p class="mb0"><strong>Non sai costruire l'oggetto direttamente.</strong> Sai solo <em>approssimarlo per difetto</em>, quanto vuoi bene, con oggetti che già possiedi. Serve qualcosa che trasformi «approssimabile» in «esistente».<br><br>Quel qualcosa è la <strong>completezza</strong>.</p>
+    </div>
+
+    <h4>Lo schema, in tre mosse — sempre le stesse</h4>
+    <div class="box">
+      <ol class="mb0">
+        <li><strong>Raccogli le approssimazioni per difetto</strong> in un insieme $E$, usando solo cose che sai già definire.</li>
+        <li><strong>Verifica le due ipotesi:</strong> $E\ne\emptyset$ ed $E$ è limitato superiormente. (Senza queste, la completezza non si applica.)</li>
+        <li><strong>La completezza ti regala $\sup E$</strong>, e tu <em>definisci</em> l'oggetto come quel numero. Resta poi da dimostrare che ha la proprietà voluta.</li>
+      </ol>
+    </div>
+
+    <h4>Caso guida: costruire $\sqrt2$</h4>
+    <p>Vuoi un numero il cui quadrato faccia $2$. Non sai scriverlo, ma sai riconoscere chi gli sta <em>sotto</em>: i numeri il cui quadrato è minore di $2$. Poni</p>
+    $$E=\{t\in\R\ :\ t\ge 0,\ t^{2}<2\}.$$
+    <ul>
+      <li><strong>$E\ne\emptyset$:</strong> $1\in E$, perché $1^2=1<2$. ✓</li>
+      <li><strong>$E$ limitato superiormente:</strong> $2$ è un maggiorante. Infatti se fosse $t>2$ allora $t^2>4>2$, quindi $t\notin E$. ✓</li>
+    </ul>
+    <p>Per la completezza esiste $x=\sup E\in\R$. Si <em>definisce</em> $\sqrt2:=x$, e si dimostra poi che $x^{2}=2$ escludendo le due alternative: se fosse $x^2<2$ si troverebbe un elemento di $E$ maggiore di $x$ (contro il fatto che $x$ è maggiorante); se fosse $x^2>2$ si troverebbe un maggiorante più piccolo di $x$ (contro il fatto che $x$ è il <em>minimo</em> dei maggioranti).</p>
+
+    <div class="box trap">
+      <div class="box-title">✗ Lo stesso identico insieme, dentro $\Q$</div>
+      <p class="mb0">Prendi $A=\{q\in\Q: q>0,\ q^2<2\}$. È non vuoto, è limitato superiormente, ma <strong>non ha estremo superiore in $\Q$</strong>: il candidato sarebbe $\sqrt2$, che non è razionale. Le approssimazioni $1;\ 1{,}4;\ 1{,}41;\ 1{,}414;\dots$ si accalcano tutte contro un punto <em>che in $\Q$ non c'è</em>. È letteralmente un buco nella retta razionale — e l'unica ragione per cui si introduce $\R$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>La macchina del sup</span><span class="faint" style="text-transform:none;font-weight:400">le approssimazioni salgono, il sup è la barriera</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="csSel">oggetto da costruire</label>
+            <select id="csSel">
+              <option value="0">$\sqrt2$</option>
+              <option value="1">$\sqrt[3]{7}$</option>
+              <option value="2">$2^{\pi}$ &nbsp;(potenza reale)</option>
+              <option value="3">$\log_2 5$ &nbsp;(logaritmo)</option>
+            </select>
+          </div>
+          <div class="ctrl"><label for="csK">cifre decimali</label><input type="range" id="csK" min="0" max="8" value="3" step="1"><output data-out="csK">3</output></div>
+        </div>
+        <canvas class="plot" id="csPlot"></canvas>
+        <div class="readout" id="csOut"></div>
+      </div>
+    </div>
+
+    <h4>Gli altri tre casi, in parallelo</h4>
+    <p>Cambia solo <em>cosa</em> metti dentro $E$. La struttura è identica.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Oggetto</th><th>Cosa sai già fare</th><th>L'insieme $E$</th></tr></thead>
+        <tbody>
+          <tr><td>$\sqrt[n]{y}$&nbsp; ($y\ge0$)</td><td>elevare a potenza intera</td><td>$\{t\ge0\ :\ t^{n}<y\}$</td></tr>
+          <tr><td>$a^{x}$&nbsp; ($a>1$, $x\in\R$)</td><td>$a^{q}$ per $q$ <strong>razionale</strong>, via le radici: $a^{m/n}=\sqrt[n]{a^{m}}$</td><td>$\{a^{q}\ :\ q\in\Q,\ q\le x\}$</td></tr>
+          <tr><td>$\log_a y$&nbsp; ($a>1$, $y>0$)</td><td>$a^{q}$ per $q$ razionale</td><td>$\{q\in\Q\ :\ a^{q}\le y\}$</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Nota la <strong>catena di dipendenze</strong>: le potenze a esponente reale si appoggiano su quelle razionali, che si appoggiano sulle radici, che si appoggiano sulla completezza. E i logaritmi si appoggiano sulle potenze. Tolta la completezza, crolla tutto in fila.</p>
+
+    <details class="reveal">
+      <summary>Esempio concreto: che cos'è $2^{\pi}$?</summary>
+      <div class="reveal-body">
+        <p>$\pi$ è irrazionale, quindi $2^{\pi}$ <em>non</em> si può definire come «$2$ moltiplicato per sé stesso $\pi$ volte», né come una radice. Ma sai calcolare</p>
+        $$2^{3},\quad 2^{3{,}1}=2^{31/10}=\sqrt[10]{2^{31}},\quad 2^{3{,}14}=\sqrt[100]{2^{314}},\quad 2^{3{,}141},\ \dots$$
+        <p>— tutte potenze a esponente <strong>razionale</strong>, quindi radici, quindi già definite. Questi numeri crescono e restano limitati superiormente (per esempio da $2^{4}=16$). Allora si pone</p>
+        $$2^{\pi}:=\sup\{2^{q}\ :\ q\in\Q,\ q\le\pi\}\approx 8{,}8249778\dots$$
+        <p class="mb0">Con $0<a<1$ la funzione $q\mapsto a^q$ è <em>decrescente</em>, quindi si usa l'estremo <strong>inferiore</strong> (o si passa a $1/a$). È l'unico dettaglio che cambia.</p>
+      </div>
+    </details>
+
+    <div class="box tip">
+      <div class="box-title">✓ La risposta da dare al Quesito 1.14</div>
+      <p class="mb0">«<em>Quale proprietà di $\R$ è fondamentale per poter definire radici, potenze e logaritmi?</em>»<br><br>
+      <strong>La completezza.</strong> Tutti e tre sono definiti come estremo superiore di un insieme di approssimazioni per difetto; la completezza è ciò che garantisce che quell'estremo superiore <em>esista in $\R$</em>. In $\Q$ gli stessi insiemi non hanno estremo superiore, e infatti $\sqrt2$, $2^\pi$ e $\log_2 5$ non sono razionali.</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Dove rivedrai esattamente questo schema</div>
+      <p class="mb0">La mossa «insieme limitato $\to$ completezza $\to$ esiste il sup $\to$ quello è l'oggetto cercato» tornerà, identica, nel <a href="2-successioni.html#monotone">teorema sulla regolarità delle successioni monotòne</a>: lì l'insieme è $\{a_n:n\in\N\}$ e il sup è il <em>limite</em>. E da quel teorema discendono il numero $e$ e tutti i criteri di convergenza per le serie. Se capisci bene questo passaggio adesso, ne hai capiti quattro in anticipo.</p>
     </div>
 
     <h3 id="gonio">Grandezze goniometriche</h3>
@@ -962,6 +1103,101 @@ document.addEventListener('am:ready', function () {
     plotSlider('rtN', function (v) { n = v; p.redraw(); refresh(); });
     plotSlider('rtRho', function (v) { rho = v; p.redraw(); refresh(); });
     plotSlider('rtTh', function (v) { th = v; p.redraw(); refresh(); });
+  })();
+
+  /* ---------- La macchina del sup ---------- */
+  (function () {
+    function tronca(x, k) { var p = Math.pow(10, k); return Math.floor(x * p) / p; }
+
+    var COSTR = [
+      { nome: '√2', T: Math.SQRT2,
+        E: 'E = { t ≥ 0 : t² < 2 }',
+        el: function (k) { return tronca(Math.SQRT2, k); },
+        cert: function (q) { return 'q² = ' + (q * q).toFixed(12) + '  <  2   ⟹  q ∈ E'; },
+        inQ: 'In ℚ questo insieme non ha estremo superiore: √2 ∉ ℚ.' },
+
+      { nome: '∛7', T: Math.cbrt(7),
+        E: 'E = { t ≥ 0 : t³ < 7 }',
+        el: function (k) { return tronca(Math.cbrt(7), k); },
+        cert: function (q) { return 'q³ = ' + (q * q * q).toFixed(12) + '  <  7   ⟹  q ∈ E'; },
+        inQ: 'Anche ∛7 è irrazionale (7 non è un cubo perfetto): in ℚ il sup non esiste.' },
+
+      { nome: '2^π', T: Math.pow(2, Math.PI),
+        E: 'E = { 2^q : q ∈ ℚ, q ≤ π }',
+        el: function (k) { return Math.pow(2, tronca(Math.PI, k)); },
+        cert: function (q, k) {
+          var e = tronca(Math.PI, k);
+          return 'esponente razionale q = ' + e.toFixed(Math.max(k, 1)) + ' ≤ π,  quindi 2^q = ' + q.toFixed(10) + ' ∈ E';
+        },
+        inQ: 'Qui gli elementi di E sono potenze a esponente razionale, cioè radici: già definite. Il sup è, per definizione, 2^π.' },
+
+      { nome: 'log₂5', T: Math.log(5) / Math.LN2,
+        E: 'E = { q ∈ ℚ : 2^q ≤ 5 }',
+        el: function (k) { return tronca(Math.log(5) / Math.LN2, k); },
+        cert: function (q) { return '2^q = ' + Math.pow(2, q).toFixed(12) + '  ≤  5   ⟹  q ∈ E'; },
+        inQ: 'Il logaritmo si appoggia sulle potenze, che si appoggiano sulle radici, che si appoggiano sulla completezza.' },
+    ];
+
+    var i = 0, K = 3, out = document.getElementById('csOut');
+    var p = new Plot('csPlot', { xmin: 0, xmax: 1, ymin: -1, ymax: 1, height: 200,
+      grid: false, axes: false, pad: { l: 18, r: 18, t: 34, b: 34 } });
+
+    function finestra() {
+      var C = COSTR[i], d = Math.max(C.T * 1e-9, 4 * Math.abs(C.el(K) - C.T) + Math.pow(10, -K) * (i === 2 ? 3 : 1) * 2.2);
+      if (!isFinite(d) || d <= 0) d = Math.pow(10, -K);
+      return { xmin: C.T - d, xmax: C.T + d * 0.42 };
+    }
+
+    p.draw(function (g) {
+      var C = COSTR[i], c = g.ctx;
+      // la regione E (tutto ciò che sta sotto al sup), nella finestra visibile
+      c.save(); c.globalAlpha = .18; c.fillStyle = g.col('accent');
+      c.fillRect(g.pad.l, g.Y(0.16), g.X(C.T) - g.pad.l, g.Y(-0.16) - g.Y(0.16));
+      c.restore();
+
+      // asse
+      g.seg(g.xmin, 0, g.xmax, 0, { color: 'muted', width: 1.4 });
+      g.text(g.xmin + (g.xmax - g.xmin) * 0.02, 0.24, 'E  (le approssimazioni per difetto)',
+        { color: 'accent', size: 11.5, bold: true, align: 'left', halo: true });
+
+      // il sup
+      g.seg(C.T, -0.5, C.T, 0.5, { color: 'ok', width: 2.4 });
+      g.dot(C.T, 0, { color: 'ok', r: 5, hollow: true, width: 2.2 });
+      g.text(C.T, 0.56, 'sup E = ' + C.nome, { color: 'ok', size: 12.5, bold: true, align: 'center', halo: true });
+      g.text(C.T, -0.56, C.T.toFixed(Math.min(10, K + 4)), { color: 'ok', size: 11, align: 'center', baseline: 'top', halo: true });
+
+      // le approssimazioni visibili
+      for (var k = 0; k <= K; k++) {
+        var q = C.el(k);
+        if (q < g.xmin || q > g.xmax) continue;
+        g.dot(q, 0, { color: 'accent', r: 4.2, ring: true });
+        if (k >= K - 1) g.text(q, 0.12, 'k=' + k, { color: 'accent', size: 10.5, align: 'center', halo: true });
+      }
+    });
+
+    function refresh() {
+      var C = COSTR[i], q = C.el(K), gap = C.T - q;
+      var righe = '';
+      for (var k = Math.max(0, K - 4); k <= K; k++) {
+        var v = C.el(k);
+        righe += 'k=' + k + '  →  ' + v.toFixed(Math.min(12, k + (i === 2 ? 8 : 2))) +
+                 '   (dista ' + (C.T - v).toExponential(2) + ' dal sup)\n';
+      }
+      out.innerHTML =
+        '<b>' + C.E + '</b><br>' +
+        'E ≠ ∅ ✓ &nbsp;·&nbsp; E limitato superiormente ✓ &nbsp;⟹&nbsp; per <b>completezza</b> esiste sup E ∈ ℝ<br><br>' +
+        'ultimo elemento costruito: <b>' + q.toFixed(Math.min(12, K + (i === 2 ? 8 : 2))) + '</b><br>' +
+        C.cert(q, K) + '<br><br>' +
+        '<span style="white-space:pre">' + righe + '</span>' +
+        'distanza dal sup: <b>' + gap.toExponential(3) + '</b> — piccola quanto vuoi, <b>mai zero</b><br>' +
+        '<span style="color:var(--warn)">Nessun elemento di E raggiunge il sup: il sup non appartiene a E, quindi E non ha massimo.</span><br>' +
+        '<span style="color:var(--text-faint)">' + C.inQ + '</span>';
+    }
+
+    function aggiorna() { p.setWindow(finestra()); p.redraw(); refresh(); }
+    document.getElementById('csSel').onchange = function () { i = +this.value; aggiorna(); };
+    plotSlider('csK', function (v) { K = v; aggiorna(); });
+    aggiorna();
   })();
 });
 </script>
