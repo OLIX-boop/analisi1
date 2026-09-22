@@ -1,0 +1,217 @@
+/* ============================================================
+   quiz.js — domande a risposta multipla di Geometria e Algebra Lineare
+   La risposta corretta sta sempre in posizione 0: le opzioni
+   vengono mescolate a ogni giro dal motore del quiz.
+   ============================================================ */
+(function () {
+  'use strict';
+  const r = String.raw;
+
+  const QUIZ = [
+
+/* ---------------- Sezione 1: sistemi e MEG ---------------- */
+{ id: 'GQ1', sez: 1, tag: 'matrice a scala',
+  q: r`Una matrice è a scala quando, detto $\ell_i$ il numero di zeri iniziali della riga $i$:`,
+  opts: [ r`$\ell_1<\ell_2<\dots$ finché $\ell_i<n$, con le righe nulle in fondo`,
+          r`$\ell_1\le\ell_2\le\dots\le\ell_m$`,
+          r`tutti gli $\ell_i$ sono uguali`,
+          r`tutti gli elementi sotto la diagonale sono nulli` ],
+  a: 0,
+  why: r`La crescita deve essere <strong>stretta</strong>: due righe non nulle non possono avere lo stesso numero di zeri iniziali. L'opzione con $\le$ è la trappola. Nota che «zeri sotto la diagonale» è una condizione diversa, che ha senso solo per matrici quadrate.` },
+
+{ id: 'GQ2', sez: 1, tag: 'operazioni elementari',
+  q: r`Nell'operazione elementare «moltiplica una riga per $\lambda$», l'ipotesi $\lambda\ne0$ serve perché:`,
+  opts: [ r`altrimenti l'operazione non è invertibile e può aggiungere soluzioni`,
+          r`altrimenti la matrice non sarebbe più a scala`,
+          r`altrimenti il rango aumenterebbe`,
+          r`è solo una convenzione, si può omettere` ],
+  a: 0,
+  why: r`Moltiplicando per $0$ si cancella l'equazione: da $x=1$ si otterrebbe $0=0$, vera per ogni $x$. Il sistema trasformato non sarebbe più <em>equivalente</em>. Tutta la dimostrazione poggia sull'invertibilità delle operazioni.` },
+
+{ id: 'GQ3', sez: 1, tag: '0-pivot',
+  q: r`Dopo la riduzione a scala di $[A\,|\,\vb]$ compare la riga $[\,0\ 0\ 0\ |\ -4\,]$. Il sistema:`,
+  opts: [ r`è incompatibile`,
+          r`ha infinite soluzioni`,
+          r`ha esattamente una soluzione`,
+          r`ha la sola soluzione banale` ],
+  a: 0,
+  why: r`Quella riga è l'equazione $0=-4$, falsa per ogni $\vx$. È uno <strong>0-pivot</strong>: pivot nella colonna dei termini noti, quindi $\rg[A\,|\,\vb]=\rg A+1$ e per Rouché-Capelli il sistema è incompatibile.` },
+
+{ id: 'GQ4', sez: 1, tag: 'rango',
+  q: r`Sia $A$ di tipo $3\times7$. Quale affermazione è certamente vera?`,
+  opts: [ r`$\rg A\le3$`, r`$\rg A=3$`, r`$\rg A\le7$ e questa è la stima migliore`, r`$\rg A\ge3$` ],
+  a: 0,
+  why: r`Vale $r\le\min\{m,n\}=\min\{3,7\}=3$, perché ogni riga contiene al più un pivot. $\rg A=3$ non è garantito (le righe potrebbero essere dipendenti), e $\rg A\le7$ è vero ma molto più debole.` },
+
+{ id: 'GQ5', sez: 1, tag: 'incognite libere',
+  q: r`Un sistema compatibile in $n=6$ incognite ha $\rg A=4$. Le incognite libere sono:`,
+  opts: [ r`$2$`, r`$4$`, r`$6$`, r`nessuna, la soluzione è unica` ],
+  a: 0,
+  why: r`Le incognite libere sono $n-r=6-4=2$. Attenzione: si sottrae dal numero di <strong>incognite</strong>, non di equazioni. Essendo $r<n$, le soluzioni sono infinite.` },
+
+{ id: 'GQ6', sez: 1, tag: 'sistemi omogenei',
+  q: r`Un sistema omogeneo di $4$ equazioni in $6$ incognite:`,
+  opts: [ r`ha sicuramente soluzioni non banali`,
+          r`ha sicuramente solo la soluzione banale`,
+          r`potrebbe essere incompatibile`,
+          r`ha sicuramente esattamente una soluzione` ],
+  a: 0,
+  why: r`$r\le\min\{4,6\}=4<6=n$, quindi $r<n$ ed esistono soluzioni non banali. Un omogeneo non è <em>mai</em> incompatibile: $\vx=\vzero$ è sempre soluzione. Regola: più incognite che equazioni ⟹ soluzioni non banali.` },
+
+/* ---------------- Sezione 2: matrici ---------------- */
+{ id: 'GQ7', sez: 2, tag: 'prodotto',
+  q: r`Se $A$ è $4\times3$ e $B$ è $3\times5$, allora:`,
+  opts: [ r`$AB$ è $4\times5$ e $BA$ non è definito`,
+          r`entrambi i prodotti sono $4\times5$`,
+          r`$AB$ non è definito`,
+          r`$AB$ è $3\times3$` ],
+  a: 0,
+  why: r`Il prodotto $XY$ esiste se le colonne di $X$ sono quante le righe di $Y$, e il risultato ha le righe di $X$ e le colonne di $Y$. Qui $BA$ richiederebbe $5=4$: non è definito. La non commutatività può manifestarsi già sui <em>tipi</em>.` },
+
+{ id: 'GQ8', sez: 2, tag: 'divisori dello zero',
+  q: r`Da $AB=O$ (matrici quadrate non nulle) segue:`,
+  opts: [ r`niente: esistono divisori dello zero`,
+          r`$A=O$ oppure $B=O$`,
+          r`$A=B$`,
+          r`$A$ e $B$ sono entrambe invertibili` ],
+  a: 0,
+  why: r`Controesempio: $A=B=\begin{bmatrix}0&1\\0&0\end{bmatrix}$ dà $AB=O$ con $A,B\ne O$. È una differenza profonda rispetto ai numeri. Se però <em>una</em> delle due è invertibile, allora l'altra è nulla.` },
+
+{ id: 'GQ9', sez: 2, tag: 'trasposta',
+  q: r`Quanto vale $(AB)^{T}$?`,
+  opts: [ r`$B^{T}A^{T}$`, r`$A^{T}B^{T}$`, r`$(BA)^{T}$`, r`$AB$` ],
+  a: 0,
+  why: r`La trasposizione <strong>inverte l'ordine</strong>. È anche l'unica possibilità coerente con i tipi: se $A$ è $m\times n$ e $B$ è $n\times k$, allora $A^TB^T$ in generale non è nemmeno definito. Stessa regola per l'inversa: $(AB)^{-1}=B^{-1}A^{-1}$.` },
+
+{ id: 'GQ10', sez: 2, tag: 'Rouché-Capelli',
+  q: r`Il sistema $A\vx=\vb$ è compatibile se e solo se:`,
+  opts: [ r`$\rg A=\rg[A\,|\,\vb]$`,
+          r`$\rg A=n$`,
+          r`$\det A\ne0$`,
+          r`$m=n$` ],
+  a: 0,
+  why: r`È l'enunciato di Rouché-Capelli, e vale per matrici <strong>rettangolari qualsiasi</strong>. $\rg A=n$ dà l'unicità <em>quando</em> il sistema è già compatibile; $\det A\ne0$ ha senso solo per matrici quadrate.` },
+
+{ id: 'GQ11', sez: 2, tag: 'Rouché-Capelli',
+  q: r`Un sistema compatibile ha soluzione unica se e solo se:`,
+  opts: [ r`$r=n$ (rango uguale al numero di incognite)`,
+          r`$r=m$ (rango uguale al numero di equazioni)`,
+          r`$m=n$`,
+          r`$\vb=\vzero$` ],
+  a: 0,
+  why: r`L'unicità dipende dal confronto fra rango e numero di <strong>incognite</strong>: se $r=n$ non restano incognite libere. Il numero di equazioni è irrilevante — un sistema con $5$ equazioni e $2$ incognite può avere soluzione unica.` },
+
+{ id: 'GQ12', sez: 2, tag: 'struttura',
+  q: r`Se $\vx_0$ e $\vx_1$ sono due soluzioni di $A\vx=\vb$, allora $\vx_1-\vx_0$:`,
+  opts: [ r`è soluzione del sistema omogeneo $A\vx=\vzero$`,
+          r`è ancora soluzione di $A\vx=\vb$`,
+          r`è necessariamente il vettore nullo`,
+          r`è soluzione di $A\vx=2\vb$` ],
+  a: 0,
+  why: r`$A(\vx_1-\vx_0)=A\vx_1-A\vx_0=\vb-\vb=\vzero$. È il cuore del teorema sulla struttura: le soluzioni formano il traslato $\vx_0+S_0$. Se le soluzioni sono infinite, la differenza è non nulla.` },
+
+{ id: 'GQ13', sez: 2, tag: 'invertibilità',
+  q: r`Per una matrice quadrata $A$ di ordine $n$, quale <strong>non</strong> equivale alle altre?`,
+  opts: [ r`$A$ ha tutte le entrate non nulle`,
+          r`$\rg A=n$`,
+          r`$A\vx=\vzero$ ha solo la soluzione banale`,
+          r`$\det A\ne0$` ],
+  a: 0,
+  why: r`Le entrate non nulle non dicono nulla sull'invertibilità: $\begin{bmatrix}1&1\\1&1\end{bmatrix}$ è «piena» ma ha rango $1$. Le altre tre sono equivalenti fra loro e all'invertibilità.` },
+
+{ id: 'GQ14', sez: 2, tag: 'inversa',
+  q: r`Se $A$ e $B$ sono invertibili dello stesso ordine, allora $(AB)^{-1}$ vale:`,
+  opts: [ r`$B^{-1}A^{-1}$`, r`$A^{-1}B^{-1}$`, r`$(BA)^{-1}$`, r`$\dfrac{1}{AB}$` ],
+  a: 0,
+  why: r`Verifica: $(AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=AA^{-1}=I$. L'ordine si inverte. La scrittura $\frac{1}{AB}$ non ha alcun senso: la divisione fra matrici non è definita.` },
+
+{ id: 'GQ15', sez: 2, tag: 'inversa',
+  q: r`Se $A$ è invertibile e $AB=AC$, allora:`,
+  opts: [ r`$B=C$`, r`niente, non si può semplificare`, r`$B=C=O$`, r`$B$ e $C$ sono invertibili` ],
+  a: 0,
+  why: r`Moltiplicando <strong>a sinistra</strong> per $A^{-1}$: $B=IB=A^{-1}AB=A^{-1}AC=C$. Senza l'ipotesi di invertibilità la semplificazione è illecita: con $A=\begin{bmatrix}0&1\\0&0\end{bmatrix}$ esistono $B\ne C$ con $AB=AC$.` },
+
+{ id: 'GQ16', sez: 2, tag: 'Cramer',
+  q: r`Nel teorema di Cramer, la matrice $A_j$ si ottiene da $A$:`,
+  opts: [ r`sostituendo la $j$-esima colonna con il vettore dei termini noti`,
+          r`sostituendo la $j$-esima riga con il vettore dei termini noti`,
+          r`cancellando la $j$-esima riga e la $j$-esima colonna`,
+          r`trasponendo la $j$-esima colonna` ],
+  a: 0,
+  why: r`Si sostituisce la <strong>colonna</strong> $j$, quella dell'incognita $x_j$ che si vuole calcolare. La terza opzione descrive invece il minore complementare, che serve per i cofattori nello sviluppo di Laplace.` },
+
+{ id: 'GQ17', sez: 2, tag: 'Cramer',
+  q: r`Il teorema di Cramer si può applicare quando:`,
+  opts: [ r`$A$ è quadrata e $\det A\ne0$`,
+          r`sempre`,
+          r`$A$ è quadrata, anche con $\det A=0$`,
+          r`il sistema è omogeneo` ],
+  a: 0,
+  why: r`Servono entrambe le ipotesi. Con $\det A=0$ la formula $x_j=\frac{\det A_j}{\det A}$ dividerebbe per zero, e il sistema va discusso con Rouché-Capelli: può essere incompatibile o avere infinite soluzioni.` },
+
+{ id: 'GQ18', sez: 2, tag: 'parametri',
+  q: r`Discutendo un sistema con parametro $k$, dopo $R_2\to R_2-R_1$ si ottiene la riga $[\,0\ \ k-1\ \ 0\ |\ 1\,]$. L'errore da evitare è:`,
+  opts: [ r`dividere per $k-1$ senza discutere il caso $k=1$`,
+          r`scrivere la matrice completa invece del sistema`,
+          r`usare Rouché-Capelli invece di Cramer`,
+          r`ridurre a scala prima di sostituire il parametro` ],
+  a: 0,
+  why: r`Dividere per $k-1$ presuppone $k\ne1$ e fa sparire proprio il caso interessante: per $k=1$ quella riga diventa $0=1$, uno 0-pivot, e il sistema è incompatibile. In presenza di parametri <strong>non dividere mai</strong> per espressioni che possono annullarsi.` },
+
+/* ---------------- trasversali ---------------- */
+{ id: 'GQ19', sez: 1, tag: 'trappola',
+  q: r`Il criterio dello 0-pivot va applicato:`,
+  opts: [ r`solo alla matrice completa già ridotta a scala`,
+          r`alla matrice di partenza, prima del MEG`,
+          r`in qualunque momento della riduzione`,
+          r`solo ai sistemi quadrati` ],
+  a: 0,
+  why: r`Una riga può sembrare impossibile a metà riduzione e sistemarsi dopo, o viceversa. Il criterio è una proprietà della forma <strong>a scala</strong>, quindi si legge solo a riduzione completata.` },
+
+{ id: 'GQ20', sez: 2, tag: 'trappola',
+  q: r`Quanto vale $(A+B)^{2}$ per matrici quadrate?`,
+  opts: [ r`$A^{2}+AB+BA+B^{2}$`,
+          r`$A^{2}+2AB+B^{2}$`,
+          r`$A^{2}+B^{2}$`,
+          r`$(A^{2}+B^{2})^{2}$` ],
+  a: 0,
+  why: r`Sviluppando $(A+B)(A+B)$ si ottengono i quattro termini, e <strong>non</strong> si possono raccogliere $AB$ e $BA$ perché in generale $AB\ne BA$. La formula del quadrato del binomio vale solo se le due matrici commutano.` },
+
+{ id: 'GQ21', sez: 1, tag: 'rango',
+  q: r`Il rango di una matrice è ben definito perché:`,
+  opts: [ r`tutte le riduzioni a scala di $A$ hanno lo stesso numero di pivot`,
+          r`la riduzione a scala di $A$ è unica`,
+          r`il MEG produce sempre la stessa sequenza di operazioni`,
+          r`i pivot valgono sempre $1$` ],
+  a: 0,
+  why: r`La forma a scala <strong>non</strong> è unica — dipende dalle scelte fatte — ma il numero di pivot sì. È esattamente ciò che rende lecito parlare «del» rango di $A$. Per avere unicità della forma servirebbe la scala ridotta (Gauss-Jordan).` },
+
+{ id: 'GQ22', sez: 3, tag: 'complessi',
+  q: r`Il metodo di eliminazione di Gauss su un sistema a coefficienti complessi:`,
+  opts: [ r`funziona identico, perché usa solo le operazioni di campo`,
+          r`non è applicabile, serve un algoritmo diverso`,
+          r`funziona solo se i coefficienti hanno parte immaginaria nulla`,
+          r`richiede di passare prima alla forma trigonometrica` ],
+  a: 0,
+  why: r`Il MEG usa somma, prodotto e divisione per elementi non nulli: tutte disponibili in qualunque campo $\K$. Per questo il corso enuncia i risultati su $\K$, che sta per $\R$ o $\C$ indifferentemente.` },
+
+{ id: 'GQ23', sez: 3, tag: 'complessi',
+  q: r`La matrice $\begin{bmatrix}i&1\\-1&i\end{bmatrix}$ ha determinante:`,
+  opts: [ r`$0$, quindi non è invertibile`,
+          r`$i^{2}=-1$, quindi è invertibile`,
+          r`$2i$`,
+          r`non è definito su $\C$` ],
+  a: 0,
+  why: r`$\det=i\cdot i-1\cdot(-1)=-1+1=0$. Su $\C$ una matrice con tutte le entrate non nulle può benissimo essere singolare: qui $R_2=iR_1$.` },
+
+{ id: 'GQ24', sez: 2, tag: 'struttura',
+  q: r`I vettori $\vv_1,\dots,\vv_{n-r}$ che generano le soluzioni dell'omogeneo dipendono:`,
+  opts: [ r`solo da $A$`, r`solo da $\vb$`, r`da $A$ e da $\vb$`, r`dalla soluzione particolare scelta` ],
+  a: 0,
+  why: r`Dipendono solo dalla matrice dei coefficienti: è $\vx_0$ a dipendere anche da $\vb$. Conseguenza: cambiando il termine noto, l'insieme delle soluzioni <em>trasla</em> ma non cambia «forma».` }
+
+  ];
+
+  const AM = (window.AM = window.AM || {});
+  AM.QUIZ_GEO = QUIZ;
+})();

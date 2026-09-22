@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 0 · Preliminari e linguaggio — Geometria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7a4e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../../index.html"><span class="brand-mark">G</span> Geometria</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="0-preliminari.html">0 · Preliminari</a>
+      <a href="1-sistemi.html">1 · Sistemi</a>
+      <a href="2-matrici.html">2 · Matrici</a>
+      <a href="3-complessi.html">3 · Complessi</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../esercizi.html">Esercizi</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 0</h4>
+    <a href="#checklist">Checklist</a>
+    <a href="#notazione">1 · Notazione per gli insiemi</a>
+    <a href="#numerici" class="sub">Gli insiemi numerici</a>
+    <a href="#rn">2 · Lo spazio $\R^n$</a>
+    <a href="#operazioni" class="sub">Operazioni</a>
+    <a href="#scalare" class="sub">Prodotto scalare standard</a>
+    <a href="#cn" class="sub">Lo spazio $\C^n$</a>
+    <a href="#quantificatori">3 · Quantificatori</a>
+    <a href="#campo">4 · La convenzione $\K$</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 0 · Geometria e Algebra Lineare</div>
+      <h1>Preliminari e linguaggio</h1>
+      <p class="lead">Il vocabolario che il corso dà per acquisito dalla prima lezione. Si legge in venti minuti, ma saltarlo significa inciampare su notazioni che compaiono ovunque.</p>
+    </div>
+
+    <h2 id="checklist">Checklist</h2>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 0</strong>
+        <span class="muted small"><span data-progress-txt="g0">0/8</span> · <span data-progress-pct="g0">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="g0"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <h2 id="notazione">1 · Notazione per gli insiemi</h2>
+    <div class="box def">
+      <div class="box-title">I due modi di definire un insieme</div>
+      <ul class="mb0">
+        <li><strong>per elencazione:</strong> $\{1,4,7\}$, anche infinita: $\{1,3,5,7,\dots\}$;</li>
+        <li><strong>per proprietà:</strong> $A:=\{x\ :\ x^{2}<4\}$, cioè $A=(-2,2)$.</li>
+      </ul>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ $:=$ contro $=$</div>
+      <p>Il simbolo $:=$ significa «<strong>uguale per definizione</strong>»: sto battezzando un oggetto. Il simbolo $=$ esprime invece un <strong>fatto</strong>, che di norma va dimostrato.</p>
+      <p class="mb0"><em>Esempio del prof.</em> Poniamo $a:=\sqrt{3+2\sqrt2}$ — questa è una definizione. Poi, poiché
+      $$a^{2}=3+2\sqrt2=1+2\sqrt2+(\sqrt2)^{2}=(1+\sqrt2)^{2}$$
+      e $a\ge0$, si <em>conclude</em> che $a=1+\sqrt2$: quest'ultima uguaglianza esprime un fatto appena dimostrato.</p>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ $\in$ contro $\subseteq$</div>
+      <p class="mb0">$x\in A$: $x$ è un <strong>elemento</strong> di $A$. &nbsp; $B\subseteq A$: $B$ è un <strong>sottoinsieme</strong> di $A$, cioè ogni elemento di $B$ sta anche in $A$.<br><br>
+      Sono relazioni fra oggetti di natura diversa: a sinistra di $\in$ c'è un elemento, a sinistra di $\subseteq$ un insieme. Scrivere $\{1\}\in\{1,2\}$ è un errore: la scrittura corretta è $\{1\}\subseteq\{1,2\}$, oppure $1\in\{1,2\}$.</p>
+    </div>
+
+    <h3 id="numerici">Gli insiemi numerici, nella notazione del corso</h3>
+    <div class="box warnb">
+      <div class="box-title">⚠ Attenzione: $\N$ qui non contiene lo zero</div>
+      <p class="mb0">$$\N:=\{1,2,3,\dots\},\qquad \N_0:=\{0,1,2,3,\dots\}$$
+      È una convenzione <strong>diversa</strong> da quella di Analisi 1, dove $\N=\{0,1,2,\dots\}$. Due corsi, due convenzioni: quando leggi «$\forall n\in\N$» controlla in quale corso sei.</p>
+    </div>
+    <p>Per il resto: $\Z:=\{0,\pm1,\pm2,\dots\}$, &nbsp;$\Q:=\{p/q\ :\ p\in\Z,\ q\in\N\}$, &nbsp;$\R$ i reali, &nbsp;$\C:=\{z=x+iy\ :\ x,y\in\R\}$, con la catena
+    $$\N\subset\N_0\subset\Z\subset\Q\subset\R\subset\C.$$
+    L'ultima inclusione vale perché ogni $x\in\R$ si identifica con $x+i0\in\C$.</p>
+
+    <h2 id="rn">2 · Lo spazio $\R^n$</h2>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Per $n\in\N$, $$\R^{n}:=\bigl\{(x_1,x_2,\dots,x_n)\ :\ x_1,\dots,x_n\in\R\bigr\},$$ l'insieme delle successioni finite di $n$ numeri reali.</p>
+    </div>
+    <p><strong>Interpretazione geometrica.</strong> A ogni vettore del piano corrisponde uno e un solo elemento $(x,y)\in\R^{2}$, e la corrispondenza è biunivoca: $\R^{2}$ <em>è</em> l'insieme dei vettori del piano. Analogamente $\R^{3}$ per lo spazio. Per $n\ge4$ l'interpretazione geometrica si perde, ma l'algebra resta identica — ed è questo il punto di passare a $\R^n$.</p>
+
+    <h3 id="operazioni">Operazioni</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Per $\vx=(x_1,\dots,x_n)$, $\vy=(y_1,\dots,y_n)\in\R^{n}$ e $\lambda\in\R$:
+      $$\vx\pm\vy:=(x_1\pm y_1,\ \dots,\ x_n\pm y_n),\qquad \lambda\vx:=(\lambda x_1,\dots,\lambda x_n).$$
+      Si opera <strong>componente per componente</strong>.</p>
+    </div>
+    <p class="small muted">Per distinguere i vettori dai numeri si usa il <strong>grassetto</strong>: $\vx\in\R^n$ contro $x\in\R$. A mano, il prof li sottolinea: $\underline{x}$.</p>
+
+    <h3 id="scalare">Prodotto scalare standard</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$$\vx\cdot\vy:=\sum_{k=1}^{n}x_k y_k=x_1y_1+x_2y_2+\dots+x_ny_n\ \in\R.$$</p>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ Perché conta già adesso</div>
+      <p class="mb0">Il prodotto righe per colonne fra matrici è, entrata per entrata, <em>esattamente</em> questo prodotto scalare: $[AB]_{ij}$ è la riga $i$ di $A$ «scalare» la colonna $j$ di $B$. Se questa definizione ti è chiara, il prodotto di matrici non ti sembrerà arbitrario.</p>
+    </div>
+    <p class="small muted">Il prof precisa che questo è il prodotto scalare <em>standard</em> di $\R^n$: più avanti si vedrà che è un caso particolare del concetto generale di prodotto scalare su uno spazio vettoriale.</p>
+
+    <h3 id="cn">Lo spazio $\C^n$</h3>
+    <p>Per analogia, $\C^{n}:=\{(z_1,\dots,z_n)\ :\ z_k\in\C\}$, con somma e prodotto per uno scalare $\lambda\in\C$ definiti componente per componente.</p>
+    <div class="box warnb">
+      <div class="box-title">⚠ Una precisazione esplicita del corso</div>
+      <p class="mb0">In $\C^{n}$ <strong>non</strong> si definisce il prodotto scalare in questo corso. Il motivo è che la formula $\sum_k z_kw_k$ non darebbe una «lunghezza» sensata: con $z=(1,i)$ si otterrebbe $z\cdot z=1+i^{2}=0$ pur essendo $z\ne\vzero$. Servirebbe il prodotto <em>hermitiano</em> $\sum_k z_k\overline{w_k}$, che esula dal programma.</p>
+    </div>
+
+    <h2 id="quantificatori">3 · Quantificatori</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Simbolo</th><th>Si legge</th><th>Esempio</th></tr></thead>
+        <tbody>
+          <tr><td>$\forall$</td><td>per ogni</td><td>$\forall x\in\R\quad x^{2}\ge0$</td></tr>
+          <tr><td>$\exists$</td><td>esiste almeno un</td><td>$\exists z\in\C\quad z^{2}=-1$</td></tr>
+          <tr><td>$\exists!$</td><td>esiste un unico</td><td>$\exists!\,x>0\quad x^{2}=4$</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ L'ordine dei quantificatori cambia tutto</div>
+      <p class="mb0">$\forall x\ \exists y\ (y>x)$ è <strong>vera</strong> in $\R$ (per ogni $x$ basta prendere $y=x+1$).<br>
+      $\exists y\ \forall x\ (y>x)$ è <strong>falsa</strong> (non c'è un reale maggiore di tutti).<br><br>
+      Stessi simboli, ordine diverso, verità opposta. È lo stesso fenomeno che in Analisi rende delicata la definizione di limite: $\forall\eps\ \exists N$, non il contrario.</p>
+    </div>
+
+    <h2 id="campo">4 · La convenzione $\K$</h2>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Quando un argomento vale sia per il campo $\R$ sia per il campo $\C$, il campo si indica con $\K$. Scrivere «sia $A\in\K^{m\times n}$» significa: l'enunciato che segue è vero per matrici reali <em>e</em> per matrici complesse, con la stessa dimostrazione.</p>
+    </div>
+    <p>Non è pigrizia notazionale: è una scelta di sostanza. Il MEG, il rango, Rouché-Capelli e le condizioni di invertibilità usano solo somma, prodotto e divisione per elementi non nulli — operazioni disponibili in <em>qualunque</em> campo. Enunciarli su $\K$ rende esplicito che la struttura di campo è tutto ciò che serve.</p>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="1-sistemi.html">Sezione 1 · Sistemi lineari e MEG →</a>
+      <a class="btn" href="../index.html">← Piano di studio</a>
+    </div>
+  </main>
+</div>
+
+<footer>Geometria e Algebra Lineare · Sezione 0 · Appunti non ufficiali</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../../assets/js/materie.js"></script>
+<script src="../data/topics.js"></script>
+<script src="../../assets/js/plot.js"></script>
+<script src="../../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 0, 'geometria');
+});
+</script>
+</body>
+</html>

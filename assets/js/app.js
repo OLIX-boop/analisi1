@@ -68,7 +68,12 @@
         ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option'],
         macros: {
           '\\R': '\\mathbb{R}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}',
-          '\\Q': '\\mathbb{Q}', '\\C': '\\mathbb{C}',
+          '\\Q': '\\mathbb{Q}', '\\C': '\\mathbb{C}', '\\K': '\\mathbb{K}',
+          // vettori e matrici (Geometria e Algebra Lineare)
+          '\\vx': '\\mathbf{x}', '\\vy': '\\mathbf{y}', '\\vb': '\\mathbf{b}',
+          '\\vv': '\\mathbf{v}', '\\vu': '\\mathbf{u}', '\\vzero': '\\mathbf{0}',
+          '\\rg': '\\operatorname{rg}', '\\tr': '\\operatorname{tr}',
+          '\\diag': '\\operatorname{diag}', '\\dett': '\\operatorname{det}',
           '\\eps': '\\varepsilon', '\\dd': '\\,\\mathrm{d}',
           '\\sgn': '\\operatorname{sgn}', '\\Real': '\\operatorname{Re}', '\\Imag': '\\operatorname{Im}',
           '\\arccot': '\\operatorname{arccot}', '\\sen': '\\operatorname{sen}'

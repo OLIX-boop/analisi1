@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fondamenti di Informatica — appunti</title>
+<meta name="description" content="Appunti del corso di Fondamenti di Informatica con simulazioni di algoritmi eseguibili passo passo.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Fondamenti">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171614" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="icon" href="assets/icon-32.png" sizes="32x32">
+</head>
+<body>
+
+<header class="topbar"><div class="topbar-inner">
+  <a class="home" href="#home">Fondamenti di Informatica</a>
+  <nav>
+    <a href="#home">Indice</a>
+    <a href="#cap1">1. Algoritmi</a>
+    <a href="#cap2">2. Catalogo</a>
+    <a href="#cap3">3. Macchina C</a>
+    <a href="#cap4">4. Istruzioni</a>
+    <a href="#cap5">5. Array e stringhe</a>
+  </nav>
+  <button class="theme-btn" title="Cambia tema">◐</button>
+</div></header>
+
+<main>
+
+<section class="chapter" id="home" data-title="Indice" hidden>
+<div class="page-head">
+  <div class="eyebrow">A.A. 2025/26 · Politecnico di Milano</div>
+  <h1>Fondamenti di Informatica</h1>
+  <p class="lede">Appunti schematici con esempi eseguibili passo passo. Costruiti sul materiale del corso
+  (introduzione, allegati sugli algoritmi, dichiarazioni/istruzioni/programmi) e pensati per crescere lezione dopo lezione.</p>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Come usare questi appunti</span>
+  <p>Ogni riquadro con il pallino arancione è un <strong>esecutore simulato</strong>: cambia i dati in ingresso,
+  premi <strong>Esegui</strong> e guarda evolvere i contenitori passo dopo passo. Il punto non è vedere il risultato,
+  è vedere <em>perché</em> quella combinazione di passi lo produce.</p>
+  <p style="margin-bottom:0">Il bottone <strong>◐</strong> in alto a destra cambia il tema (chiaro / scuro / automatico).</p>
+</div>
+
+<h2 id="h-capitoli">Capitoli</h2>
+
+<div class="cards">
+  <a class="card" href="#cap1">
+    <div class="num">01</div>
+    <h3>Problemi, esecutori, algoritmi</h3>
+    <p>La terna (I, O, R). Che cos'è un esecutore. Definizione di algoritmo e sue proprietà. Memorizzazione nei contenitori. Le tre strutture di controllo e i diagrammi di flusso.</p>
+    <div class="tags"><span class="tag">teoria</span><span class="tag live">1 simulazione</span></div>
+  </a>
+  <a class="card" href="#cap2">
+    <div class="num">02</div>
+    <h3>Catalogo di algoritmi</h3>
+    <p>Divisione per sottrazioni ripetute, logaritmo intero, massimo di una sequenza, Euclide, ricerca sequenziale e ricerca dicotomica — tutti eseguibili passo passo.</p>
+    <div class="tags"><span class="tag">ragionamento</span><span class="tag live">7 simulazioni</span></div>
+  </a>
+  <a class="card" href="#cap3">
+    <div class="num">03</div>
+    <h3>La macchina astratta C</h3>
+    <p>Unità di controllo, memoria, variabili e identificatori. Perché servono le dichiarazioni di tipo. Espressioni, condizioni, operatori logici, conversioni di tipo.</p>
+    <div class="tags"><span class="tag">linguaggio</span><span class="tag live">3 widget</span></div>
+  </a>
+  <a class="card" href="#cap4">
+    <div class="num">04</div>
+    <h3>Istruzioni e programmi in C</h3>
+    <p>Assegnamento, <code>scanf</code>/<code>printf</code>, <code>if</code>/<code>else</code>, <code>while</code>, <code>do-while</code>, <code>for</code>. Programmi completi commentati, dall'algoritmo al codice.</p>
+    <div class="tags"><span class="tag">codifica</span><span class="tag live">1 simulazione + 1 widget</span></div>
+  </a>
+  <a class="card" href="#cap5">
+    <div class="num">05</div>
+    <h3>Array e stringhe</h3>
+    <p>Aggregati di dati omogenei, indici, ricerca in array, variabile sentinella, rappresentazione in base, massimi locali, stringhe e terminatore <code>'\0'</code>.</p>
+    <div class="tags"><span class="tag">strutture dati</span><span class="tag live">5 simulazioni</span></div>
+  </a>
+</div>
+
+<h2 id="h-corso">Il corso in breve</h2>
+
+<div class="cards">
+  <div class="card">
+    <h3 style="margin-top:0">Orario</h3>
+    <table style="margin:0">
+      <tr><td><b>Lun</b> 10:15–13:15</td><td>Lezione · aula 26.1.1</td></tr>
+      <tr><td><b>Lun</b> 14:15–17:15</td><td>Laboratorio · aula B.2.4</td></tr>
+      <tr><td><b>Mer</b> 8:15–10:15</td><td>Lezione · aula 2.1.2</td></tr>
+      <tr><td><b>Gio</b> 13:15–16:15</td><td>Esercitazione · aula T.1.1</td></tr>
+    </table>
+    <p style="margin-top:10px">Laboratorio solo <b>5 incontri</b>: 12/10, 9/11, 23/11, 30/11, 21/12.
+    Frequenza non obbligatoria, ma valutata attraverso parti del tema d'esame.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Esame</h3>
+    <p>Prova <b>scritta su carta</b>: 4/5 esercizi sull'intero programma. Chi supera lo scritto sostiene una
+    <b>prova orale confermativa</b>. Esito: voto dello scritto oppure rimandato/riprovato.</p>
+    <p>5 appelli l'anno: due a gennaio/febbraio, due a giugno/luglio, uno a settembre. Iscrizione entro la scadenza,
+    niente appunti né dispositivi, si consegnano solo bella copia e testo.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Materiale</h3>
+    <p><b>Libro di testo</b><br>K. N. King, <i>Programmazione in C</i>, Apogeo</p>
+    <p><b>Eserciziario</b><br>V. Caglioti, G. Fontana, <i>Costruire un programma: guida al ragionamento algoritmico</i>, McGraw-Hill</p>
+    <p>… ma soprattutto <b>appunti presi a lezione</b>. Non ci sono lucidi ufficiali né registrazioni di quest'anno.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Docenti</h3>
+    <p>Docente: <b>Vincenzo Caglioti</b> — DEIB, edificio 20A, primo piano — ricevimento su appuntamento.</p>
+    <p>Esercitatore: ing. G. Fontana · Responsabile di laboratorio: ing. N. Catalano.</p>
+  </div>
+</div>
+
+<h2 id="h-avvertenza">L'avvertenza che conta</h2>
+
+<div class="box warn">
+  <span class="box-t">Conoscere il linguaggio ≠ saper progettare</span>
+  <p>Tutte le nozioni sul linguaggio C sono <strong>semplici</strong>. Combinarle ad arte per inventare l'algoritmo
+  che risolve il problema assegnato è <strong>difficile</strong>. È questo il motivo per cui il corso può sembrare
+  facile a chi ha già programmato — ed è proprio lì l'insidia.</p>
+  <p style="margin-bottom:0">All'esame non basta un programma che funziona: deve essere il frutto di un ragionamento
+  solido e coerente con le specifiche date (niente cicli inutili, struttura dati richiesta, ecc.).</p>
+</div>
+
+<p>Il corso insegna <strong>due cose distinte</strong>, che avanzano in parallelo ma restano indipendenti:</p>
+<ol>
+  <li><strong>Analizzare i problemi e inventare algoritmi</strong> che li risolvano → attività creativa;</li>
+  <li><strong>Codificare quegli algoritmi</strong> in programmi scritti in C89 → attività di codifica, con un certo grado di creatività.</li>
+</ol>
+<p>Questi appunti tengono separate le due cose: i capitoli 1–2 sono sul ragionamento (pseudocodice e diagrammi di flusso),
+i capitoli 3–5 sulla codifica.</p>
+
+<h2 id="h-stato">Stato degli appunti</h2>
+
+<p>Coperto finora, dal materiale disponibile al 21 settembre 2026:</p>
+<table>
+  <tr><th>Argomento</th><th>Dove</th><th>Stato</th></tr>
+  <tr><td>Organizzazione del corso, obiettivi, esame</td><td>questa pagina</td><td>✅</td></tr>
+  <tr><td>Problema, esecutore, algoritmo, strutture di controllo</td><td>cap. 1</td><td>✅</td></tr>
+  <tr><td>Algoritmi di riferimento (allegati 1–6)</td><td>cap. 2</td><td>✅</td></tr>
+  <tr><td>Macchina astratta C, dichiarazioni, espressioni, condizioni</td><td>cap. 3</td><td>✅</td></tr>
+  <tr><td>Istruzioni, cicli, casting, programmi d'esempio</td><td>cap. 4</td><td>✅</td></tr>
+  <tr><td>Array e stringhe</td><td>cap. 5</td><td>✅</td></tr>
+  <tr><td>Codifica binaria dell'informazione</td><td>—</td><td>⏳ da fare</td></tr>
+  <tr><td>Sottoprogrammi (funzioni, passaggio parametri)</td><td>—</td><td>⏳ da fare</td></tr>
+  <tr><td>Strutture, file, allocazione dinamica, liste</td><td>—</td><td>⏳ da fare</td></tr>
+  <tr><td>Ricorsione</td><td>—</td><td>⏳ da fare</td></tr>
+</table>
+
+<div class="pager">
+  <span></span>
+  <a class="next" href="#cap1"><div class="dir">Inizia da qui →</div><div class="ttl">1. Problemi, esecutori, algoritmi</div></a>
+</div>
+</section>
+
+<section class="chapter" id="cap1" data-title="Problemi, esecutori, algoritmi" hidden>
+<div class="page-head">
+  <div class="eyebrow">Capitolo 1</div>
+  <h1>Problemi, esecutori, algoritmi</h1>
+  <p class="lede">Le tre nozioni su cui poggia tutto il corso, e il modo di combinare passi elementari
+  per passare da un problema alla sua soluzione automatica.</p>
+</div>
+
+<div class="toc"><b>In questa pagina</b></div>
+
+<h2 id="c1-informatica">Che cos'è l'informatica</h2>
+
+<p>L'oggetto dell'informatica è l'<em class="term">informazione</em>: come ricavare <strong>ciò che non si sa</strong>
+(e che interessa) a partire da <strong>ciò che si sa</strong>.</p>
+
+<p>Due definizioni equivalenti, entrambe usate a lezione:</p>
+<ul>
+  <li>scienza dell'<strong>elaborazione</strong> dell'informazione (e della sua <strong>rappresentazione</strong>);</li>
+  <li>scienza degli <strong>algoritmi</strong>.</li>
+</ul>
+
+<p>Il corso è <strong>progettuale</strong>, come tutta l'ingegneria: si impara a <em>ragionare</em> per ideare algoritmi
+e scrivere programmi che risolvano un problema assegnato. Servono pochissime conoscenze disciplinari: è ragionamento puro.</p>
+
+<p>La nozione di algoritmo ne richiede altre due, che vanno definite prima: <strong>problema</strong> ed <strong>esecutore</strong>.</p>
+
+<h2 id="c1-problema">Il problema: la terna (I, O, R)</h2>
+
+<div class="box def">
+  <span class="box-t">Definizione — problema informatico</span>
+  <p style="margin-bottom:0">Un problema è una terna <strong>(I, O, R)</strong> dove:</p>
+</div>
+
+<div class="ior">
+  <div><span class="k">I — Dati</span><span>Informazioni <strong>in ingresso</strong>, che soddisfano alcune <strong>condizioni di validità</strong>.</span></div>
+  <div><span class="k">O — Risultati</span><span>Informazioni <strong>in uscita</strong>, che soddisfano alcune condizioni di validità.</span></div>
+  <div><span class="k">R — Relazione</span><span>La relazione che deve valere fra dati e risultati, <strong>per qualunque insieme di dati valido</strong>.</span></div>
+</div>
+
+<div class="box exam">
+  <span class="box-t">Esempio — minimo fra due numeri naturali</span>
+  <ul style="margin-bottom:0">
+    <li><b>I</b>: due numeri (validi se sono naturali);</li>
+    <li><b>O</b>: un numero (valido se è naturale);</li>
+    <li><b>R</b>: il risultato è uno dei due dati <i>e</i> il risultato non è maggiore dell'altro dato.</li>
+  </ul>
+</div>
+
+<div class="box note">
+  <span class="box-t">Perché la relazione va scritta così</span>
+  <p style="margin-bottom:0">Notare che R non dice <i>come</i> si trova il minimo: dice solo <strong>quale proprietà</strong> lega
+  risultato e dati. La terna descrive il problema, non la soluzione. Se scrivi in R un pezzo di procedimento,
+  hai già smesso di analizzare e hai iniziato (male) a progettare.</p>
+</div>
+
+<h2 id="c1-esecutore">L'esecutore</h2>
+
+<div class="box def">
+  <span class="box-t">Definizione — esecutore</span>
+  <p style="margin-bottom:0">Un sistema capace di eseguire in modo <strong>deterministico</strong> ciascun passo elementare
+  appartenente a un insieme <strong>esiguo</strong> di passi elementari.</p>
+</div>
+
+<p>Un esecutore tipico per i nostri esempi sa fare solo questo:</p>
+<ul>
+  <li>acquisizione dei dati (<strong>lettura</strong>);</li>
+  <li>produzione dei risultati (<strong>scrittura</strong>);</li>
+  <li>addizione di due numeri;</li>
+  <li>sottrazione fra due numeri;</li>
+  <li>confronto fra due numeri (calcolo dell'esito <i>vero</i> / <i>falso</i>);</li>
+  <li><strong>memorizzazione</strong> di un valore in un contenitore (vedi più avanti).</li>
+</ul>
+
+<div class="box warn">
+  <span class="box-t">Attenzione</span>
+  <p style="margin-bottom:0">Un algoritmo è sempre <strong>relativo a un esecutore</strong>. «Trova il massimo» non è un passo
+  elementare se l'esecutore sa solo confrontare: va costruito. Quando svolgi un esercizio, la prima domanda è
+  <i>quali passi ho davvero a disposizione?</i></p>
+</div>
+
+<h2 id="c1-algoritmo">L'algoritmo</h2>
+
+<div class="box def">
+  <span class="box-t">Definizione — algoritmo</span>
+  <p>Dati un problema P e un esecutore E, un algoritmo è una <strong>combinazione finita di passi elementari</strong>,
+  ciascuno eseguibile da E, in grado di risolvere P: cioè, per <strong>qualunque</strong> insieme valido di dati in ingresso,
+  produce in uscita risultati validi che soddisfano la relazione R.</p>
+  <p style="margin-bottom:0">Le due parole pesanti sono <strong>combinazione</strong> (si combinano in modi precisi: sequenza,
+  selezione, iterazione) e <strong>finita</strong> (l'esecuzione deve prima o poi raggiungere un passo TERMINA).</p>
+</div>
+
+<h3>Esempio: l'opposto di un numero intero</h3>
+<pre class="pseudo">
+1. Acquisisci un numero intero
+2. Sottrai dal valore 0 il valore del numero acquisito
+3. Produci in uscita il risultato della sottrazione
+4. TERMINA
+</pre>
+<p>Qui i passi sono eseguiti uno dopo l'altro: è una pura <strong>sequenza</strong>.</p>
+
+<h3>Esempio: il massimo fra due numeri naturali</h3>
+<pre class="pseudo">
+1. Acquisisci due numeri naturali in ingresso
+2. Confronta il valore dei due numeri
+3. Se il primo numero è maggiore del secondo
+3.1    produci il primo numero come risultato in uscita
+   Altrimenti
+3.2    produci il secondo numero come risultato in uscita
+4. TERMINA
+</pre>
+<p>Qui compare una <strong>selezione</strong>: i passi 3.1 e 3.2 sono <em>alternativi</em>, non verranno mai eseguiti entrambi.</p>
+
+<div class="box note">
+  <span class="box-t">Computazione</span>
+  <p style="margin-bottom:0">La <strong>computazione</strong> di un algoritmo è la successione di passi <em>effettivamente</em> eseguita,
+  cioè il percorso seguito. Un solo algoritmo, <strong>tante computazioni diverse</strong> a seconda dei dati.
+  Quando verifichi un algoritmo non devi controllare «il codice»: devi seguire <i>una</i> computazione alla volta,
+  scegliendo dati che facciano prendere percorsi diversi.</p>
+</div>
+
+<h3>Le proprietà che rendono un algoritmo tale</h3>
+<table>
+  <tr><th>Proprietà</th><th>Significato</th><th>Errore tipico</th></tr>
+  <tr><td><b>Eseguibilità</b></td><td>Ogni passo appartiene all'insieme dei passi elementari dell'esecutore.</td><td>Usare «ordina la sequenza» come se fosse un passo.</td></tr>
+  <tr><td><b>Determinismo</b></td><td>Lo stesso passo, sugli stessi dati, dà sempre lo stesso esito.</td><td>Passi ambigui («prendi un elemento qualsiasi»).</td></tr>
+  <tr><td><b>Finitezza</b></td><td>Per <i>ogni</i> insieme valido di dati la computazione raggiunge TERMINA.</td><td>Cicli che non riducono mai lo spazio di ricerca (vedi <a href="#c2-dicotomica">cap. 2</a>).</td></tr>
+  <tr><td><b>Generalità</b></td><td>Funziona per <i>tutti</i> i dati validi, non per un esempio.</td><td>Provare solo il caso «bello» e non i casi limite.</td></tr>
+</table>
+
+<h2 id="c1-memorizzazione">La memorizzazione: i contenitori</h2>
+
+<div class="box def">
+  <span class="box-t">Definizione</span>
+  <p style="margin-bottom:0"><strong>Memorizzare un valore in un contenitore</strong> significa salvarlo e conservarlo
+  <strong>inalterato</strong> durante l'esecuzione di altri passi. È un passo elementare a tutti gli effetti, e senza di esso
+  non si va da nessuna parte.</p>
+</div>
+
+<p>La notazione usata a lezione è la freccia:</p>
+<pre class="pseudo">
+A ← B - C
+A ← B - 3
+</pre>
+
+<p>Sono <strong>due passi in uno</strong>:</p>
+<ol>
+  <li>si calcola la sottrazione fra due valori (ciascuno può essere <i>contenuto in un contenitore</i>, come B e C,
+  oppure un valore non memorizzato, come 3);</li>
+  <li>si <strong>memorizza il risultato</strong> nel contenitore A. Da quel momento il valore resta lì, inalterato,
+  fino a un eventuale futuro <code>A ← …</code> che lo <strong>sovrascrive</strong>: del vecchio valore si perde ogni memoria.</li>
+</ol>
+
+<div class="box warn">
+  <span class="box-t">La regola da non sbagliare mai: sinistra ≠ destra</span>
+  <table style="margin:8px 0 0">
+    <tr><th>Dove compare A</th><th>Che cosa significa</th></tr>
+    <tr><td><code>A ← …</code> &nbsp;(a <b>sinistra</b>)</td><td>il <b>nome del contenitore</b> su cui scrivere il nuovo valore</td></tr>
+    <tr><td><code>… ← A + 2</code> &nbsp;(a <b>destra</b>)</td><td>il <b>valore memorizzato</b> dentro A, da usare nel calcolo</td></tr>
+  </table>
+  <p style="margin:10px 0 0">Ecco perché <code>A ← A + 2</code> ha perfettamente senso e non è un'equazione: significa
+  «prendi il valore che c'è in A, aggiungici 2, riscrivi il risultato in A».</p>
+</div>
+
+<h3>Un algoritmo minimo che lo usa: lo scambio</h3>
+
+<div class="ior">
+  <div><span class="k">I</span><span>due contenitori M e N, ciascuno con un valore memorizzato</span></div>
+  <div><span class="k">O</span><span>gli stessi due contenitori M e N, ciascuno con un valore memorizzato</span></div>
+  <div><span class="k">R</span><span>i valori sono gli stessi dei dati, ma ciascuno è ora nel contenitore in cui era inizialmente memorizzato l'altro</span></div>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Idea</span>
+  <p style="margin-bottom:0">Se scrivo subito <code>M ← N</code> perdo per sempre il vecchio valore di M. Serve un
+  <strong>terzo contenitore temporaneo T</strong> che faccia da appoggio. Il problema non è «scambiare»: è
+  <strong>non distruggere</strong> un'informazione che serve ancora.</p>
+</div>
+
+<div data-algo="scambio"></div>
+
+<details>
+  <summary>Esercizio: e se provassi senza T?</summary>
+  <p>Traccia a mano la computazione di <code>M ← N; N ← M</code> partendo da M=7, N=12. Alla fine ti ritrovi
+  M=12 e N=12: il valore 7 è stato sovrascritto al primo passo e nessun passo successivo può recuperarlo.
+  È lo stesso motivo per cui, nel capitolo 5, prima di azzerare <code>A[i]</code> bisogna salvarne il valore in <code>prec</code>.</p>
+</details>
+
+<h2 id="c1-strutture">Le tre strutture di controllo</h2>
+
+<p>I «modi» per combinare i passi elementari si chiamano <strong>strutture di controllo</strong>. Sono tre, e bastano tutte
+e sole queste per esprimere qualunque algoritmo:</p>
+
+<figure>
+<svg class="flow" viewBox="0 0 720 300" role="img" aria-label="Le tre strutture di controllo: sequenza, selezione, iterazione">
+  <defs>
+    <marker id="c1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <!-- SEQUENZA -->
+  <text x="100" y="22" style="font-weight:700">SEQUENZA</text>
+  <rect class="fbox" x="40" y="42" width="120" height="32" rx="4"/><text x="100" y="58">passo 1</text>
+  <line x1="100" y1="74" x2="100" y2="100" marker-end="url(#c1-ar)"/>
+  <rect class="fbox" x="40" y="102" width="120" height="32" rx="4"/><text x="100" y="118">passo 2</text>
+  <line x1="100" y1="134" x2="100" y2="160" marker-end="url(#c1-ar)"/>
+  <rect class="fbox" x="40" y="162" width="120" height="32" rx="4"/><text x="100" y="178">passo 3</text>
+  <line x1="100" y1="194" x2="100" y2="224" marker-end="url(#c1-ar)"/>
+
+  <!-- SELEZIONE -->
+  <text x="350" y="22" style="font-weight:700">SELEZIONE</text>
+  <line x1="350" y1="34" x2="350" y2="52" marker-end="url(#c1-ar)"/>
+  <polygon class="fcond" points="350,54 420,86 350,118 280,86"/><text x="350" y="86">condizione?</text>
+  <line x1="280" y1="86" x2="250" y2="86"/><line x1="250" y1="86" x2="250" y2="138" marker-end="url(#c1-ar)"/>
+  <text class="lbl" x="264" y="76">VERA</text>
+  <line x1="420" y1="86" x2="452" y2="86"/><line x1="452" y1="86" x2="452" y2="138" marker-end="url(#c1-ar)"/>
+  <text class="lbl" x="437" y="76">FALSA</text>
+  <rect class="fbox" x="196" y="140" width="108" height="32" rx="4"/><text x="250" y="156">passi A</text>
+  <rect class="fbox" x="398" y="140" width="108" height="32" rx="4"/><text x="452" y="156">passi B</text>
+  <line x1="250" y1="172" x2="250" y2="200"/><line x1="452" y1="172" x2="452" y2="200"/>
+  <line x1="250" y1="200" x2="452" y2="200"/>
+  <line x1="350" y1="200" x2="350" y2="228" marker-end="url(#c1-ar)"/>
+
+  <!-- ITERAZIONE -->
+  <text x="610" y="22" style="font-weight:700">ITERAZIONE</text>
+  <line x1="610" y1="34" x2="610" y2="52" marker-end="url(#c1-ar)"/>
+  <polygon class="fcond" points="610,54 676,86 610,118 544,86"/><text x="610" y="86">condizione?</text>
+  <line x1="610" y1="118" x2="610" y2="148" marker-end="url(#c1-ar)"/>
+  <text class="lbl" x="628" y="132">VERA</text>
+  <rect class="fbox" x="552" y="150" width="116" height="32" rx="4"/><text x="610" y="166">corpo del ciclo</text>
+  <path d="M 668 166 L 700 166 L 700 86 L 678 86" marker-end="url(#c1-ar)"/>
+  <line x1="544" y1="86" x2="516" y2="86"/><line x1="516" y1="86" x2="516" y2="228" marker-end="url(#c1-ar)"/>
+  <text class="lbl" x="530" y="76">FALSA</text>
+</svg>
+<figcaption>Le tre strutture di controllo. Ogni blocco «passo» può a sua volta contenere un'altra struttura: è così che nascono gli algoritmi complessi.</figcaption>
+</figure>
+
+<h3>1 · Sequenza</h3>
+<p>Un passo dopo l'altro, nell'ordine scritto. L'algoritmo dell'opposto è tutto qui.</p>
+
+<h3>2 · Selezione</h3>
+<p>Durante l'esecuzione viene esaminata una <strong>condizione</strong>. Se risulta <strong>vera</strong> si esegue una certa
+sequenza di passi, se risulta <strong>falsa</strong> se ne esegue una diversa. Le due sequenze sono <strong>alternative</strong>:
+non verranno mai eseguite entrambe. Il ramo «altrimenti» può anche essere vuoto (non fare nulla).</p>
+
+<h3>3 · Iterazione (ciclo)</h3>
+<p>Un ciclo è caratterizzato da una <strong>condizione</strong> e da una sequenza di passi. Quando la computazione raggiunge
+la condizione la valuta:</p>
+<ul>
+  <li>se risulta <strong>falsa</strong>, il corpo non viene eseguito e si passa oltre;</li>
+  <li>se risulta <strong>vera</strong>, esegue i passi del ciclo e poi <strong>torna a valutare la condizione</strong>.</li>
+</ul>
+
+<div class="box warn">
+  <span class="box-t">Conseguenza da tenere sempre a mente</span>
+  <p style="margin-bottom:0">Un ciclo può essere eseguito <strong>0 volte, 1 volta o più volte</strong>, a seconda di
+  quante volte la condizione risulta vera. Il caso «zero volte» è quello che gli studenti dimenticano di verificare,
+  ed è quasi sempre il caso limite chiesto all'esame.</p>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Come si ragiona su un ciclo</span>
+  <p style="margin-bottom:0">Per ogni ciclo che scrivi devi saper rispondere a tre domande:</p>
+  <ol style="margin-bottom:0">
+    <li><b>Inizializzazione</b>: quali contenitori devono avere un valore <i>prima</i> di entrare?</li>
+    <li><b>Invariante</b>: che cosa è vero a <i>ogni</i> giro? (es. «MAX contiene il massimo dei valori letti finora»)</li>
+    <li><b>Terminazione</b>: quale quantità decresce a ogni giro, garantendo che la condizione prima o poi diventi falsa?</li>
+  </ol>
+</div>
+
+<h2 id="c1-flusso">Diagrammi di flusso</h2>
+
+<p>Il diagramma di flusso rende visibile il <strong>percorso</strong> della computazione. Stessa cosa del pseudocodice,
+vista da un'altra angolazione: utile quando devi convincerti che tutti i cammini finiscono davvero in «Fine».</p>
+
+<figure>
+<svg class="flow" viewBox="0 0 700 330" role="img" aria-label="Diagramma di flusso del massimo di una sequenza">
+  <defs>
+    <marker id="c1-ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+  <rect class="fstart" x="290" y="10" width="110" height="30" rx="15"/><text x="345" y="25">Inizio</text>
+  <line x1="345" y1="40" x2="345" y2="58" marker-end="url(#c1-ar2)"/>
+  <rect class="fbox" x="285" y="60" width="120" height="30" rx="4"/><text x="345" y="75">MAX ← 0</text>
+  <line x1="345" y1="90" x2="345" y2="108" marker-end="url(#c1-ar2)"/>
+  <rect class="fio" x="285" y="110" width="120" height="30" rx="4"/><text x="345" y="125">Leggi N</text>
+  <line x1="345" y1="140" x2="345" y2="156" marker-end="url(#c1-ar2)"/>
+  <polygon class="fcond" points="345,158 415,186 345,214 275,186"/><text x="345" y="186">N &gt; 0 ?</text>
+
+  <text class="lbl" x="432" y="176">SÌ</text>
+  <line x1="415" y1="186" x2="470" y2="186" marker-end="url(#c1-ar2)"/>
+  <polygon class="fcond" points="530,158 598,186 530,214 462,186"/><text x="530" y="186">N &gt; MAX ?</text>
+  <text class="lbl" x="546" y="230">SÌ</text>
+  <line x1="530" y1="214" x2="530" y2="238" marker-end="url(#c1-ar2)"/>
+  <rect class="fbox" x="472" y="240" width="116" height="30" rx="4"/><text x="530" y="255">MAX ← N</text>
+  <text class="lbl" x="614" y="176">NO</text>
+  <path d="M 598 186 L 632 186 L 632 290 L 345 290" />
+  <path d="M 530 270 L 530 290" />
+  <rect class="fio" x="285" y="275" width="120" height="30" rx="4"/><text x="345" y="290">Leggi N</text>
+  <path d="M 285 290 L 250 290 L 250 186 L 273 186" marker-end="url(#c1-ar2)"/>
+
+  <text class="lbl" x="252" y="176">NO</text>
+  <line x1="275" y1="186" x2="215" y2="186"/>
+  <line x1="215" y1="186" x2="215" y2="60"/>
+  <line x1="215" y1="60" x2="160" y2="60" marker-end="url(#c1-ar2)"/>
+  <rect class="fio" x="40" y="45" width="118" height="30" rx="4"/><text x="99" y="60">Scrivi MAX</text>
+  <line x1="99" y1="75" x2="99" y2="100" marker-end="url(#c1-ar2)"/>
+  <rect class="fstart" x="44" y="102" width="110" height="30" rx="15"/><text x="99" y="117">Fine</text>
+</svg>
+<figcaption>Massimo di una sequenza di valori positivi terminata da un valore non positivo. Si vede bene che la lettura compare <b>due volte</b>: una prima del ciclo, una in coda al corpo.</figcaption>
+</figure>
+
+<p>La versione eseguibile passo passo di questo algoritmo è nel <a href="#c2-massimo">capitolo 2</a>.</p>
+
+<h3>Il livello di dettaglio è una scelta</h3>
+<p>Lo stesso algoritmo si può disegnare a granularità diverse, a seconda di che cosa l'esecutore sa fare.
+Se l'esecutore non ha il confronto diretto ma solo la sottrazione, il blocco <code>X &gt; Y ?</code> si espande in due passi:</p>
+<pre class="pseudo">
+D ← X - Y
+D &gt; 0 ?
+</pre>
+<p>È la stessa idea del passaggio dal problema al programma: si <strong>decompone un passo complesso in sottopassi semplici</strong>
+finché ogni pezzo è eseguibile.</p>
+
+<h2 id="c1-metodo">Il metodo di lavoro</h2>
+
+<div class="box idea">
+  <span class="box-t">Dallo zero al programma, in ordine</span>
+  <ol style="margin-bottom:0">
+    <li><b>Scrivi la terna (I, O, R).</b> Se non sai scrivere R, non hai capito il problema.</li>
+    <li><b>Elenca i passi elementari dell'esecutore.</b> Cosa hai diritto di usare.</li>
+    <li><b>Trova l'IDEA.</b> Una frase in italiano che spiega <i>perché</i> funzionerà
+       (es. «conta quante volte riesco a sottrarre»). Questa frase vale metà dell'esercizio.</li>
+    <li><b>Scrivi l'algoritmo in pseudocodice</b>, numerando i passi e indentando le strutture.</li>
+    <li><b>Traccia a mano la computazione</b> su un caso normale e su tutti i casi limite.</li>
+    <li><b>Solo allora</b> codifica in C.</li>
+  </ol>
+</div>
+
+<div class="box warn">
+  <span class="box-t">Casi limite da provare sempre</span>
+  <ul style="margin-bottom:0">
+    <li>sequenza <b>vuota</b> (il ciclo gira zero volte);</li>
+    <li>sequenza con <b>un solo</b> elemento;</li>
+    <li>dati <b>uguali</b> fra loro (M = N);</li>
+    <li>il valore cercato è il <b>primo</b> / l'<b>ultimo</b> / <b>assente</b>;</li>
+    <li>valori al bordo delle condizioni di validità (0, 1, il massimo).</li>
+  </ul>
+</div>
+
+<div class="quiz">
+  <h3>Verifica rapida</h3>
+
+  <div class="q" data-correct="2">
+    <div class="qt">1. In <code>A ← A + 2</code>, la A che compare a destra della freccia indica…</div>
+    <div class="opts">
+      <button class="opt">lo stesso contenitore indicato a sinistra, quindi l'istruzione è priva di senso</button>
+      <button class="opt">il nome del contenitore su cui scrivere</button>
+      <button class="opt">il valore attualmente memorizzato in A, usato per calcolare il nuovo valore</button>
+    </div>
+    <div class="why">A destra della freccia un nome di contenitore rappresenta il suo <b>contenuto</b>; a sinistra rappresenta
+    il <b>contenitore stesso</b>. Prima si calcola il valore a destra, poi lo si scrive a sinistra.</div>
+  </div>
+
+  <div class="q" data-correct="1">
+    <div class="qt">2. Quante volte viene eseguito il corpo di un ciclo <code>mentre (condizione)</code>?</div>
+    <div class="opts">
+      <button class="opt">Almeno una, perché il corpo va comunque eseguito prima di ricontrollare</button>
+      <button class="opt">Zero, una o più volte, a seconda di quante volte la condizione risulta vera</button>
+      <button class="opt">Esattamente il numero di volte scritto nella condizione</button>
+    </div>
+    <div class="why">La condizione viene valutata <b>prima</b> del corpo: se è subito falsa, il corpo non viene mai eseguito.
+    Il caso «zero volte» è quello da verificare per primo.</div>
+  </div>
+
+  <div class="q" data-correct="0">
+    <div class="qt">3. Perché una sequenza di passi che non termina per certi dati validi non è un algoritmo?</div>
+    <div class="opts">
+      <button class="opt">Perché la definizione richiede una combinazione <i>finita</i>: per ogni insieme valido di dati la computazione deve raggiungere TERMINA</button>
+      <button class="opt">Perché consuma troppa memoria</button>
+      <button class="opt">Non è un problema: basta interromperla dall'esterno</button>
+    </div>
+    <div class="why">La finitezza è parte della definizione, e va garantita per <b>tutti</b> i dati validi — non solo per quelli
+    con cui l'hai provata.</div>
+  </div>
+
+  <div class="q" data-correct="1">
+    <div class="qt">4. Che cos'è la «computazione» di un algoritmo?</div>
+    <div class="opts">
+      <button class="opt">L'insieme di tutti i passi scritti nell'algoritmo</button>
+      <button class="opt">La successione di passi effettivamente eseguita, che dipende dai dati</button>
+      <button class="opt">Il calcolo del risultato finale</button>
+    </div>
+    <div class="why">Un algoritmo è uno; le sue computazioni sono tante, una per ogni insieme di dati. Verificare un algoritmo
+    significa esaminare computazioni diverse.</div>
+  </div>
+</div>
+
+<div class="pager">
+  <a href="#home"><div class="dir">← Indietro</div><div class="ttl">Indice</div></a>
+  <a class="next" href="#cap2"><div class="dir">Avanti →</div><div class="ttl">2. Catalogo di algoritmi</div></a>
+</div>
+</section>
+
+<section class="chapter" id="cap2" data-title="Catalogo di algoritmi" hidden>
+<div class="page-head">
+  <div class="eyebrow">Capitolo 2</div>
+  <h1>Catalogo di algoritmi</h1>
+  <p class="lede">Gli algoritmi visti a lezione (allegati 1–6), ciascuno con problema, idea, pseudocodice
+  ed esecuzione passo passo. Non vanno imparati a memoria: vanno capiti gli <strong>schemi di ragionamento</strong> che contengono.</p>
+</div>
+
+<div class="toc"><b>In questa pagina</b></div>
+
+<div class="box idea">
+  <span class="box-t">Gli schemi che ricorrono</span>
+  <table style="margin:8px 0 0">
+    <tr><th>Schema</th><th>Dove lo vedi</th></tr>
+    <tr><td><b>Contatore</b>: una variabile conta quante volte è successo qualcosa</td><td>divisione, logaritmo, potenza</td></tr>
+    <tr><td><b>Accumulatore</b>: una variabile accumula un risultato parziale</td><td>sommatoria, media</td></tr>
+    <tr><td><b>Ottimo corrente</b>: una variabile conserva il migliore visto finora</td><td>massimo di una sequenza</td></tr>
+    <tr><td><b>Riduzione</b>: a ogni giro il problema diventa più piccolo ma equivalente</td><td>Euclide, ricerca dicotomica</td></tr>
+    <tr><td><b>Sentinella</b>: una variabile registra «è già successo?»</td><td>ricerche</td></tr>
+  </table>
+</div>
+
+<h2 id="c2-divisione">1 · Divisione intera per sottrazioni ripetute</h2>
+
+<div class="ior">
+  <div><span class="k">I</span><span>due numeri naturali M e N, con N diverso da 0</span></div>
+  <div><span class="k">O</span><span>due numeri naturali Q e R</span></div>
+  <div><span class="k">R</span><span>Q è il quoziente della divisione intera fra M e N, R è il resto</span></div>
+</div>
+
+<p><strong>Esecutore</strong>: lettura, scrittura, addizione, sottrazione, confronto fra naturali, memorizzazione.
+<em>Non</em> possiede la divisione: è proprio quello che dobbiamo costruire.</p>
+
+<div class="box idea">
+  <span class="box-t">Idea</span>
+  <p style="margin-bottom:0">Produci in uscita il <strong>numero di volte</strong> che è possibile sottrarre N da un valore,
+  inizialmente pari a M, senza che il risultato scenda sotto 0. Produci anche l'ultimo valore ottenuto: è il resto.</p>
+</div>
+
+<div data-algo="divisione"></div>
+
+<div class="box note">
+  <span class="box-t">Invariante del ciclo</span>
+  <p style="margin-bottom:0">A ogni valutazione della condizione vale <strong>M = N·Q + R</strong>. All'uscita vale anche
+  <strong>R &lt; N</strong>: le due cose insieme sono esattamente la definizione di quoziente e resto. Un'invariante
+  che si mantiene + una condizione di uscita = dimostrazione che l'algoritmo è corretto.</p>
+</div>
+
+<details>
+  <summary>Che succede se N &gt; M? E se M = 0?</summary>
+  <p>Prova con M=3, N=5 nel simulatore: la condizione <code>R &gt;= N</code> è <b>subito falsa</b>, il ciclo gira
+  <b>zero volte</b> e si producono Q=0, R=3. È corretto: 3 diviso 5 fa 0 con resto 3. Con M=0 si ottiene Q=0, R=0.</p>
+  <p style="margin-bottom:0">Con N=0 invece l'algoritmo non terminerebbe mai (sottrarre 0 non riduce nulla): ecco perché
+  «N diverso da 0» sta nelle <b>condizioni di validità dei dati</b>, e non è un dettaglio pedante.</p>
+</details>
+
+<h2 id="c2-logaritmo">2 · Logaritmo intero in base B</h2>
+
+<div class="ior">
+  <div><span class="k">I</span><span>due numeri naturali N e B, entrambi maggiori di 1</span></div>
+  <div><span class="k">O</span><span>un numero naturale L</span></div>
+  <div><span class="k">R</span><span>L è il logaritmo intero di N in base B, cioè B<sup>L</sup> ≤ N &lt; B<sup>L+1</sup></span></div>
+</div>
+
+<p><strong>Esecutore</strong>: come sopra, ma con la <strong>divisione intera</strong> fra i passi elementari.</p>
+
+<div class="box idea">
+  <span class="box-t">Idea — e perché è «lo stesso» algoritmo di prima</span>
+  <p style="margin-bottom:0">Conta quante volte posso dividere N per B prima che il risultato scenda sotto 1.
+  È la <strong>stessa struttura</strong> della divisione per sottrazioni ripetute, con la sottrazione sostituita
+  dalla divisione: riconoscere questa parentela è ciò che permette di riusare un ragionamento già fatto.</p>
+</div>
+
+<div data-algo="logaritmo"></div>
+
+<div class="box warn">
+  <span class="box-t">Refuso da correggere negli appunti presi a lezione</span>
+  <p style="margin-bottom:0">Nel testo degli appunti il passo 4.1 è scritto <code>R ← R / N</code>: è un errore di trascrizione.
+  Deve essere <code>R ← R / <b>B</b></code> — si divide per la <b>base</b>, non per il numero di partenza.
+  Con <code>R / N</code> il ciclo girerebbe una volta sola e produrrebbe sempre L=1.</p>
+</div>
+
+<h2 id="c2-massimo">3 · Massimo di una sequenza</h2>
+
+<p><em>Leggi in sequenza valori interi positivi, in quantità non specificata, fino al primo valore negativo
+(che segnala la fine della lettura), e stampa il massimo fra i valori positivi letti. Se non viene letto alcun
+valore positivo, stampa 0.</em></p>
+
+<div class="ior">
+  <div><span class="k">I</span><span>una sequenza di valori interi positivi seguita da un valore negativo, acquisiti tramite lettura</span></div>
+  <div><span class="k">O</span><span>un numero naturale</span></div>
+  <div><span class="k">R</span><span>è il massimo fra i numeri della sequenza; se non vi sono numeri positivi, è 0</span></div>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Idea</span>
+  <p style="margin-bottom:0">Tieni un contenitore MAX che, <strong>a ogni iterazione</strong>, contiene il massimo fra i numeri
+  letti <strong>fino a quel momento</strong>. Inizializzarlo a 0 risolve gratis anche il caso «nessun valore positivo».</p>
+</div>
+
+<div data-algo="massimo-seq"></div>
+
+<div class="box note">
+  <span class="box-t">Lo schema «leggi–elabora–rileggi»</span>
+  <p style="margin-bottom:0">La lettura compare <strong>due volte</strong>: una <em>prima</em> del ciclo (per avere un valore
+  su cui valutare la condizione) e una <em>in coda</em> al corpo. È lo schema standard di tutte le letture terminate
+  da un valore sentinella. Se la lettura stesse solo in testa al corpo, il terminatore verrebbe elaborato come un dato.</p>
+</div>
+
+<details>
+  <summary>Varianti tipiche d'esame</summary>
+  <ul style="margin-bottom:0">
+    <li><b>Massimo e minimo insieme</b>: serve una seconda variabile, ma il minimo <i>non</i> può partire da 0 —
+    va inizializzato con il primo valore letto (e allora il caso «sequenza vuota» va trattato a parte).</li>
+    <li><b>Massimo e la sua posizione</b>: aggiungi un contatore di posizione e aggiornalo <i>insieme</i> a MAX.</li>
+    <li><b>Secondo massimo</b>: due variabili che «scalano» quando arriva un valore più grande. Attento all'ordine
+    degli aggiornamenti: è lo stesso problema dello scambio con contenitore temporaneo.</li>
+    <li><b>Sequenza che può contenere valori negativi</b>: l'inizializzazione a 0 diventa <b>sbagliata</b>.</li>
+  </ul>
+</details>
+
+<h2 id="c2-euclide">4 · Massimo comun divisore (Euclide)</h2>
+
+<div class="ior">
+  <div><span class="k">I</span><span>due numeri naturali M e N maggiori di 0</span></div>
+  <div><span class="k">O</span><span>un numero naturale D</span></div>
+  <div><span class="k">R</span><span>D è il massimo comun divisore di M e N</span></div>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Il ragionamento (re-invenzione dell'algoritmo)</span>
+  <p>Sfruttiamo una <strong>proprietà aritmetica</strong>: se D è divisore sia di M sia di N, allora D divide anche
+  la loro somma M+N e la loro differenza M−N. E quindi divide anche il <strong>resto</strong> della divisione intera
+  M % N (che è M meno un certo numero di volte N).</p>
+  <p style="margin-bottom:0">Conseguenza: la coppia <strong>(M, N)</strong> e la coppia <strong>(N, M%N)</strong> hanno
+  <strong>esattamente gli stessi divisori comuni</strong>, quindi lo stesso MCD. Ma la seconda coppia è fatta di numeri
+  <strong>più piccoli</strong>. Ripeto finché il resto diventa 0: a quel punto il numero più piccolo divide l'altro ed è il MCD.</p>
+</div>
+
+<div data-algo="euclide"></div>
+
+<div class="box note">
+  <span class="box-t">Perché termina</span>
+  <p style="margin-bottom:0">Il resto di una divisione è sempre <strong>strettamente minore del divisore</strong> e mai negativo.
+  Quindi il secondo numero della coppia decresce strettamente a ogni giro restando ≥ 0: non può farlo all'infinito.
+  Questo è <em>il</em> modo di argomentare la terminazione di un ciclo.</p>
+</div>
+
+<details>
+  <summary>Provalo con casi particolari</summary>
+  <ul style="margin-bottom:0">
+    <li><b>M=54, N=144</b>: lo scambio iniziale rimette i numeri in ordine. Nota che se non ci fosse lo scambio
+    l'algoritmo funzionerebbe lo stesso, perché la prima iterazione lo farebbe «da sola» (54 % 144 = 54).</li>
+    <li><b>M=12, N=12</b>: il ciclo gira zero volte, risultato 12.</li>
+    <li><b>M=13, N=7</b>: numeri primi fra loro, il risultato è 1.</li>
+    <li><b>M=100, N=1</b>: il ciclo gira zero volte, risultato 1.</li>
+  </ul>
+</details>
+
+<h2 id="c2-sequenziale">5 · Ricerca sequenziale</h2>
+
+<p>La ricerca «dello schedario»: esamina la prima scheda; se autore e titolo coincidono la ricerca è conclusa con successo,
+altrimenti passa alla scheda successiva; ripeti fino a conclusione o fino a raggiungere l'ultima scheda.</p>
+
+<div data-algo="ricerca-lineare"></div>
+
+<div class="box warn">
+  <span class="box-t">Semplice ma inefficiente</span>
+  <p style="margin-bottom:0">Su N schede servono fino a N confronti. Soprattutto: <strong>non sfrutta l'ordinamento</strong>
+  dell'archivio. Se le schede sono ordinate, buttare via quell'informazione è uno spreco — ed è esattamente il tipo di
+  «ciclo non necessario» che all'esame costa punti anche se il programma funziona.</p>
+</div>
+
+<h2 id="c2-dicotomica">6 · Ricerca dicotomica in una sequenza ordinata</h2>
+
+<div class="ior">
+  <div><span class="k">I</span><span>una sequenza di N numeri <b>ordinata in senso crescente</b> e un numero da cercare</span></div>
+  <div><span class="k">O</span><span>una posizione</span></div>
+  <div><span class="k">R</span><span>è la posizione in cui si trova il numero cercato, oppure −1 se il numero è assente</span></div>
+</div>
+
+<p><strong>Esecutore</strong> (descrizione specifica): accedere all'elemento in una determinata posizione, memorizzare,
+addizione/sottrazione/divisione intera, confronto.</p>
+
+<div class="box idea">
+  <span class="box-t">Idea</span>
+  <p style="margin-bottom:0">Guarda l'elemento <strong>centrale</strong> della porzione attuale. Se è quello cercato, hai finito.
+  Altrimenti, grazie all'ordinamento, sai in quale <strong>metà</strong> il valore può ancora trovarsi: l'altra metà
+  viene scartata tutta in un colpo solo. Il problema si ripresenta identico, ma su una porzione grande la metà.</p>
+</div>
+
+<h3>Prima di arrivarci: due versioni che NON funzionano</h3>
+
+<p>Vale la pena vedere gli errori, perché sono gli stessi che farai tu la prima volta.</p>
+
+<h4>Errore 1 — le due metà coprono tutta la porzione</h4>
+<p>Se la «prima metà» comprende l'elemento centrale (<code>Fine ← Media</code>) invece di escluderlo, la porzione
+può smettere di rimpicciolirsi. Prova a cercare <b>3</b> nella sequenza <b>2 5</b>:</p>
+
+<div data-algo="ricerca-binaria-bug"></div>
+
+<div class="box warn">
+  <span class="box-t">Perché è grave</span>
+  <p style="margin-bottom:0">Non è «un programma lento» o «un programma che sbaglia risultato»: è una sequenza di passi
+  che <strong>non è un algoritmo</strong>, perché viola la finitezza. Il rimedio: escludere <strong>da entrambe le metà</strong>
+  l'elemento centrale appena esaminato, che sappiamo già non essere quello cercato.</p>
+</div>
+
+<h4>Errore 2 — non si gestisce la porzione vuota</h4>
+<p>Escludendo il centro si può benissimo arrivare a una porzione <strong>vuota</strong>: è il caso in cui l'elemento
+è <strong>assente</strong>. Bisogna accorgersene e terminare esplicitamente con insuccesso, altrimenti non si sa nemmeno
+quale sia «l'elemento centrale» di una porzione di zero elementi.</p>
+
+<h3>La versione corretta</h3>
+
+<pre class="pseudo">
+0. Acquisisci la sequenza ordinata e il numero da cercare
+1. Inizio ← posizione del primo elemento
+2. Fine   ← posizione dell'ultimo elemento
+3. mentre (Inizio &lt;= Fine) esegui          /* porzione attuale non vuota */
+3.1    Media ← (Inizio + Fine) / 2          /* divisione intera */
+3.2    se (A[Media] == cercato)
+3.2.1      produci Media e STOP
+       altrimenti
+3.2.2      se (cercato &lt; A[Media])
+3.2.2.1        Fine ← Media - 1             /* prima metà, centro escluso */
+           altrimenti
+3.2.2.2        Inizio ← Media + 1           /* seconda metà, centro escluso */
+4. produci -1                               /* numero non presente */
+5. STOP
+</pre>
+
+<div data-algo="ricerca-binaria"></div>
+
+<div class="box note">
+  <span class="box-t">La scoperta da ricordare</span>
+  <p style="margin-bottom:0">Quando l'elemento cercato è <strong>assente</strong>, la computazione termina con
+  <strong>Inizio &gt; Fine</strong>: i due indici si sono <em>scavalcati</em> rispetto al loro ordine naturale.
+  Provalo cercando 20 nella sequenza di default. (Curiosità utile: alla fine <code>Inizio</code> indica
+  esattamente la posizione in cui il valore andrebbe <em>inserito</em> per mantenere l'ordinamento.)</p>
+</div>
+
+<h3>Quanto conviene davvero</h3>
+<p>Ogni confronto dimezza la porzione: il numero di confronti è circa il <strong>logaritmo in base 2</strong> di N —
+lo stesso algoritmo del §2 di questa pagina, con B = 2.</p>
+
+<div data-widget="cost"></div>
+
+<div class="box warn">
+  <span class="box-t">La precondizione non è un dettaglio</span>
+  <p style="margin-bottom:0">La ricerca dicotomica è corretta <strong>solo se</strong> la sequenza è ordinata.
+  Se non lo è, l'algoritmo termina comunque (la porzione si dimezza sempre) ma può rispondere «assente» su un valore
+  presente. Un algoritmo senza le sue precondizioni non risolve il problema: risolve un altro problema.</p>
+</div>
+
+<h2 id="c2-confronto">Riepilogo</h2>
+
+<div class="tbl-scroll">
+<table>
+  <tr><th>Algoritmo</th><th>Idea in una riga</th><th>Struttura</th><th>Terminazione garantita da…</th></tr>
+  <tr><td>Scambio</td><td>serve un appoggio per non distruggere un valore</td><td>sequenza</td><td>—</td></tr>
+  <tr><td>Divisione</td><td>conta le sottrazioni possibili</td><td>ciclo + contatore</td><td>il resto cala di N a ogni giro</td></tr>
+  <tr><td>Logaritmo</td><td>conta le divisioni possibili</td><td>ciclo + contatore</td><td>il valore viene diviso per B ≥ 2</td></tr>
+  <tr><td>Massimo</td><td>conserva il migliore visto finora</td><td>ciclo + selezione</td><td>la sequenza è finita (terminatore)</td></tr>
+  <tr><td>Euclide</td><td>(M,N) e (N, M%N) hanno lo stesso MCD</td><td>ciclo + riduzione</td><td>il resto decresce strettamente</td></tr>
+  <tr><td>Ricerca sequenziale</td><td>guardale tutte finché trovi</td><td>ciclo + condizione doppia</td><td>l'indice cresce fino a MAX</td></tr>
+  <tr><td>Ricerca dicotomica</td><td>scarta metà archivio a ogni confronto</td><td>ciclo + riduzione</td><td>la porzione si dimezza e il centro è escluso</td></tr>
+</table>
+</div>
+
+<div class="quiz">
+  <h3>Verifica rapida</h3>
+
+  <div class="q" data-correct="1">
+    <div class="qt">1. Nella divisione per sottrazioni ripetute con M=3 e N=5, quante volte viene eseguito il corpo del ciclo?</div>
+    <div class="opts">
+      <button class="opt">Una volta, poi il resto diventa negativo</button>
+      <button class="opt">Zero volte: la condizione <code>R &gt;= N</code> è subito falsa, e si producono Q=0, R=3</button>
+      <button class="opt">L'algoritmo non termina</button>
+    </div>
+    <div class="why">Il caso «ciclo eseguito zero volte» è perfettamente legittimo e qui produce il risultato corretto,
+    perché 3 = 5·0 + 3.</div>
+  </div>
+
+  <div class="q" data-correct="2">
+    <div class="qt">2. Nella ricerca dicotomica, perché l'elemento centrale va escluso da entrambe le metà?</div>
+    <div class="opts">
+      <button class="opt">Per risparmiare un confronto</button>
+      <button class="opt">Perché altrimenti si rischia di trovarlo due volte</button>
+      <button class="opt">Perché altrimenti la porzione può smettere di rimpicciolirsi e l'algoritmo non termina</button>
+    </div>
+    <div class="why">L'abbiamo appena esaminato: se le due metà coprono tutta la porzione, con due soli elementi
+    si entra in un ciclo infinito. Escludere il centro è lecito perché l'abbiamo già confrontato.</div>
+  </div>
+
+  <div class="q" data-correct="0">
+    <div class="qt">3. Alla fine di una ricerca dicotomica senza successo, che relazione c'è fra Inizio e Fine?</div>
+    <div class="opts">
+      <button class="opt">Inizio &gt; Fine: si sono scavalcati</button>
+      <button class="opt">Inizio == Fine</button>
+      <button class="opt">Inizio == 0 e Fine == N−1, come all'inizio</button>
+    </div>
+    <div class="why">La condizione di uscita del ciclo è proprio la negazione di <code>Inizio &lt;= Fine</code>.</div>
+  </div>
+
+  <div class="q" data-correct="1">
+    <div class="qt">4. Qual è la proprietà aritmetica che rende corretto l'algoritmo di Euclide?</div>
+    <div class="opts">
+      <button class="opt">Il MCD di due numeri è sempre minore del più piccolo dei due</button>
+      <button class="opt">Se D divide M e N, allora D divide anche M−N e quindi il resto di M/N: (M,N) e (N, M%N) hanno lo stesso MCD</button>
+      <button class="opt">Ogni numero è divisibile per 1</button>
+    </div>
+    <div class="why">È la proprietà che permette di <b>sostituire il problema con uno più piccolo ma equivalente</b>:
+    lo schema della riduzione.</div>
+  </div>
+</div>
+
+<div class="pager">
+  <a href="#cap1"><div class="dir">← Indietro</div><div class="ttl">1. Problemi, esecutori, algoritmi</div></a>
+  <a class="next" href="#cap3"><div class="dir">Avanti →</div><div class="ttl">3. La macchina astratta C</div></a>
+</div>
+</section>
+
+<section class="chapter" id="cap3" data-title="La macchina astratta C" hidden>
+<div class="page-head">
+  <div class="eyebrow">Capitolo 3</div>
+  <h1>La macchina astratta C</h1>
+  <p class="lede">Il nostro esecutore concreto: com'è fatto, che cosa sa fare, e perché ogni contenitore
+  deve dichiarare che tipo di informazione contiene.</p>
+</div>
+
+<div class="toc"><b>In questa pagina</b></div>
+
+<h2 id="c3-componenti">Componenti della macchina C</h2>
+
+<table>
+  <tr><th>Componente</th><th>Ruolo</th></tr>
+  <tr><td><b>Unità di controllo</b></td><td>controlla l'esecuzione del programma: decide quale istruzione eseguire e in che ordine</td></tr>
+  <tr><td><b>Standard Input</b></td><td>unità di ingresso, dalla quale si <b>leggono</b> i dati (tipicamente la tastiera)</td></tr>
+  <tr><td><b>Standard Output</b></td><td>unità di uscita, sulla quale si <b>scrivono</b> i risultati (tipicamente lo schermo)</td></tr>
+  <tr><td><b>Memoria centrale</b></td><td>divisa in <b>celle elementari</b>, ciascuna contenente un dato</td></tr>
+</table>
+
+<div class="box def">
+  <span class="box-t">Il collegamento con il capitolo 1</span>
+  <p style="margin-bottom:0">Le celle di memoria sono i <strong>contenitori</strong> introdotti parlando di algoritmi.
+  Le chiamiamo <strong>variabili</strong> perché il loro contenuto può cambiare durante l'esecuzione del programma.
+  Le istruzioni del C corrispondono ai <strong>passi elementari</strong>: operazioni aritmetiche, confronti,
+  memorizzazione, acquisizione dati, produzione risultati.</p>
+</div>
+
+<h3>Le idealizzazioni: perché «astratta»</h3>
+<p>La macchina C che studiamo è una semplificazione di quella reale:</p>
+<ul>
+  <li>non c'è nessun limite al <strong>numero</strong> delle celle (memoria infinita);</li>
+  <li>non c'è nessun limite al <strong>valore numerico</strong> contenuto;</li>
+  <li>i contenitori si raggiungono tramite un <strong>nome</strong>, non tramite un indirizzo numerico;</li>
+  <li>un contenitore può occupare <strong>una o più celle</strong>, a seconda del tipo di dato, senza che ce ne occupiamo.</li>
+</ul>
+
+<h3>Su che cosa si può operare</h3>
+<ul>
+  <li>sui valori <strong>contenuti nelle variabili</strong>;</li>
+  <li>su valori <strong>direttamente riconoscibili dal C</strong>, cioè scritti nel testo del programma:
+    <ul>
+      <li>numeri interi relativi: <code>23</code>, <code>-64</code></li>
+      <li>numeri reali: <code>5.0</code>, <code>2.34</code>, <code>-43.56</code></li>
+      <li>caratteri: <code>'h'</code>, <code>'8'</code>, <code>' '</code> (spazio), <code>'.'</code></li>
+      <li>stringhe: <code>"carta"</code>, <code>"MNZLSS34L03F205T"</code> — sequenze di caratteri in celle adiacenti (cap. 5)</li>
+    </ul>
+  </li>
+</ul>
+<p>E come non si perdono i risultati delle operazioni? <strong>Memorizzandoli</strong>, anche solo temporaneamente,
+in contenitori.</p>
+
+<h2 id="c3-identificatori">Identificatori e parole chiave</h2>
+
+<div class="box def">
+  <span class="box-t">Identificatore simbolico</span>
+  <p style="margin-bottom:0">Una successione di lettere, cifre e <code>_</code> con al <strong>primo posto una lettera</strong>.</p>
+</div>
+
+<table>
+  <tr><th>Validi</th><th>Non validi</th></tr>
+  <tr>
+    <td><code>a</code> <code>x</code> <code>alfa</code> <code>pippo</code> <code>a1</code> <code>xy_23</code> <code>Giuseppe</code> <code>DopoDomani</code></td>
+    <td><code>2abc</code> <code>4x</code> <code>7</code> <code>x-y</code></td>
+  </tr>
+</table>
+
+<ul>
+  <li>Le <strong>maiuscole sono distinte</strong> dalle minuscole: <code>Var1</code>, <code>var1</code> e <code>VAR1</code>
+  sono tre identificatori diversi.</li>
+  <li>Per evitare ambiguità non si può usare lo stesso identificatore per elementi diversi, né identificatori diversi
+  per lo stesso elemento.</li>
+</ul>
+
+<div class="box note">
+  <span class="box-t">Parole chiave e identificatori riservati</span>
+  <p>Alcuni identificatori sono <strong>predefiniti</strong> (associati a priori a un elemento del linguaggio) e
+  <strong>riservati</strong> (non riutilizzabili con altro significato). Per esempio <code>scanf</code> e <code>printf</code>
+  indicano operazioni di ingresso/uscita e non possono diventare nomi di variabile.</p>
+  <p style="margin-bottom:0">Una <strong>parola chiave</strong> è una parola predefinita del linguaggio, anch'essa riservata:
+  <code>int</code>, <code>float</code>, <code>char</code>, <code>double</code>, <code>if</code>, <code>else</code>,
+  <code>while</code>, <code>do</code>, <code>for</code>, <code>return</code>, <code>const</code>…</p>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Stile (conta all'esame)</span>
+  <p style="margin-bottom:0">Scegli nomi che dicano <strong>che cosa contiene</strong> il contenitore, non come è fatto:
+  <code>massimo</code>, <code>contatore</code>, <code>numLetti</code> valgono più di <code>a</code>, <code>b</code>, <code>x1</code>.
+  Un nome ben scelto è metà del commento che non devi scrivere.</p>
+</div>
+
+<h2 id="c3-struttura">Struttura di un programma C</h2>
+
+<pre><code class="lang-c">direttive per il compilatore        /* es. #include &lt;stdio.h&gt; */
+definizioni di tipo                 /* … vedremo in seguito … */
+
+int main()                          /* intestazione del programma principale */
+{
+    dichiarazioni                   /* quali contenitori userò e di che tipo */
+    istruzioni                      /* i passi da eseguire */
+    return(0);                      /* finale convenzionale */
+}
+
+altri sottoprogrammi                /* … vedremo in seguito … */</code></pre>
+
+<div class="box warn">
+  <span class="box-t">Ordine obbligatorio in C89</span>
+  <p style="margin-bottom:0">In C89 <strong>tutte le dichiarazioni vanno all'inizio del blocco</strong>, prima di
+  qualunque istruzione. Dichiarare una variabile in mezzo al codice (come si fa in C99 o in C++) è un errore
+  nel linguaggio veicolare di questo corso.</p>
+</div>
+
+<h2 id="c3-contenitori">Contenitori: perché servono le dichiarazioni</h2>
+
+<p>Un contenitore, visto da vicino, è:</p>
+<table>
+  <tr><th>Aspetto</th><th>Che cos'è</th></tr>
+  <tr><td>Dispositivo fisico</td><td>una o più celle di memoria</td></tr>
+  <tr><td>Indirizzo</td><td>la sua posizione in memoria (un numero)</td></tr>
+  <tr><td>Valore</td><td>il dato contenuto</td></tr>
+</table>
+<p>In linguaggio macchina si identifica un contenitore con l'<strong>indirizzo</strong> (come «via Metastasio 76»);
+in C con un <strong>nome</strong>, l'identificatore (come «Palazzo Madama»).</p>
+
+<div class="box warn">
+  <span class="box-t">L'ambiguità del contenuto</span>
+  <p>Un contenitore è una sequenza di circuiti bistabili (es. 32), ciascuno con una tensione che può assumere
+  solo due valori stabili: convenzionalmente <strong>0</strong> oppure <strong>1</strong>.</p>
+  <p>Informazioni di natura diversa (naturali, relativi, caratteri, reali, perfino istruzioni) vengono codificate
+  in sequenze di <strong>bit</strong>. Per ciascun tipo di dato la codifica è univoca, <strong>ma tipi diversi hanno
+  codifiche indipendenti</strong>.</p>
+  <p style="margin-bottom:0">→ <strong>Una stessa sequenza di 0 e 1 può rappresentare informazioni diverse.</strong>
+  Guardare i bit non basta per sapere che cosa significano.</p>
+</div>
+
+<div class="box def">
+  <span class="box-t">La soluzione del C: la dichiarazione</span>
+  <p style="margin-bottom:0">Per ciascun contenitore si <strong>dichiara il tipo</strong> di informazione che vi sarà
+  rappresentata. Così la macchina sa come <strong>interpretare</strong> la sequenza di bit contenuta, e quante celle
+  riservare. La dichiarazione non è burocrazia: è ciò che dà significato ai bit.</p>
+</div>
+
+<h2 id="c3-tipi">I tipi di dato</h2>
+
+<div class="tbl-scroll">
+<table>
+  <tr><th>Tipo</th><th>Che cosa contiene</th><th>Occupazione tipica</th><th>Formato I/O</th></tr>
+  <tr><td><code>char</code></td><td>un carattere</td><td>1 byte</td><td><code>%c</code></td></tr>
+  <tr><td><code>int</code></td><td>un intero relativo</td><td>1 parola (es. 32 bit)</td><td><code>%d</code></td></tr>
+  <tr><td><code>unsigned int</code></td><td>un intero naturale (senza segno)</td><td>1 parola</td><td><code>%u</code></td></tr>
+  <tr><td><code>float</code></td><td>un reale in virgola mobile, singola precisione</td><td>32 bit</td><td><code>%f</code></td></tr>
+  <tr><td><code>double</code></td><td>un reale in virgola mobile, doppia precisione</td><td>64 bit (2 parole)</td><td><code>%lf</code></td></tr>
+</table>
+</div>
+
+<pre><code class="lang-c">char  carA;   /* conterrà valori di tipo char: un carattere */
+int   n;      /* conterrà valori di tipo int: un intero relativo */
+float x;      /* reale in virgola mobile, singola precisione */
+double y;     /* reale in virgola mobile, doppia precisione */</code></pre>
+
+<h3>Costanti</h3>
+<p>Un contenitore può essere dichiarato <strong>costante</strong>: riceve un valore che il programma non potrà modificare.</p>
+<pre><code class="lang-c">const float Pi = 3.1415;   /* il valore non sarà modificabile dal programma */</code></pre>
+
+<p>Esiste anche la <strong>direttiva</strong> <code>#define</code>, che non crea un contenitore ma dice al compilatore
+di sostituire testualmente un nome con un testo, <em>prima</em> di compilare:</p>
+<pre><code class="lang-c">#define MAX 100      /* ovunque compaia MAX, il compilatore scrive 100 */
+#define base 2</code></pre>
+<div class="box note">
+  <span class="box-t">Quando serve davvero</span>
+  <p style="margin-bottom:0">La dimensione di un array <strong>deve</strong> essere una costante nota al compilatore
+  (cap. 5): <code>#define</code> è il modo standard di dargliela. Nota che dopo <code>#define</code> non va il punto e virgola.</p>
+</div>
+
+<h2 id="c3-espressioni">Espressioni</h2>
+
+<p>La definizione è <strong>ricorsiva</strong>: un'espressione è</p>
+<pre class="pseudo">
+&lt;espressione&gt; :=  &lt;valore riconoscibile dal C&gt;              oppure
+                  &lt;nome di una variabile&gt;                    oppure
+                  &lt;nome di una costante&gt;                     oppure
+                  &lt;espressione&gt; &lt;operatore aritmetico&gt; &lt;espressione&gt;
+
+&lt;operatore aritmetico&gt; :=  +   -   *   /   %
+</pre>
+
+<p>Esempi:</p>
+<div class="tbl-scroll">
+<table>
+  <tr><th>Espressione</th><th>Che cos'è</th></tr>
+  <tr><td><code>3.25</code></td><td>valore reale (float)</td></tr>
+  <tr><td><code>33</code></td><td>valore intero (int)</td></tr>
+  <tr><td><code>'a'</code></td><td>valore di tipo carattere (char)</td></tr>
+  <tr><td><code>Pi</code></td><td>nome di contenitore costante di tipo float</td></tr>
+  <tr><td><code>x</code>, <code>m</code>, <code>n</code></td><td>nomi di contenitori variabili</td></tr>
+  <tr><td><code>2.0 * Pi + x*x</code></td><td>composizione di espressioni</td></tr>
+  <tr><td><code>(m+3) * (n - (23 * m))</code></td><td>idem, con parentesi</td></tr>
+</table>
+</div>
+<p>La complessità è in teoria illimitata; per le parentesi valgono le stesse regole della matematica.</p>
+
+<h3>Dove si trovano le espressioni</h3>
+<ol>
+  <li><strong>Nelle istruzioni di assegnamento</strong>: <code>n = (m+3)*(n - 23*m);</code></li>
+  <li><strong>Nelle istruzioni di uscita</strong>: <code>printf("meta' di n: %d", n/2);</code></li>
+  <li><strong>Nelle condizioni</strong> (qui sotto).</li>
+</ol>
+
+<div class="box warn">
+  <span class="box-t">Il significato dell'assegnamento (di nuovo, ma in C)</span>
+  <p>Nella forma <code>&lt;nome di contenitore&gt; = &lt;espressione&gt;;</code> il contenitore a sinistra
+  <strong>riceve</strong> il valore dell'espressione a destra. L'espressione a destra va <strong>valutata</strong>: quando
+  vi si incontrano nomi di contenitori se ne usa <strong>direttamente il valore</strong>.</p>
+  <p style="margin-bottom:0">Esempio: se <code>m</code> vale 3 e <code>n</code> vale 4, durante
+  <code>n = (m+3)*(n-23*n);</code> si calcola <code>(3+3)*(4-23·4) = 6·(4-92) = 6·(-88) = -528</code>
+  e si scrive −528 nel contenitore <code>n</code>, al posto del precedente 4.</p>
+</div>
+
+<h2 id="c3-condizioni">Condizioni</h2>
+
+<pre class="pseudo">
+&lt;valore logico&gt; := false, true
+
+&lt;operatore di confronto&gt; :=  &lt;   &lt;=   &gt;   &gt;=   ==   !=
+
+&lt;operatore logico&gt; :=  &amp;&amp;   ||   !
+
+&lt;condizione elementare&gt; :=  &lt;valore logico&gt;   oppure
+                            &lt;espressione&gt; &lt;operatore di confronto&gt; &lt;espressione&gt;
+
+&lt;condizione&gt; :=  &lt;condizione elementare&gt;   oppure
+                 &lt;condizione&gt; &lt;operatore logico&gt; &lt;condizione&gt;
+</pre>
+
+<div class="box warn">
+  <span class="box-t">Vero e falso in C</span>
+  <ul style="margin-bottom:0">
+    <li><code>0</code> è interpretato come <strong>FALSO</strong>;</li>
+    <li><code>1</code> è interpretato come <strong>VERO</strong>… ma non solo: <strong>qualunque valore diverso da 0</strong>
+    è vero, anche <code>-2</code>.</li>
+  </ul>
+</div>
+
+<div class="box warn">
+  <span class="box-t">L'errore classico: <code>=</code> contro <code>==</code></span>
+  <p style="margin-bottom:0"><code>=</code> è l'<b>assegnamento</b>, <code>==</code> è il <b>confronto</b>.
+  <code>if (x = 0)</code> assegna 0 a x e poi valuta la condizione «0», cioè sempre falsa:
+  il compilatore non protesta e il programma sbaglia in silenzio.</p>
+</div>
+
+<h3>Operatori logici e tabelle di verità</h3>
+<ul>
+  <li><code>!</code> negazione (non): data una condizione C, <code>!C</code> ha valore di verità opposto;</li>
+  <li><code>&amp;&amp;</code> congiunzione (e): <code>C1&amp;&amp;C2</code> è vera <strong>solo</strong> quando entrambe sono vere;</li>
+  <li><code>||</code> disgiunzione (o): <code>C1||C2</code> è falsa <strong>solo</strong> quando entrambe sono false.</li>
+</ul>
+
+<div data-widget="truth"></div>
+
+<div class="tbl-scroll">
+<table>
+  <tr><th>C1</th><th>C2</th><th>C1 &amp;&amp; C2</th><th>C1 || C2</th><th>!C1</th></tr>
+  <tr><td>V</td><td>V</td><td>V</td><td>V</td><td>F</td></tr>
+  <tr><td>V</td><td>F</td><td>F</td><td>V</td><td>F</td></tr>
+  <tr><td>F</td><td>V</td><td>F</td><td>V</td><td>V</td></tr>
+  <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>V</td></tr>
+</table>
+</div>
+
+<p>Esempi di lettura:</p>
+<ul>
+  <li><code>!(x==4)</code> → x NON è uguale a 4</li>
+  <li><code>(x&lt;10)&amp;&amp;(y&gt;=100)</code> → x minore di 10 <em>e</em> y maggiore o uguale a 100</li>
+  <li><code>(y==1)||(z!=2)</code> → y è uguale a 1 <em>oppure</em> z è diverso da 2</li>
+  <li><code>(n &lt;= -7) || (n &gt;= 7)</code> → il valore assoluto di n è almeno 7</li>
+</ul>
+
+<h3>Precedenze… e come non pensarci</h3>
+<div class="box idea">
+  <span class="box-t">Consiglio del corso</span>
+  <p>Non è necessario conoscere le precedenze a memoria: <strong>usa le parentesi</strong> per eliminare i dubbi
+  (e per modificare le precedenze quando serve): <code>!( (C4||C5) &amp;&amp; C6 )</code>.</p>
+  <p style="margin-bottom:0"><strong>Non usare condizioni complesse.</strong> Il numero di casi da analizzare esplode
+  con il numero di clausole. Catene omogenee (<code>C1 || C2 || C3</code>, tutte dello stesso significato) vanno bene;
+  configurazioni miste e annidate no.</p>
+</div>
+
+<h3>La regola del risparmio (valutazione in corto circuito)</h3>
+<div class="box note">
+  <span class="box-t">Nella valutazione delle condizioni il C «risparmia» tempo</span>
+  <ul style="margin-bottom:0">
+    <li>se valuta un <strong>OR</strong> e trova la prima clausola <strong>VERA</strong>, non valuta le successive → condizione VERA;</li>
+    <li>se valuta un <strong>AND</strong> e trova la prima clausola <strong>FALSA</strong>, non valuta le successive → condizione FALSA.</li>
+  </ul>
+</div>
+<p>Non è una curiosità: è ciò che rende <strong>corretto</strong> (e non solo veloce) uno schema che userai continuamente:</p>
+<pre><code class="lang-c">while (i &lt; MAX &amp;&amp; Sequenza[i] != cercato)
+    i = i + 1;
+/* se i &lt; MAX è falsa, Sequenza[i] NON viene valutato:
+   non si accede a un elemento fuori dall'array */</code></pre>
+<p>Invertire le due clausole romperebbe il programma. L'ordine delle clausole, qui, è parte del ragionamento.</p>
+
+<h2 id="c3-conversioni">Tipi, espressioni e conversioni</h2>
+
+<div class="box warn">
+  <span class="box-t">Regola generale</span>
+  <p style="margin-bottom:0">Di norma un operatore deve essere applicato a dati <strong>dello stesso tipo</strong>,
+  e in un assegnamento l'espressione a destra deve avere lo stesso tipo del contenitore a sinistra.
+  Il C però ammette deroghe, e le gestisce con due regole precise.</p>
+</div>
+
+<h3>Regola 1 — nelle espressioni: vince il tipo più ricco</h3>
+<p>Se in un'espressione compare un'operazione fra dati di tipo diverso, il C usa come operandi valori
+del <strong>tipo più ricco</strong>.</p>
+<pre><code class="lang-c">int   n = 4;
+float x = 2.13;
+int   y;
+y = n * x;</code></pre>
+<p>Nell'espressione <code>n * x</code> si usa, invece dell'intero 4, il float 4.0 (stesso valore matematico):
+l'operazione diventa <code>4.0 * 2.13</code> e il risultato è il float <code>8.52</code>.</p>
+<div class="box note">
+  <p style="margin-bottom:0">Questo <strong>non cambia in alcun modo</strong> il valore della variabile <code>n</code>,
+  che resta intera e continua a valere 4. La promozione riguarda il <em>valore usato nel calcolo</em>, non il contenitore.</p>
+</div>
+
+<h3>Regola 2 — nell'assegnamento: vince il tipo del contenitore</h3>
+<p>Se il tipo della variabile e il tipo del risultato dell'espressione sono diversi, il C assegna un valore
+<strong>dello stesso tipo della variabile</strong>. Tale valore può:</p>
+<ol>
+  <li>avere lo <strong>stesso valore matematico</strong> del risultato — es. <code>x = n;</code> assegna 4.0 a un float;</li>
+  <li>essere un <strong>arrotondamento</strong> (troncamento) — es. <code>y = n * x;</code> con y intero assegna
+  <code>(int)8.52</code>, cioè <strong>8</strong>.</li>
+</ol>
+
+<h3>Casting esplicito</h3>
+<p>Quando la conversione automatica <em>non</em> scatta ma ci serve, la si chiede esplicitamente con
+<code>(tipo)espressione</code>. Caso tipico: la media di due interi.</p>
+<pre><code class="lang-c">int somma = 7, cont = 2;
+float media;
+media = somma / cont;                     /* 3.0  — divisione INTERA: 7/2 = 3, poi convertito */
+media = (float)somma / (float)cont;       /* 3.5  — divisione reale: CORRETTO */</code></pre>
+
+<div class="box warn">
+  <span class="box-t">L'errore più frequente del corso</span>
+  <p style="margin-bottom:0">In <code>media = somma / cont;</code> la divisione viene eseguita <strong>prima</strong>
+  dell'assegnamento, fra due <code>int</code>: il C non ha motivo di attivare la conversione, quindi calcola la
+  divisione intera e butta via la parte frazionaria. Dichiarare <code>media</code> come float non basta:
+  bisogna convertire <strong>gli operandi</strong>.</p>
+</div>
+
+<h4>Provalo</h4>
+<div data-widget="casting"></div>
+
+<h3>char e int</h3>
+<ul>
+  <li>Gli operatori aritmetici <strong>possono</strong> essere applicati a valori <code>char</code>, trattandoli come interi
+  (si usa il loro <strong>codice ASCII</strong>).</li>
+  <li>Si possono eseguire operazioni fra <code>int</code> e <code>char</code>, ma <strong>spesso non hanno alcun significato</strong>
+  e derivano da errori.</li>
+  <li><strong>Eccezione utile</strong>: la differenza fra la versione maiuscola e minuscola della stessa lettera
+  (es. <code>'R'</code> e <code>'r'</code>) è la <strong>stessa per tutte le lettere alfabetiche</strong>, e si può usare
+  per convertire fra minuscolo e maiuscolo.</li>
+</ul>
+
+<div data-widget="ascii"></div>
+
+<div class="quiz">
+  <h3>Verifica rapida</h3>
+
+  <div class="q" data-correct="2">
+    <div class="qt">1. Perché in C ogni contenitore deve avere un tipo dichiarato?</div>
+    <div class="opts">
+      <button class="opt">Per rendere il programma più leggibile</button>
+      <button class="opt">Perché il compilatore lo richiede per motivi storici</button>
+      <button class="opt">Perché la stessa sequenza di bit può rappresentare informazioni diverse: il tipo dice come interpretarla (e quante celle servono)</button>
+    </div>
+    <div class="why">Codifiche di tipi diversi sono indipendenti fra loro: senza dichiarazione i bit sono ambigui.</div>
+  </div>
+
+  <div class="q" data-correct="0">
+    <div class="qt">2. Con <code>int a = 7, b = 2; float r; r = a / b;</code> quanto vale <code>r</code>?</div>
+    <div class="opts">
+      <button class="opt">3.0 — la divisione fra due int è intera, la conversione avviene solo dopo</button>
+      <button class="opt">3.5 — r è float, quindi la divisione è reale</button>
+      <button class="opt">Errore di compilazione</button>
+    </div>
+    <div class="why">Il tipo della variabile di destinazione non influenza il modo in cui viene calcolata l'espressione.
+    Serve <code>(float)a / b</code>.</div>
+  </div>
+
+  <div class="q" data-correct="1">
+    <div class="qt">3. In <code>while (i &lt; MAX &amp;&amp; A[i] != x)</code>, cosa garantisce che non si acceda fuori dall'array?</div>
+    <div class="opts">
+      <button class="opt">Il compilatore controlla automaticamente gli indici</button>
+      <button class="opt">La valutazione in corto circuito: se <code>i &lt; MAX</code> è falsa, la seconda clausola non viene valutata</button>
+      <button class="opt">Nulla: è un errore che va corretto</button>
+    </div>
+    <div class="why">Per lo stesso motivo, invertire le due clausole introdurrebbe un accesso fuori dall'array.</div>
+  </div>
+
+  <div class="q" data-correct="2">
+    <div class="qt">4. Quale fra questi NON è un identificatore valido?</div>
+    <div class="opts">
+      <button class="opt"><code>xy_23</code></button>
+      <button class="opt"><code>DopoDomani</code></button>
+      <button class="opt"><code>4x</code></button>
+    </div>
+    <div class="why">Un identificatore deve iniziare con una <b>lettera</b>. Attenzione anche alle parole riservate:
+    <code>int</code> o <code>printf</code> sono scritti correttamente ma non sono utilizzabili come nomi di variabile.</div>
+  </div>
+</div>
+
+<div class="pager">
+  <a href="#cap2"><div class="dir">← Indietro</div><div class="ttl">2. Catalogo di algoritmi</div></a>
+  <a class="next" href="#cap4"><div class="dir">Avanti →</div><div class="ttl">4. Istruzioni e programmi</div></a>
+</div>
+</section>
+
+<section class="chapter" id="cap4" data-title="Istruzioni e programmi in C" hidden>
+<div class="page-head">
+  <div class="eyebrow">Capitolo 4</div>
+  <h1>Istruzioni e programmi in C</h1>
+  <p class="lede">Le istruzioni del linguaggio, una per una, e i programmi completi visti a lezione:
+  la codifica degli algoritmi del capitolo 2.</p>
+</div>
+
+<div class="toc"><b>In questa pagina</b></div>
+
+<h2 id="c4-assegnamento">Assegnamento</h2>
+
+<pre class="pseudo">
+&lt;nome di variabile&gt; = &lt;espressione&gt;;
+</pre>
+
+<pre><code class="lang-c">n = 18;
+A = (A * 15.3) - B / (f + 32.1);
+cont++;            /* equivale a cont = cont + 1; */</code></pre>
+
+<p>È la traduzione in C del passo <code>A ← …</code> del capitolo 1: prima si <strong>valuta</strong> tutta l'espressione
+a destra, poi si <strong>scrive</strong> il risultato nel contenitore a sinistra.</p>
+
+<h2 id="c4-io">Ingresso e uscita</h2>
+
+<h3>scanf — lettura</h3>
+<pre><code class="lang-c">scanf("%d", &amp;n);   /* legge da tastiera un valore e lo memorizza come intero in n */</code></pre>
+<div class="box warn">
+  <span class="box-t">La &amp; non è facoltativa</span>
+  <p style="margin-bottom:0"><code>scanf</code> deve <strong>scrivere dentro</strong> il contenitore, quindi ha bisogno
+  di sapere <em>quale</em> contenitore: si passa <code>&amp;n</code>, «l'indirizzo di n». Dimenticare la <code>&amp;</code>
+  è l'errore numero uno del laboratorio: il programma compila e poi si comporta in modo imprevedibile.
+  (Unica eccezione che vedremo: le stringhe, cap. 5.)</p>
+</div>
+
+<h3>printf — scrittura</h3>
+<pre><code class="lang-c">printf(" n vale %d e \n la parola ha \n %d caratteri", n, n + 3);</code></pre>
+<p>Gli argomenti dopo la stringa di formato sono <strong>espressioni</strong>: possono essere calcolate sul posto,
+come <code>n + 3</code> o <code>n/2</code>.</p>
+
+<div class="tbl-scroll">
+<table>
+  <tr><th>Segnaposto</th><th>Tipo</th><th>Note</th></tr>
+  <tr><td><code>%d</code></td><td>int</td><td>intero in base 10</td></tr>
+  <tr><td><code>%f</code></td><td>float</td><td><code>%.2f</code> = due cifre decimali</td></tr>
+  <tr><td><code>%lf</code></td><td>double</td><td>obbligatorio in <code>scanf</code> per i double</td></tr>
+  <tr><td><code>%c</code></td><td>char</td><td>un singolo carattere</td></tr>
+  <tr><td><code>%s</code></td><td>stringa</td><td>array di char terminato da <code>'\0'</code> (cap. 5)</td></tr>
+  <tr><td><code>\n</code> <code>\t</code></td><td>—</td><td>a capo, tabulazione</td></tr>
+</table>
+</div>
+
+<h4>Provalo: formati e argomenti</h4>
+<div data-widget="printf"></div>
+
+<div class="box warn">
+  <span class="box-t">Corrispondenza posizionale</span>
+  <p style="margin-bottom:0">I segnaposto e gli argomenti si accoppiano <strong>in ordine</strong>, e i tipi devono
+  corrispondere. Il compilatore C89 non se ne accorge: se scrivi <code>%d</code> e passi un float, stampi spazzatura.</p>
+</div>
+
+<h2 id="c4-selezione">Istruzione condizionale (selezione)</h2>
+
+<pre class="pseudo">
+if ( &lt;condizione&gt; ) {
+    &lt;istruzioni da eseguire se la condizione è vera&gt;
+}
+else {
+    &lt;istruzioni da eseguire se la condizione è falsa&gt;
+}
+</pre>
+<p>Il ramo <code>else</code> è facoltativo.</p>
+
+<h3>Esempio: valore assoluto di un numero reale</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    float x;
+    scanf("%f", &amp;x);
+    if (x &lt; 0.0)
+        x = -x;
+    printf("\n valore assoluto: %f", x);
+    return 0;
+}</code></pre>
+<p>Qui il ramo «altrimenti» è vuoto: se il numero è già positivo non c'è niente da fare.</p>
+
+<h3>Esempio: massimo e minimo di due numeri</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int m, n;
+    int max, min;
+    scanf("%d", &amp;m);
+    printf("\n");
+    scanf("%d", &amp;n);
+    if (m &gt; n) {
+        max = m;
+        min = n;
+    }
+    else {
+        max = n;
+        min = m;
+    }
+    printf("\n massimo: %d, minimo: %d", max, min);
+    return 0;
+}</code></pre>
+
+<div class="box note">
+  <span class="box-t">Parentesi graffe</span>
+  <p style="margin-bottom:0">In <code>if(){}</code>, <code>else{}</code>, <code>while(){}</code>, <code>do{}</code>,
+  <code>for(){}</code> si possono <strong>rimuovere le graffe se il blocco contiene una sola istruzione</strong>.
+  Consiglio: mettile comunque. Il giorno che aggiungi la seconda istruzione e dimentichi le graffe,
+  l'errore è invisibile a occhio nudo.</p>
+</div>
+
+<h2 id="c4-while">Iterazione: while</h2>
+
+<pre class="pseudo">
+while ( &lt;condizione&gt; ) {
+    &lt;istruzioni&gt;
+}
+</pre>
+<p>La condizione è valutata <strong>prima</strong> di ogni esecuzione del corpo: il corpo può essere eseguito
+<strong>zero volte</strong>.</p>
+
+<h3>Esempio: calcolo di potenze intere</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int base;
+    int esponente;
+    int potenza;
+    int contatore;
+    scanf("%d", &amp;base);
+    scanf("%d", &amp;esponente);
+    potenza = 1;
+    contatore = 0;
+    while (contatore &lt; esponente) {
+        potenza = potenza * base;
+        contatore = contatore + 1;
+    }
+    printf("\n %d alla %d: %d", base, esponente, potenza);
+    return 0;
+}</code></pre>
+
+<div data-algo="potenza"></div>
+
+<h3>Modifica: la massima potenza che non supera una soglia</h3>
+<p><em>Calcolare la massima potenza di una base che non superi una data soglia. Se la base è 10 e la soglia 93017,
+la risposta è 10000.</em></p>
+
+<div class="box idea">
+  <span class="box-t">Il ragionamento: partire da un programma che esiste già</span>
+  <p style="margin-bottom:0">Parto dal programma di elevamento a potenza e <strong>cambio solo la condizione di permanenza
+  nel ciclo</strong>: da <code>contatore &lt; esponente</code> a <code>potenza*base &lt;= soglia</code>.
+  Sparisce il contatore, perché non serve più contare: serve solo sapere se posso fare un'altra moltiplicazione.</p>
+</div>
+
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int base;
+    int soglia;
+    int potenza;
+    scanf("%d", &amp;base);
+    scanf("%d", &amp;soglia);
+    potenza = 1;
+    while (potenza*base &lt;= soglia)
+        potenza = potenza * base;
+    printf("\n massima potenza di %d &lt;= %d: %d", base, soglia, potenza);
+    return 0;
+}</code></pre>
+
+<div class="box note">
+  <span class="box-t">Nota sulla condizione</span>
+  <p style="margin-bottom:0">Si verifica <code>potenza*base</code>, cioè il valore <em>che si otterrebbe</em>,
+  non <code>potenza</code>. È la differenza fra «controllo prima di fare il passo» e «faccio il passo e poi mi pento»:
+  la prima è quasi sempre la strada giusta.</p>
+</div>
+
+<h3>Esempio: logaritmo intero</h3>
+<p>Per quante volte posso dividere un numero per un valore senza che il risultato scenda sotto 1?
+(È l'algoritmo del <a href="#c2-logaritmo">cap. 2 §2</a>.)</p>
+
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int base;
+    int numero, numcorrente;
+    int logaritmo;
+    printf("\n digita una base intera &gt; 1 \n");
+    scanf("%d", &amp;base);
+    printf("\n digita il numero positivo di cui calcolare il logaritmo \n");
+    scanf("%d", &amp;numero);
+    numcorrente = numero;
+    logaritmo = 0;
+    while (numcorrente &gt;= base) {
+        numcorrente = numcorrente / base;
+        logaritmo = logaritmo + 1;
+    }
+    printf("\n log di %d in base %d: %d", numero, base, logaritmo);
+    return 0;
+}</code></pre>
+
+<div class="box note">
+  <span class="box-t">Due dettagli di stile</span>
+  <ul style="margin-bottom:0">
+    <li>Il dato letto viene copiato in <code>numcorrente</code>: così il valore originale resta disponibile
+    per la stampa finale. <strong>Non distruggere i dati in ingresso</strong> se ti servono ancora.</li>
+    <li>Si può far evolvere il contatore direttamente nella variabile <code>logaritmo</code>, invece di usare
+    un <code>contatore</code> e copiarlo alla fine: una variabile in meno, stesso risultato.</li>
+  </ul>
+</div>
+
+<h2 id="c4-dowhile">Iterazione: do-while</h2>
+
+<pre class="pseudo">
+do {
+    &lt;istruzioni&gt;
+}
+while ( &lt;condizione&gt; );
+</pre>
+<p>Qui la condizione è valutata <strong>dopo</strong> il corpo: il corpo viene eseguito <strong>almeno una volta</strong>.</p>
+
+<h3>Esempio: lettura di un dato con criterio di validità</h3>
+<p>Continua a chiedere il dato finché la condizione di validità non è soddisfatta.</p>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int dato;
+    do {
+        printf("\n digita un intero positivo &lt; 10");
+        scanf("%d", &amp;dato);
+    }
+    while (dato &lt; 0 || dato &gt;= 10);
+    /* qui dato è sicuramente valido */
+    return 0;
+}</code></pre>
+
+<div class="box idea">
+  <span class="box-t">Quando usare quale ciclo</span>
+  <table style="margin:8px 0 0">
+    <tr><th>Ciclo</th><th>Usalo quando…</th></tr>
+    <tr><td><code>while</code></td><td>il corpo potrebbe non dover essere eseguito nemmeno una volta (il caso generale)</td></tr>
+    <tr><td><code>do-while</code></td><td>il corpo va <b>certamente</b> eseguito almeno una volta (tipico: la lettura con controllo di validità)</td></tr>
+    <tr><td><code>for</code></td><td>solo cicli <b>a conteggio</b> con condizione elementare</td></tr>
+  </table>
+</div>
+
+<h2 id="c4-for">Iterazione: for</h2>
+
+<pre class="pseudo">
+for ( istruzione1 ; condizione ; istruzione2 ) {
+    &lt;istruzioni&gt;
+}
+</pre>
+<ul>
+  <li><strong>istruzione1</strong>: eseguita <em>una sola volta</em>, prima di iniziare il ciclo;</li>
+  <li><strong>condizione</strong>: se vera si reitera, se falsa si esce;</li>
+  <li><strong>istruzione2</strong>: eseguita al termine di <em>ciascuna</em> iterazione, subito prima di rivalutare la condizione.</li>
+</ul>
+
+<pre><code class="lang-c">for (cont = 0; cont &lt; esponente; cont++)
+    potenza = potenza * base;</code></pre>
+<p>equivale esattamente a</p>
+<pre><code class="lang-c">cont = 0;
+while (cont &lt; esponente) {
+    potenza = potenza * base;
+    cont++;
+}</code></pre>
+
+<div class="box warn">
+  <span class="box-t">Uso appropriato</span>
+  <p style="margin-bottom:0">Ogni <code>for</code> ha un <code>while</code> equivalente, ma non ogni <code>while</code>
+  merita di diventare un <code>for</code>. Il <code>for</code> va usato <strong>solo in cicli a conteggio con condizioni
+  elementari</strong>: se la condizione è composta o l'avanzamento non è regolare, il <code>while</code> è più chiaro
+  e all'esame vale di più.</p>
+</div>
+
+<h2 id="c4-programmi">Programmi completi</h2>
+
+<h3>Sommatoria di interi letti (termina al primo negativo)</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int nletto;
+    int somma = 0;                  /* assegnamento in fase di dichiarazione */
+    scanf("%d", &amp;nletto);           /* prima lettura, fuori dal ciclo */
+    while (nletto &gt;= 0) {
+        somma = somma + nletto;     /* accumulatore */
+        scanf("%d", &amp;nletto);       /* lettura in coda al corpo */
+    }
+    printf("Sommatoria = %d", somma);
+    return(0);
+}</code></pre>
+<p>Stesso schema «leggi–elabora–rileggi» del massimo di una sequenza: cambia solo che cosa si fa con il valore letto.</p>
+
+<h3>Media di interi letti — con casting esplicito</h3>
+<div class="box idea">
+  <span class="box-t">Il ragionamento</span>
+  <p style="margin-bottom:0">Parto dal programma della sommatoria e, mentre aggiorno <code>somma</code>,
+  <strong>conto</strong> i numeri con un contatore inizializzato a 0. Alla fine divido. Ma <code>somma</code> e
+  <code>cont</code> sono entrambi <code>int</code>: la conversione automatica non si attiva e otterrei una divisione
+  intera. Serve il <strong>casting esplicito</strong>.</p>
+</div>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    float media;
+    int nletto;
+    int somma, cont;
+    somma = 0;
+    cont = 0;
+    scanf("%d", &amp;nletto);
+    while (nletto &gt;= 0) {
+        somma = somma + nletto;
+        cont++;                      /* equivale a cont = cont + 1; */
+        scanf("%d", &amp;nletto);
+    }
+    media = (float)somma / (float)cont;
+    printf("\n Media = %f", media);
+    return(0);
+}</code></pre>
+<div class="box warn">
+  <span class="box-t">Caso limite</span>
+  <p style="margin-bottom:0">Se il primo valore letto è negativo, <code>cont</code> vale 0 e la divisione è per zero.
+  Un programma completo deve trattare a parte il caso «nessun dato»: è esattamente il tipo di controllo che all'esame
+  distingue un programma ragionato da uno scritto a memoria.</p>
+</div>
+
+<h3>MCD, algoritmo di Euclide</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    int m, n;
+    int resto;
+    int temp;
+    scanf("%d%d", &amp;m, &amp;n);
+    if (n &gt; m) {              /* scambio: metto il maggiore in m */
+        temp = m;
+        m = n;
+        n = temp;
+    }
+    while (m % n != 0) {
+        resto = m % n;
+        m = n;
+        n = resto;
+    }
+    printf("Massimo comune divisore = %d", n);
+    return(0);
+}</code></pre>
+<p>Lo scambio iniziale è, riga per riga, l'algoritmo del <a href="#c1-memorizzazione">cap. 1</a>.
+La simulazione passo passo è nel <a href="#c2-euclide">cap. 2 §4</a>.</p>
+
+<h3>Cifre binarie di un numero frazionario — casting automatico</h3>
+<p><em>Stampare le prime 8 cifre in base 2 di un numero frazionario x, con 0 &lt; x &lt; 1.</em></p>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define base 2
+#define Max 8
+int main(){
+    float x;
+    int cifra;
+    int cont;
+    printf("\n digita un valore reale tra 0 e 1 \n");   /* segnala all'utente l'attesa */
+    scanf("%f", &amp;x);
+    cont = 0;
+    while (x &gt; 0 &amp;&amp; cont &lt; Max) {
+        cifra = x * base;      /* l'espressione vale x*2.0: il valore viene
+                                  troncato all'intero e assegnato a cifra */
+        printf("%d", cifra);
+        x = x * base - cifra;  /* qui il risultato resta float: nessun troncamento */
+        cont++;
+    }
+    return(0);
+}</code></pre>
+<div class="box note">
+  <span class="box-t">Due assegnamenti, due comportamenti diversi</span>
+  <p style="margin-bottom:0">La <strong>stessa</strong> espressione <code>x * base</code> viene troncata quando finisce
+  in un <code>int</code> e conservata intatta quando finisce in un <code>float</code>. Non è il calcolo a cambiare:
+  è il <strong>contenitore di destinazione</strong> a decidere. E la doppia condizione <code>x &gt; 0 &amp;&amp; cont &lt; Max</code>
+  copre entrambi i motivi per fermarsi: cifre esaurite oppure limite raggiunto.</p>
+</div>
+
+<h3>Conversione in maiuscolo — codici ASCII</h3>
+<p><em>Leggi caratteri alfabetici fino a un terminatore (un carattere non alfabetico) e converti ciascun carattere
+minuscolo in maiuscolo, lasciando inalterati i maiuscoli.</em></p>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+int main(){
+    char cletto;
+    char convertito;
+    scanf("%c%*c", &amp;cletto);
+    while ((cletto &gt;= 'a' &amp;&amp; cletto &lt;= 'z') ||
+           (cletto &gt;= 'A' &amp;&amp; cletto &lt;= 'Z')) {
+        if (cletto &gt;= 'a' &amp;&amp; cletto &lt;= 'z')
+            convertito = cletto + 'A' - 'a';
+        else
+            convertito = cletto;
+        printf("%c", convertito);
+        scanf("%c%*c", &amp;cletto);
+    }
+    return(0);
+}</code></pre>
+<div class="box note">
+  <p style="margin-bottom:0">La differenza <code>'A' - 'a'</code> è una costante uguale per tutte le lettere:
+  sommarla a una minuscola dà la corrispondente maiuscola. Il <code>%*c</code> in <code>scanf</code> legge e
+  <strong>scarta</strong> un carattere (serve a consumare l'invio). Sperimenta con il widget del
+  <a href="#c3-conversioni">cap. 3</a>.</p>
+</div>
+
+<h2 id="c4-stile">Linee guida di stile</h2>
+
+<div class="box idea">
+  <span class="box-t">Quello che viene valutato, oltre al «funziona»</span>
+  <ul style="margin-bottom:0">
+    <li><strong>Niente cicli non necessari.</strong> Se un'informazione si può calcolare durante un ciclo che stai
+    già facendo, non farne un secondo.</li>
+    <li><strong>Usa la struttura dati indicata</strong> dal testo, anche se ne conosci una migliore.</li>
+    <li><strong>Indentazione coerente</strong>: un livello per ogni struttura annidata.</li>
+    <li><strong>Commenti che spiegano il perché</strong>, non il cosa. <code>i++; /* incrementa i */</code> è rumore;
+    <code>/* invariante: MAX contiene il massimo dei valori letti finora */</code> è oro.</li>
+    <li><strong>Inizializza sempre</strong> prima di usare: una variabile non inizializzata contiene spazzatura.</li>
+    <li><strong>Un contenitore, un ruolo.</strong> Non riciclare la stessa variabile per due scopi diversi.</li>
+  </ul>
+</div>
+
+<div class="quiz">
+  <h3>Verifica rapida</h3>
+
+  <div class="q" data-correct="1">
+    <div class="qt">1. Qual è la differenza operativa fra <code>while</code> e <code>do-while</code>?</div>
+    <div class="opts">
+      <button class="opt">Nessuna: sono due modi di scrivere la stessa cosa</button>
+      <button class="opt">Nel <code>do-while</code> la condizione è valutata dopo il corpo, quindi il corpo viene eseguito almeno una volta</button>
+      <button class="opt">Il <code>do-while</code> può iterare solo un numero fissato di volte</button>
+    </div>
+    <div class="why">Per questo il <code>do-while</code> è la scelta naturale per la lettura con controllo di validità:
+    il dato va chiesto almeno una volta.</div>
+  </div>
+
+  <div class="q" data-correct="0">
+    <div class="qt">2. Nel programma della sommatoria, perché la <code>scanf</code> compare due volte?</div>
+    <div class="opts">
+      <button class="opt">Perché serve un valore su cui valutare la condizione prima di entrare nel ciclo, e poi uno nuovo a ogni giro</button>
+      <button class="opt">Per sicurezza, in caso la prima lettura fallisca</button>
+      <button class="opt">È una ridondanza eliminabile</button>
+    </div>
+    <div class="why">Se la lettura stesse solo all'inizio del corpo, il valore terminatore verrebbe elaborato come un dato
+    valido prima di uscire.</div>
+  </div>
+
+  <div class="q" data-correct="2">
+    <div class="qt">3. <code>scanf("%d", n);</code> — che cosa c'è che non va?</div>
+    <div class="opts">
+      <button class="opt">Nulla</button>
+      <button class="opt">Il formato dovrebbe essere <code>%f</code></button>
+      <button class="opt">Manca la <code>&amp;</code>: <code>scanf</code> deve ricevere l'indirizzo del contenitore in cui scrivere</button>
+    </div>
+    <div class="why">Il programma compila comunque: l'errore si manifesta a tempo di esecuzione, in modo imprevedibile.</div>
+  </div>
+
+  <div class="q" data-correct="1">
+    <div class="qt">4. Quando è appropriato usare un <code>for</code>?</div>
+    <div class="opts">
+      <button class="opt">Sempre: è più compatto del <code>while</code></button>
+      <button class="opt">Solo in cicli a conteggio con condizione elementare</button>
+      <button class="opt">Solo quando si lavora con gli array</button>
+    </div>
+    <div class="why">Con condizioni composte o avanzamenti irregolari il <code>while</code> rende il ragionamento più
+    leggibile — ed è il ragionamento a essere valutato.</div>
+  </div>
+</div>
+
+<div class="pager">
+  <a href="#cap3"><div class="dir">← Indietro</div><div class="ttl">3. La macchina astratta C</div></a>
+  <a class="next" href="#cap5"><div class="dir">Avanti →</div><div class="ttl">5. Array e stringhe</div></a>
+</div>
+</section>
+
+<section class="chapter" id="cap5" data-title="Array e stringhe" hidden>
+<div class="page-head">
+  <div class="eyebrow">Capitolo 5</div>
+  <h1>Array e stringhe</h1>
+  <p class="lede">Il primo aggregato di dati: molti contenitori dello stesso tipo, un nome solo,
+  e un indice per scegliere quale.</p>
+</div>
+
+<div class="toc"><b>In questa pagina</b></div>
+
+<h2 id="c5-array">Che cos'è un array</h2>
+
+<div class="box def">
+  <span class="box-t">Definizione</span>
+  <p style="margin-bottom:0">Un <strong>array</strong> è un aggregato di dati <strong>dello stesso tipo</strong>,
+  memorizzati in contenitori <strong>consecutivi</strong>, identificati da un <strong>nome comune</strong> e da un
+  <strong>indice intero</strong> che varia da contenitore a contenitore.</p>
+</div>
+
+<pre><code class="lang-c">float SequenzaFloat[11];   /* ha undici (11) elementi */
+char  parola[30];          /* ha trenta (30) elementi */
+int   elenco[100];         /* ha cento (100) elementi */</code></pre>
+
+<p>I singoli elementi sono contenitori a tutti gli effetti:</p>
+<pre><code class="lang-c">parola[0]            /* il PRIMO carattere nell'array parola */
+SequenzaFloat[6]     /* il SETTIMO float nell'array SequenzaFloat */
+elenco[99]           /* l'ULTIMO intero in elenco */</code></pre>
+
+<div class="box warn">
+  <span class="box-t">Gli indici partono da 0</span>
+  <p style="margin-bottom:0">Un array dichiarato con dimensione N ha indici validi da <strong>0</strong> a <strong>N−1</strong>.
+  <code>A[N]</code> <em>non esiste</em>: è la cella successiva all'array, e scriverci sopra danneggia altri dati
+  senza che il C protesti. Metà degli errori con gli array vengono da qui.</p>
+</div>
+
+<h3>Assegnare un valore a un elemento</h3>
+<p>La forma generale dell'assegnamento si estende così:</p>
+<pre class="pseudo">
+&lt;nome di variabile&gt;        = &lt;espressione&gt;;
+&lt;indicazione di contenitore&gt; = &lt;espressione&gt;;
+</pre>
+<pre><code class="lang-c">parola[0] = 'd';
+SequenzaFloat[6] = 3.14 * 2.0;
+SequenzaFloat[8] = SequenzaFloat[6] * 4.0;</code></pre>
+
+<h3>Inizializzazione contestuale alla dichiarazione</h3>
+<pre><code class="lang-c">int A[10] = {10, 7, 5, 5, 1, 7, 7, 8, 6, 9};
+int trovato = 0;</code></pre>
+
+<div class="box warn">
+  <span class="box-t">Due divieti da ricordare</span>
+  <p><strong>1 · Non si copia un array con l'assegnamento.</strong></p>
+  <pre style="margin:6px 0"><code class="lang-c">int A[10];
+int B[10];
+A = B;      /* NON SI PUO' FARE !!! */
+
+for (i = 0; i &lt; 10; i++)   /* occorre copiare elemento per elemento */
+    A[i] = B[i];</code></pre>
+  <p style="margin-bottom:0"><strong>2 · La dimensione di un array non può essere una variabile.</strong>
+  Deve essere un valore intero costante, o un parametro definito con <code>#define</code>:</p>
+  <pre style="margin:6px 0 0"><code class="lang-c">#define MAX 100
+int main(){
+    int A[50];
+    int B[MAX/2 + 1];    /* ok: il compilatore sa calcolarlo */
+    /* int C[n];            NO: n è una variabile */
+}</code></pre>
+</div>
+<p>Per dimensioni davvero variabili servono altre strutture (liste dinamiche, array dinamici): le vedremo più avanti nel corso.</p>
+
+<h2 id="c5-scorrere">Scorrere un array</h2>
+
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define MAX 10                    /* direttiva: sostituisce MAX con 10 */
+int main(){
+    int Sequenza[MAX];
+    int i;
+    for (i = 0; i &lt; MAX; i++)          /* lettura: dall'inizio alla fine */
+        scanf("%d", &amp;Sequenza[i]);
+    for (i = MAX-1; i &gt;= 0; i--)       /* stampa: dalla fine all'inizio */
+        printf(" %d ", Sequenza[i]);
+    return 0;
+}</code></pre>
+
+<p>La stampa in ordine inverso si può ottenere anche scorrendo in avanti e «riflettendo» l'indice:</p>
+<pre><code class="lang-c">for (i = 0; i &lt; MAX; i++)
+    printf(" %d ", Sequenza[MAX-1-i]);</code></pre>
+<p>Quando <code>i</code> vale 0 si legge l'ultimo elemento, quando vale MAX−1 si legge il primo: stesso risultato,
+schema di conteggio diverso. Verifica sempre i due <strong>estremi</strong> quando scrivi un'espressione di indice.</p>
+
+<h2 id="c5-ricerca">Ricerca in un array</h2>
+
+<h3>Elenco non ordinato — con variabile sentinella</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define MAX 100
+int main(){
+    int i;
+    int trovato = 0;          /* sentinella: "l'ho già trovato?" */
+    float Sequenza[MAX];
+    float cercato;
+    /* … qui il popolamento dell'array … */
+    scanf("%f", &amp;cercato);
+    i = 0;
+    while (i &lt; MAX &amp;&amp; trovato == 0) {
+        if (Sequenza[i] == cercato)
+            trovato = 1;
+        else
+            i = i + 1;        /* avanzo solo se NON ho trovato */
+    }
+    if (trovato == 1)
+        printf("numero %f trovato in posizione %d", cercato, i);
+    else
+        printf("numero %f non presente", cercato);
+    return 0;
+}</code></pre>
+<div class="box note">
+  <span class="box-t">Perché l'incremento sta nel ramo <code>else</code></span>
+  <p style="margin-bottom:0">Se incrementassi <code>i</code> in ogni caso, all'uscita <code>i</code> indicherebbe
+  la posizione <em>successiva</em> a quella dell'elemento trovato, e la stampa sarebbe sbagliata.
+  La variabile che contiene il risultato deve <strong>restare ferma</strong> nel momento in cui il risultato è stato trovato.</p>
+</div>
+
+<h3>Versione alternativa — senza sentinella</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define MAX 10
+int main(){
+    int i;
+    float Sequenza[MAX] = {12, 5, 6, 1, 7, 9, 3, 11, 14, 8};
+    float cercato;
+    scanf("%f", &amp;cercato);
+    i = 0;
+    while (i &lt; MAX &amp;&amp; Sequenza[i] != cercato)
+        i = i + 1;
+    if (i &lt; MAX)
+        printf("numero %f trovato in posizione %d", cercato, i);
+    else
+        printf("numero %f non presente", cercato);
+    return 0;
+}</code></pre>
+
+<div data-algo="ricerca-lineare"></div>
+
+<div class="box idea">
+  <span class="box-t">I due ragionamenti da tenere</span>
+  <ul style="margin-bottom:0">
+    <li><strong>Sulla condizione</strong>: la regola del risparmio evita di accedere a elementi <strong>fuori</strong>
+    dall'array — se <code>i &lt; MAX</code> è falsa, <code>Sequenza[i]</code> non viene nemmeno guardato.</li>
+    <li><strong>Sull'uscita dal ciclo</strong>: si esce per due motivi diversi, e bisogna capire quale.
+    Se all'uscita vale ancora <code>i &lt; MAX</code>, allora sono uscito perché è diventata falsa
+    <code>Sequenza[i] != cercato</code>, cioè perché <code>Sequenza[i] == cercato</code>: ho trovato l'elemento
+    in posizione <code>i</code>.</li>
+  </ul>
+</div>
+
+<h3>Elenco ordinato — ricerca dicotomica</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define MAX 100
+int main(){
+    int min, max, med;
+    int trovato = 0;
+    float Sequenza[MAX];
+    float cercato;
+    /* … qui il popolamento dell'array … */
+    min = 0;
+    max = MAX - 1;
+    scanf("%f", &amp;cercato);
+    while (min &lt;= max &amp;&amp; trovato == 0) {
+        med = (min + max)/2;
+        if (Sequenza[med] == cercato)      trovato = 1;
+        else if (cercato &lt; Sequenza[med])  max = med - 1;
+             else                          min = med + 1;
+    }
+    if (trovato == 1)
+        printf("numero %f trovato in posizione %d", cercato, med);
+    else
+        printf("numero %f non presente", cercato);
+    return(0);
+}</code></pre>
+<p>È la codifica dell'algoritmo del <a href="#c2-dicotomica">cap. 2 §6</a>; qui l'uscita
+dal ciclo è resa esplicita dalla <strong>variabile sentinella</strong> <code>trovato</code>, invece che da uno STOP
+in mezzo al ciclo. Ripasso interattivo:</p>
+
+<div data-algo="ricerca-binaria"></div>
+
+<h2 id="c5-base">Rappresentazione di un numero in una base</h2>
+
+<p><em>Rappresentare un numero naturale in base B usando un array di cifre.</em></p>
+
+<div class="box idea">
+  <span class="box-t">Idea</span>
+  <p style="margin-bottom:0">Il resto della divisione per la base dà la cifra <strong>meno significativa</strong>;
+  la divisione intera per la base «toglie» quella cifra. Le cifre escono quindi <strong>in ordine inverso</strong>:
+  per questo l'array viene riempito <strong>dal fondo</strong>, e poi stampato dall'inizio.</p>
+</div>
+
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define base 2
+#define MAX 32
+int main(){
+    int n, i;
+    int SequenzaCifre[MAX];          /* array di MAX cifre */
+    scanf("%d", &amp;n);
+    if (n == 0) printf("%d", 0);
+    else {
+        i = MAX - 1;                 /* ultima posizione */
+        while (n &gt; 0 &amp;&amp; i &gt;= 0) {
+            SequenzaCifre[i] = n % base;
+            n = n / base;
+            i = i - 1;               /* retrocedo di una posizione */
+        }
+        if (n &gt; 0) printf("valore eccede i limiti");
+        else {
+            i = i + 1;
+            while (i &lt; MAX) {
+                printf("%d", SequenzaCifre[i]);
+                i = i + 1;           /* avanzo di una posizione */
+            }
+        }
+    }
+    return(0);
+}</code></pre>
+
+<div data-algo="cifre-base"></div>
+
+<div class="box note">
+  <span class="box-t">I tre casi trattati a parte</span>
+  <ul style="margin-bottom:0">
+    <li><code>n == 0</code>: il ciclo girerebbe zero volte e non stamperebbe nulla → si stampa «0» esplicitamente;</li>
+    <li><code>n &gt; 0</code> all'uscita: l'array è finito prima delle cifre → il valore eccede i limiti;</li>
+    <li><code>i = i + 1</code> dopo il ciclo: <code>i</code> era già retrocesso di una posizione di troppo,
+    bisogna tornare sulla prima cifra scritta.</li>
+  </ul>
+</div>
+
+<h2 id="c5-massimi">Massimi locali: quando modificare i dati rovina il confronto</h2>
+
+<p><em>Azzerare gli elementi di un array che non sono massimi locali</em> (un elemento è massimo locale se è
+strettamente maggiore dei suoi vicini immediati).</p>
+
+<div class="box warn">
+  <span class="box-t">Il problema nascosto</span>
+  <p style="margin-bottom:0">Esaminando gli elementi da sinistra a destra, quando arrivo ad <code>A[i+1]</code>
+  devo confrontarlo con <code>A[i]</code>… ma <code>A[i]</code> potrebbe essere <strong>già stato azzerato</strong>.
+  Il confronto userebbe un valore falso. È lo stesso problema dello scambio del cap. 1:
+  <strong>prima di distruggere un valore che serve ancora, va salvato</strong>.</p>
+</div>
+
+<div class="box idea">
+  <span class="box-t">Soluzione</span>
+  <p style="margin-bottom:0">Una variabile ausiliaria <code>prec</code> conserva il valore <strong>originario</strong>
+  dell'elemento precedente. Va aggiornata <strong>qualunque sia l'esito</strong> del confronto (sia che l'elemento venga
+  azzerato, sia che resti invariato). Il primo e l'ultimo elemento hanno un solo vicino e vanno trattati a parte.</p>
+</div>
+
+<pre><code class="lang-c">#define N 10
+int main(){
+    int A[N] = {10,7,5,5,1,7,7,8,6,9};
+    int prec, i;
+    /* primo elemento: unico vicino è A[1] */
+    prec = A[0];
+    if (A[0] &lt;= A[1]) A[0] = 0;
+    /* elementi intermedi */
+    for (i = 1; i &lt; N-1; i++)
+        if (A[i] &lt;= prec || A[i] &lt;= A[i+1]) {
+            prec = A[i];       /* salvo PRIMA di azzerare */
+            A[i] = 0;
+        }
+        else prec = A[i];
+    /* ultimo elemento: unico vicino è prec */
+    if (A[N-1] &lt;= prec) A[N-1] = 0;
+    for (i = 0; i &lt; N; i++)
+        printf("\n A[%d] = %d", i, A[i]);
+    return 0;
+}</code></pre>
+
+<div data-algo="massimi-locali"></div>
+
+<details>
+  <summary>L'alternativa</summary>
+  <p style="margin-bottom:0">Invece di salvare il valore precedente si può salvare direttamente
+  <strong>il risultato del confronto</strong> fra <code>A[i]</code> e <code>A[i+1]</code>, per riutilizzarlo
+  durante l'esame di <code>A[i+1]</code>. È una variabile in meno da aggiornare, ma richiede di ragionare
+  su un booleano invece che su un valore: scegli quella che <em>tu</em> riesci a giustificare.</p>
+</details>
+
+<h2 id="c5-stringhe">Stringhe</h2>
+
+<div class="box def">
+  <span class="box-t">Definizione</span>
+  <p style="margin-bottom:0">Una <strong>stringa</strong> è un array di caratteri con un <strong>terminatore</strong>,
+  posto subito dopo l'ultimo carattere utile. Come terminatore si usa il carattere nullo <code>'\0'</code>
+  (il suo codice ASCII è 0).</p>
+</div>
+
+<p>Spesso ci sono elementi dell'array <strong>non utilizzati</strong>. Per un cognome di 7 caratteri, «Zanardi»,
+in un array <code>Arr</code> di 20 elementi:</p>
+
+<figure>
+<svg class="flow" viewBox="0 0 680 90" role="img" aria-label="Array di 20 caratteri con la stringa Zanardi e il terminatore">
+  <g>
+    <rect class="fio" x="10" y="26" width="32" height="32" rx="3"/><text x="26" y="42">Z</text><text class="lbl" x="26" y="70">0</text>
+    <rect class="fio" x="44" y="26" width="32" height="32" rx="3"/><text x="60" y="42">a</text><text class="lbl" x="60" y="70">1</text>
+    <rect class="fio" x="78" y="26" width="32" height="32" rx="3"/><text x="94" y="42">n</text><text class="lbl" x="94" y="70">2</text>
+    <rect class="fio" x="112" y="26" width="32" height="32" rx="3"/><text x="128" y="42">a</text><text class="lbl" x="128" y="70">3</text>
+    <rect class="fio" x="146" y="26" width="32" height="32" rx="3"/><text x="162" y="42">r</text><text class="lbl" x="162" y="70">4</text>
+    <rect class="fio" x="180" y="26" width="32" height="32" rx="3"/><text x="196" y="42">d</text><text class="lbl" x="196" y="70">5</text>
+    <rect class="fio" x="214" y="26" width="32" height="32" rx="3"/><text x="230" y="42">i</text><text class="lbl" x="230" y="70">6</text>
+    <rect class="fcond" x="248" y="26" width="32" height="32" rx="3"/><text x="264" y="42">\0</text><text class="lbl" x="264" y="70">7</text>
+    <rect class="fbox" x="282" y="26" width="32" height="32" rx="3"/><text class="lbl" x="298" y="42">?</text><text class="lbl" x="298" y="70">8</text>
+    <rect class="fbox" x="316" y="26" width="32" height="32" rx="3"/><text class="lbl" x="332" y="42">?</text><text class="lbl" x="332" y="70">9</text>
+    <rect class="fbox" x="350" y="26" width="32" height="32" rx="3"/><text class="lbl" x="366" y="42">?</text><text class="lbl" x="366" y="70">10</text>
+    <text class="lbl" x="460" y="42">… fino a Arr[19]: elementi non assegnati</text>
+  </g>
+  <text class="lbl" x="130" y="16">caratteri utili</text>
+  <text class="lbl" x="272" y="16">terminatore</text>
+</svg>
+<figcaption>Solo i primi 7 elementi contengono il cognome; l'ottavo contiene <code>'\0'</code>; i restanti non vengono assegnati e contengono spazzatura.</figcaption>
+</figure>
+
+<div class="box warn">
+  <span class="box-t">Conseguenze pratiche</span>
+  <ul style="margin-bottom:0">
+    <li>La <strong>lunghezza</strong> di una stringa non è la dimensione dell'array: va <strong>cercata</strong>,
+    scorrendo fino al terminatore.</li>
+    <li>L'array deve avere almeno <strong>un elemento in più</strong> del numero di caratteri utili, per il <code>'\0'</code>.</li>
+    <li>Con <code>scanf("%s", Parola)</code> <strong>non</strong> si mette la <code>&amp;</code>: il nome dell'array
+    è già l'indicazione della zona di memoria.</li>
+  </ul>
+</div>
+
+<h3>Inversione di una stringa</h3>
+<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#define MAX 30
+int main(){
+    int i;
+    char Parola[MAX];
+    scanf("%s", Parola);
+    i = 0;
+    while (i &lt; MAX-1 &amp;&amp; Parola[i] != '\0')   /* cerco il terminatore */
+        i = i + 1;
+    if (Parola[i] == '\0')
+        i = i - 1;                            /* ultimo carattere utile */
+    while (i &gt;= 0) {
+        printf("%c", Parola[i]);
+        i = i - 1;
+    }
+    return(0);
+}</code></pre>
+<p>Le due fasi sono nettamente distinte: <strong>prima</strong> si trova dove finisce la stringa, <strong>poi</strong>
+si scorre all'indietro. Esercizio suggerito a lezione: seguire l'evoluzione della memoria durante l'esecuzione.</p>
+
+<h3>Stringhe palindrome</h3>
+<div class="box idea">
+  <span class="box-t">Idea</span>
+  <p style="margin-bottom:0">Due indici, uno che parte dall'inizio e uno dalla fine, che si avvicinano confrontando
+  i caratteri. Si esce o perché i caratteri <strong>differiscono</strong> (non palindroma) o perché gli indici
+  <strong>si incontrano</strong> (palindroma). Di nuovo: bisogna saper distinguere <em>perché</em> si è usciti dal ciclo.</p>
+</div>
+
+<pre><code class="lang-c">int main(){
+    char Str[30];
+    int i, j;
+    scanf("%s", Str);
+    j = 0;
+    while (j &lt; 30 &amp;&amp; Str[j] != '\0') j++;   /* cerco il terminatore */
+    j--;                                     /* ultimo carattere utile */
+    i = 0;
+    while (i &lt; j &amp;&amp; Str[i] == Str[j]) {
+        j--;
+        i++;
+    }
+    if (i &gt;= j) printf("palindroma");
+    else        printf("non palindroma");
+    return 0;
+}</code></pre>
+
+<div data-algo="palindroma"></div>
+
+<details>
+  <summary>Perché la condizione finale è <code>i &gt;= j</code> e non <code>i == j</code></summary>
+  <p style="margin-bottom:0">Con un numero <strong>dispari</strong> di caratteri i due indici finiscono sullo stesso
+  carattere centrale (<code>i == j</code>); con un numero <strong>pari</strong> si scavalcano (<code>i &gt; j</code>).
+  Coprire entrambi i casi con <code>&gt;=</code> evita di trattarli separatamente. Provalo nel simulatore con
+  <code>anna</code> (pari) e <code>onorono</code> (dispari).</p>
+</details>
+
+<div class="quiz">
+  <h3>Verifica rapida</h3>
+
+  <div class="q" data-correct="1">
+    <div class="qt">1. <code>int A[10];</code> — quali indici sono validi?</div>
+    <div class="opts">
+      <button class="opt">Da 1 a 10</button>
+      <button class="opt">Da 0 a 9</button>
+      <button class="opt">Da 0 a 10</button>
+    </div>
+    <div class="why">Un array di dimensione N ha indici da 0 a N−1. <code>A[10]</code> è fuori dall'array e il C
+    non lo segnala.</div>
+  </div>
+
+  <div class="q" data-correct="2">
+    <div class="qt">2. Perché <code>A = B;</code> fra due array non funziona?</div>
+    <div class="opts">
+      <button class="opt">Funziona, ma solo se hanno la stessa dimensione</button>
+      <button class="opt">Perché B potrebbe non essere inizializzato</button>
+      <button class="opt">Perché l'assegnamento opera su un contenitore alla volta: un array va copiato elemento per elemento con un ciclo</button>
+    </div>
+    <div class="why">Lo stesso vale per il confronto: <code>A == B</code> non confronta i contenuti.</div>
+  </div>
+
+  <div class="q" data-correct="0">
+    <div class="qt">3. Nei massimi locali, perché serve la variabile <code>prec</code>?</div>
+    <div class="opts">
+      <button class="opt">Perché l'elemento precedente potrebbe essere già stato azzerato, e il confronto userebbe un valore falso</button>
+      <button class="opt">Per rendere il codice più veloce</button>
+      <button class="opt">Perché in C non si può scrivere <code>A[i-1]</code></button>
+    </div>
+    <div class="why">È lo stesso ragionamento del contenitore temporaneo nello scambio: salvare un'informazione
+    <b>prima</b> di distruggerla.</div>
+  </div>
+
+  <div class="q" data-correct="1">
+    <div class="qt">4. Come si determina la lunghezza di una stringa memorizzata in <code>char S[30]</code>?</div>
+    <div class="opts">
+      <button class="opt">È sempre 30</button>
+      <button class="opt">Si scorre l'array contando i caratteri fino a incontrare <code>'\0'</code></button>
+      <button class="opt">Si usa l'ultimo elemento, <code>S[29]</code></button>
+    </div>
+    <div class="why">La dimensione dell'array è solo la capienza; i caratteri utili sono quelli che precedono
+    il terminatore.</div>
+  </div>
+</div>
+
+<h2 id="c5-prossimi">Prossimi argomenti</h2>
+<p>Dal programma del corso, non ancora coperti da questi appunti: la codifica binaria dell'informazione,
+i sottoprogrammi, la memorizzazione persistente mediante file, l'allocazione dinamica della memoria
+e la ricorsione come tecnica di risoluzione dei problemi. Man mano che le lezioni procedono, si aggiungono qui.</p>
+
+<div class="pager">
+  <a href="#cap4"><div class="dir">← Indietro</div><div class="ttl">4. Istruzioni e programmi</div></a>
+  <a class="next" href="#home"><div class="dir">Torna all'→</div><div class="ttl">Indice</div></a>
+</div>
+</section>
+</main>
+
+<footer>Appunti personali di Fondamenti di Informatica · rielaborati dal materiale del corso.</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

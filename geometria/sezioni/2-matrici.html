@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 2 · Algebra delle matrici e invertibilità — Geometria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7a4e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../../index.html"><span class="brand-mark">G</span> Geometria</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="0-preliminari.html">0 · Preliminari</a>
+      <a href="1-sistemi.html">1 · Sistemi</a>
+      <a href="2-matrici.html">2 · Matrici</a>
+      <a href="3-complessi.html">3 · Complessi</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../esercizi.html">Esercizi</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 2</h4>
+    <a href="#checklist">Checklist del programma</a>
+    <a href="#algebra">1 · Algebra delle matrici</a>
+    <a href="#prodotto" class="sub">Prodotto righe per colonne</a>
+    <a href="#patologie" class="sub">Le patologie del prodotto</a>
+    <a href="#speciali" class="sub">Matrici speciali e $I_n$</a>
+    <a href="#trasposta" class="sub">Trasposta</a>
+    <a href="#struttura">2 · Struttura delle soluzioni</a>
+    <a href="#rc">3 · Rouché-Capelli</a>
+    <a href="#laboratorio" class="sub">Laboratorio: $\vb$ che cambia</a>
+    <a href="#omogenei" class="sub">Sistemi omogenei</a>
+    <a href="#inversa">4 · Matrice inversa</a>
+    <a href="#condizioni" class="sub">Condizioni di invertibilità</a>
+    <a href="#calcolo" class="sub">Calcolo con il MEG</a>
+    <a href="#cramer">5 · Determinante e Cramer</a>
+    <a href="#test">Mettiti alla prova</a>
+    <a href="#errori">Errori tipici</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 2 · Geometria e Algebra Lineare</div>
+      <h1>Algebra delle matrici e invertibilità</h1>
+      <p class="lead">Le matrici smettono di essere tabelle e diventano <em>oggetti algebrici</em> che si sommano e si moltiplicano. Da qui nascono la struttura delle soluzioni, Rouché-Capelli e il concetto di matrice inversa.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">↳ Dove stiamo andando</div>
+      <p class="mb0">Nella Sezione 1 hai un <em>algoritmo</em>: il MEG. Qui arriva la <em>teoria</em> che spiega i suoi risultati senza eseguirlo. Rouché-Capelli dice se ci sono soluzioni guardando solo due numeri; la struttura delle soluzioni dice che forma hanno; le condizioni di invertibilità raccolgono tutto nel caso quadrato.</p>
+    </div>
+
+    <h2 id="checklist">Checklist del programma</h2>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 2</strong>
+        <span class="muted small"><span data-progress-txt="g2">0/16</span> · <span data-progress-pct="g2">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="g2"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <!-- ============================================================ -->
+    <h2 id="algebra">1 · Algebra delle matrici</h2>
+
+    <div class="box def">
+      <div class="box-title">Somma e prodotto per uno scalare</div>
+      <p class="mb0">Per $A=[a_{ij}]$ e $B=[b_{ij}]$ <strong>dello stesso tipo</strong> $m\times n$, e $\lambda\in\K$:
+      $$A+B:=[a_{ij}+b_{ij}],\qquad \lambda A:=[\lambda a_{ij}].$$
+      Si opera <em>entrata per entrata</em>. L'insieme delle matrici $m\times n$ su $\K$ si indica con $\K^{m\times n}$.</p>
+    </div>
+
+    <h3 id="prodotto">Prodotto righe per colonne</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p>Siano $A$ di tipo $m\times n$ e $B$ di tipo $n\times k$ — le <strong>colonne di $A$</strong> devono essere quante le <strong>righe di $B$</strong>. Allora $AB$ è di tipo $m\times k$ e
+      $$[AB]_{ij}:=\sum_{s=1}^{n}a_{is}\,b_{sj},$$</p>
+      <p class="mb0">cioè l'entrata $(i,j)$ è il <em>prodotto scalare</em> della riga $i$ di $A$ per la colonna $j$ di $B$.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Prodotto righe per colonne</span><span class="faint" style="text-transform:none;font-weight:400">clicca su una cella del risultato</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="prodSel">coppia</label>
+            <select id="prodSel">
+              <option value="0">$3\times2$ per $2\times3$</option>
+              <option value="1">$2\times2$ per $2\times2$ (non commutano)</option>
+              <option value="2">$2\times3$ per $3\times1$ (matrice per vettore)</option>
+            </select>
+          </div>
+        </div>
+        <div id="prodBox" style="display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap"></div>
+        <div class="readout" id="prodOut"></div>
+      </div>
+    </div>
+
+    <h3 id="patologie">Le patologie del prodotto <span class="badge star">risultato centrale</span></h3>
+    <div class="box trap">
+      <div class="box-title">✗ Tre cose che valgono per i numeri e non per le matrici</div>
+      <p><strong>1. Non è commutativo.</strong> $AB\ne BA$ in generale, e spesso uno dei due non è neppure definito.
+      $$A=\begin{bmatrix}0&1\\0&0\end{bmatrix},\ B=\begin{bmatrix}0&0\\1&0\end{bmatrix}\Longrightarrow AB=\begin{bmatrix}1&0\\0&0\end{bmatrix},\ BA=\begin{bmatrix}0&0\\0&1\end{bmatrix}$$</p>
+      <p><strong>2. Ci sono divisori dello zero.</strong> $AB=O$ non implica $A=O$ o $B=O$:
+      $$\begin{bmatrix}0&1\\0&0\end{bmatrix}^{2}=\begin{bmatrix}0&0\\0&0\end{bmatrix}=O$$</p>
+      <p class="mb0"><strong>3. Non si semplifica.</strong> Da $AB=AC$ <em>non</em> segue $B=C$, a meno che $A$ non sia invertibile. E di conseguenza
+      $$(A+B)^{2}=A^{2}+AB+BA+B^{2}\ne A^{2}+2AB+B^{2}\ \text{(salvo }AB=BA).$$</p>
+    </div>
+
+    <details class="reveal"><summary>Che cosa invece continua a valere</summary><div class="reveal-body">
+      <p class="mb0">Il prodotto resta <strong>associativo</strong>, $(AB)C=A(BC)$, e <strong>distributivo</strong> rispetto alla somma, $A(B+C)=AB+AC$ e $(A+B)C=AC+BC$. Insieme a $\lambda(AB)=(\lambda A)B=A(\lambda B)$, sono le uniche proprietà su cui puoi contare — ed è esattamente il motivo per cui la dimostrazione dell'unicità dell'inversa usa <em>solo</em> l'associatività.</p>
+    </div></details>
+
+    <h3 id="speciali">Matrici speciali e identità</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Tipo</th><th>Condizione</th><th>Esempio</th></tr></thead>
+        <tbody>
+          <tr><td><strong>quadrata</strong></td><td>$m=n$ (ordine $n$)</td><td>$\begin{bmatrix}1&2\\3&4\end{bmatrix}$</td></tr>
+          <tr><td><strong>diagonale</strong></td><td>$a_{ij}=0$ per $i\ne j$</td><td>$\diag(\lambda_1,\dots,\lambda_n)$</td></tr>
+          <tr><td><strong>triangolare superiore</strong></td><td>$a_{ij}=0$ per $i>j$</td><td>$\begin{bmatrix}1&2\\0&4\end{bmatrix}$</td></tr>
+          <tr><td><strong>identità</strong></td><td>$I_n=\diag(1,\dots,1)$</td><td>$AI_n=A$, $I_nB=B$</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <details class="reveal"><summary>Prodotto per una matrice diagonale</summary><div class="reveal-body">
+      <p>Sia $C=\diag(\lambda_1,\dots,\lambda_n)$. Allora moltiplicare <em>a destra</em> per $C$ scala le <strong>colonne</strong>, moltiplicare <em>a sinistra</em> scala le <strong>righe</strong>:
+      $$[AC]_{ij}=\lambda_j a_{ij},\qquad [CB]_{ij}=\lambda_i b_{ij}.$$</p>
+      <p class="mb0">Ponendo tutti i $\lambda_i=1$ si ottengono $AI_n=A$ e $I_nB=B$: l'identità è l'elemento neutro del prodotto. È anche un buon promemoria del fatto che «destra» e «sinistra» fanno cose diverse.</p>
+    </div></details>
+
+    <h3 id="trasposta">Trasposta</h3>
+    <div class="box def">
+      <div class="box-title">Definizione e regola del prodotto</div>
+      <p class="mb0">$A^{T}$ si ottiene scambiando righe e colonne: $[A^{T}]_{ij}=a_{ji}$. Se $A$ è $m\times n$, $A^{T}$ è $n\times m$. Valgono
+      $$(A+B)^{T}=A^{T}+B^{T},\qquad (A^{T})^{T}=A,\qquad \boxed{(AB)^{T}=B^{T}A^{T}}$$</p>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ Un controllo che non sbaglia mai</div>
+      <p class="mb0">Trasposizione e inversione <strong>rovesciano l'ordine</strong>: $(AB)^{T}=B^{T}A^{T}$ e $(AB)^{-1}=B^{-1}A^{-1}$. Se dubiti, controlla i <em>tipi</em>: con $A$ di tipo $m\times n$ e $B$ di tipo $n\times k$, il prodotto $A^{T}B^{T}$ non è nemmeno definito.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="struttura">2 · Struttura delle soluzioni <span class="badge star">risultato centrale</span></h2>
+
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p>Sia $A\vx=\vb$ compatibile e $\vx_0$ una sua soluzione particolare. Allora tutte le soluzioni sono
+      $$S=\{\vx_0+\vv\ :\ \vv\in S_0\},$$ con $S_0$ l'insieme delle soluzioni del sistema <strong>omogeneo associato</strong> $A\vx=\vzero$.</p>
+      <p class="mb0">Inoltre, se $r=\rg A$, esistono $\vv_1,\dots,\vv_{n-r}$ tali che $$S_0=\{t_1\vv_1+\dots+t_{n-r}\vv_{n-r}\ :\ t_i\in\K\}.$$</p>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione a passi coperti</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Inclusione $\supseteq$</div>
+            <div class="step-content">Se $A\vx_0=\vb$ e $A\vv=\vzero$, per linearità $A(\vx_0+\vv)=A\vx_0+A\vv=\vb+\vzero=\vb$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Inclusione $\subseteq$: il passaggio chiave</div>
+            <div class="step-content">Sia $\vx$ una soluzione qualsiasi e poniamo $\vv:=\vx-\vx_0$. Allora $A\vv=A\vx-A\vx_0=\vb-\vb=\vzero$, quindi $\vv\in S_0$ e $\vx=\vx_0+\vv$. $\blacksquare$</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Da dove vengono gli $n-r$ parametri?</div>
+            <div class="step-content">Dal MEG: le colonne con pivot danno le $r$ incognite di base, le altre le $n-r$ libere. Assegnando a turno $1$ a una libera e $0$ alle altre si costruiscono $\vv_1,\dots,\vv_{n-r}$.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">L'osservazione che vale punti</div>
+            <div class="step-content">$\vv_1,\dots,\vv_{n-r}$ dipendono <strong>solo da $A$</strong>; è $\vx_0$ a dipendere anche da $\vb$. Cambiando il termine noto, l'insieme delle soluzioni <em>trasla</em> senza cambiare forma.</div></div></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ============================================================ -->
+    <h2 id="rc">3 · Teorema di Rouché-Capelli <span class="badge star">risultato centrale</span></h2>
+
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p>Il sistema $A\vx=\vb$ è <strong>compatibile</strong> se e solo se $$\rg A=\rg[A\,|\,\vb].$$</p>
+      <p class="mb0">In tal caso, detto $r$ il valore comune: se $r=n$ la soluzione è <strong>unica</strong>; se $r<n$ le soluzioni sono <strong>infinite</strong> e dipendono da $n-r$ parametri liberi.</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Perché è vero (in una riga)</div>
+      <p class="mb0">Riducendo a scala, $\rg[A\,|\,\vb]$ vale $\rg A$ oppure $\rg A+1$, e il secondo caso si verifica <em>esattamente</em> quando compare uno <strong>0-pivot</strong>. Rouché-Capelli è il criterio dello 0-pivot riscritto con i ranghi.</p>
+    </div>
+
+    <h3 id="laboratorio">Laboratorio: stesso $A$, termini noti diversi</h3>
+    <div class="widget">
+      <div class="widget-head"><span>Rouché-Capelli in azione</span><span class="faint" style="text-transform:none;font-weight:400">cambia $\vb$, guarda i due ranghi</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="rcB1">$b_1$</label><input type="range" id="rcB1" min="-4" max="4" value="1" step="1"><output data-out="rcB1">1</output></div>
+          <div class="ctrl"><label for="rcB2">$b_2$</label><input type="range" id="rcB2" min="-4" max="4" value="1" step="1"><output data-out="rcB2">1</output></div>
+          <div class="ctrl"><label for="rcB3">$b_3$</label><input type="range" id="rcB3" min="-4" max="4" value="2" step="1"><output data-out="rcB3">2</output></div>
+        </div>
+        <div class="matrice-wrap" id="rcMat"></div>
+        <div class="readout" id="rcOut"></div>
+      </div>
+    </div>
+
+    <h3 id="omogenei">Sistemi omogenei</h3>
+    <div class="box prop">
+      <div class="box-title">Proposizione</div>
+      <p class="mb0">$A\vx=\vzero$ è <strong>sempre compatibile</strong> ($\vx=\vzero$ è la soluzione banale) e ammette soluzioni <strong>non banali</strong> se e solo se $r<n$.<br><br>
+      In particolare, se $m<n$ (meno equazioni che incognite) esistono sempre soluzioni non banali, perché $r\le m<n$.</p>
+    </div>
+    <div class="box tip">
+      <div class="box-title">✓ Un corollario che userai per tutto il corso</div>
+      <p class="mb0">«Un sistema omogeneo con più incognite che equazioni ha sempre soluzioni non banali.» Più avanti diventerà: <em>$n$ vettori in uno spazio di dimensione minore di $n$ sono sempre linearmente dipendenti</em>. È lo stesso enunciato in un'altra lingua.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="inversa">4 · Matrice inversa</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">$A$ quadrata di ordine $n$ si dice <strong>invertibile</strong> se esiste $B$ con $$AB=BA=I_n.$$ Tale $B$, se esiste, è <strong>unica</strong>; si scrive $B=A^{-1}$.</p>
+    </div>
+
+    <details class="reveal proof"><summary>Dimostrazione dell'unicità (da sapere a memoria: è di una riga)</summary><div class="reveal-body">
+      <p>Siano $B$ e $C$ entrambe inverse di $A$. Allora
+      $$B=BI_n=B(AC)=(BA)C=I_nC=C.$$</p>
+      <p class="mb0">Si usano solo l'<strong>associatività</strong> e il fatto che $I_n$ è neutro. Nota dove serve ciascuna ipotesi: $AC=I_n$ per il secondo passaggio, $BA=I_n$ per il quarto. $\blacksquare$</p>
+    </div></details>
+
+    <h3 id="condizioni">Condizioni di invertibilità <span class="badge star">risultato centrale</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p>Per $A$ quadrata di ordine $n$ sono <strong>equivalenti</strong>:</p>
+      <ol class="mb0">
+        <li>$A$ è invertibile;</li>
+        <li>$\rg A=n$;</li>
+        <li>$A\vx=\vzero$ ha solo la soluzione banale;</li>
+        <li>per ogni $\vb$, $A\vx=\vb$ ha una e una sola soluzione;</li>
+        <li>$\det A\ne0$.</li>
+      </ol>
+    </div>
+
+    <div class="box prop">
+      <div class="box-title">Inversa di un prodotto</div>
+      <p class="mb0">$$\boxed{(AB)^{-1}=B^{-1}A^{-1}}$$
+      <em>Verifica:</em> $(AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=AI_nA^{-1}=I_n$, e simmetricamente dall'altro lato. Per l'unicità dell'inversa, quello <em>è</em> l'inverso di $AB$.</p>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ Due errori frequenti</div>
+      <ul class="mb0">
+        <li><strong>Scrivere $(AB)^{-1}=A^{-1}B^{-1}$.</strong> L'ordine si inverte — come per svestirsi: si tolgono prima le scarpe, poi le calze.</li>
+        <li><strong>Credere che la somma di invertibili sia invertibile.</strong> $A$ e $-A$ sono entrambe invertibili, ma $A+(-A)=O$ non lo è.</li>
+      </ul>
+    </div>
+
+    <h3 id="calcolo">Calcolare l'inversa con il MEG</h3>
+    <div class="box">
+      <p class="mb0">Si affianca l'identità e si riduce fino a ottenere $I_n$ a sinistra:
+      $$[A\,|\,I_n]\ \xrightarrow{\ \text{MEG + risalita}\ }\ [I_n\,|\,A^{-1}].$$
+      Se durante la riduzione compare una riga nulla nella parte sinistra, allora $\rg A<n$ e <strong>l'inversa non esiste</strong>: il metodo diagnostica e calcola allo stesso tempo.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="cramer">5 · Determinante e teorema di Cramer</h2>
+
+    <div class="box def">
+      <div class="box-title">Determinante in ordine basso</div>
+      <p class="mb0">$$\det\begin{bmatrix}a&b\\c&d\end{bmatrix}=ad-bc,$$
+      $$\det\begin{bmatrix}a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}\end{bmatrix}=a_{11}\begin{vmatrix}a_{22}&a_{23}\\a_{32}&a_{33}\end{vmatrix}-a_{12}\begin{vmatrix}a_{21}&a_{23}\\a_{31}&a_{33}\end{vmatrix}+a_{13}\begin{vmatrix}a_{21}&a_{22}\\a_{31}&a_{32}\end{vmatrix}$$
+      (sviluppo di Laplace lungo la prima riga; si può sviluppare lungo qualunque riga o colonna, alternando i segni secondo $(-1)^{i+j}$).</p>
+    </div>
+    <p class="small muted">Conviene sviluppare lungo la riga o la colonna con <strong>più zeri</strong>: ogni zero elimina un minore da calcolare.</p>
+
+    <div class="box teo">
+      <div class="box-title">Teorema di Cramer <span class="badge star">risultato centrale</span></div>
+      <p class="mb0">Sia $A$ quadrata con $\det A\ne0$. Allora $A\vx=\vb$ ha una e una sola soluzione, data da
+      $$x_j=\frac{\det A_j}{\det A},\qquad j=1,\dots,n,$$
+      dove $A_j$ è $A$ con la <strong>$j$-esima colonna sostituita da $\vb$</strong>.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ Quando usarlo davvero</div>
+      <p class="mb0">Quasi mai per risolvere un sistema: richiede $n+1$ determinanti di ordine $n$, molto più costosi del MEG. Serve invece quando ti interessa <strong>una sola incognita</strong>, oppure quando i coefficienti dipendono da un <strong>parametro</strong> e vuoi una formula chiusa. E richiede $A$ <em>quadrata</em> con $\det A\ne0$: se $\det A=0$ si torna a Rouché-Capelli.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="test">Mettiti alla prova</h2>
+    <div id="quizBox"></div>
+
+    <h2 id="errori">Errori tipici della Sezione 2</h2>
+    <div class="box trap">
+      <ul class="mb0">
+        <li><strong>Moltiplicare matrici senza controllare i tipi.</strong> Prima i tipi, poi i conti.</li>
+        <li><strong>Usare $(A+B)^2=A^2+2AB+B^2$.</strong> Vale solo se $AB=BA$.</li>
+        <li><strong>Semplificare $AB=AC$ in $B=C$</strong> senza sapere che $A$ è invertibile.</li>
+        <li><strong>Scrivere $(AB)^{-1}=A^{-1}B^{-1}$ o $(AB)^{T}=A^{T}B^{T}$.</strong> L'ordine si inverte.</li>
+        <li><strong>Contare i parametri liberi come $n-m$.</strong> Sono $n-r$.</li>
+        <li><strong>Applicare Cramer con $\det A=0$</strong>, o a matrici non quadrate.</li>
+        <li><strong>Dedurre da $\det A=0$ che il sistema è incompatibile.</strong> Dice solo che non c'è soluzione <em>unica</em>: può essere incompatibile oppure avere infinite soluzioni.</li>
+        <li><strong>Dividere per un'espressione con parametro</strong> senza discutere il caso in cui si annulla.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="3-complessi.html">Sezione 3 · Numeri complessi →</a>
+      <a class="btn" href="1-sistemi.html">← Sezione 1</a>
+      <a class="btn" href="../esercizi.html?sez=2">Esercizi della Sezione 2</a>
+    </div>
+  </main>
+</div>
+
+<footer>Geometria e Algebra Lineare · Sezione 2 · Appunti non ufficiali</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../../assets/js/materie.js"></script>
+<script src="../data/topics.js"></script>
+<script src="../data/quiz.js"></script>
+<script src="../../assets/js/meg.js"></script>
+<script src="../../assets/js/plot.js"></script>
+<script src="../../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 2, 'geometria');
+  AM.mountQuiz('#quizBox', AM.QUIZ_GEO.filter(function (q) { return q.sez === 2; }), { statKey: 'geo2' });
+
+  /* ---------- prodotto righe per colonne ---------- */
+  (function () {
+    var COPPIE = [
+      { A: [[1,2],[0,-1],[3,1]], B: [[2,0,1],[1,3,-2]] },
+      { A: [[0,1],[0,0]], B: [[0,0],[1,0]] },
+      { A: [[1,2,3],[4,5,6]], B: [[1],[0],[-1]] }
+    ];
+    var i = 0, sel = document.getElementById('prodSel');
+    var box = document.getElementById('prodBox'), out = document.getElementById('prodOut');
+    var evid = null;
+
+    function mult(A, B) {
+      var m = A.length, n = B.length, k = B[0].length, C = [];
+      for (var a = 0; a < m; a++) { C.push([]); for (var b = 0; b < k; b++) { var s = 0; for (var t = 0; t < n; t++) s += A[a][t] * B[t][b]; C[a].push(s); } }
+      return C;
+    }
+    function tab(M, cls, evidRighe, evidCol) {
+      var out = '<table class="matrice ' + (cls || '') + '"><tbody>';
+      for (var a = 0; a < M.length; a++) {
+        out += '<tr><td class="bra"></td>';
+        for (var b = 0; b < M[a].length; b++) {
+          var e = (evidRighe !== undefined && a === evidRighe) || (evidCol !== undefined && b === evidCol);
+          out += '<td' + (e ? ' style="background:var(--accent-soft);color:var(--accent);font-weight:700"' : '') + '>' + M[a][b] + '</td>';
+        }
+        out += '<td class="ket"></td></tr>';
+      }
+      return out + '</tbody></table>';
+    }
+    function mostra() {
+      var C = COPPIE[i], P = mult(C.A, C.B);
+      var er = evid ? evid[0] : undefined, ec = evid ? evid[1] : undefined;
+      box.innerHTML =
+        '<div>' + tab(C.A, '', er) + '<div class="small muted center">A (' + C.A.length + '×' + C.A[0].length + ')</div></div>' +
+        '<div style="font-size:20px;color:var(--text-faint)">·</div>' +
+        '<div>' + tab(C.B, '', undefined, ec) + '<div class="small muted center">B (' + C.B.length + '×' + C.B[0].length + ')</div></div>' +
+        '<div style="font-size:20px;color:var(--text-faint)">=</div>' +
+        '<div id="prodRis">' + tabRis(P, er, ec) + '<div class="small muted center">AB (' + P.length + '×' + P[0].length + ')</div></div>';
+      box.querySelectorAll('#prodRis td[data-ij]').forEach(function (td) {
+        td.style.cursor = 'pointer';
+        td.onclick = function () { evid = td.dataset.ij.split(',').map(Number); mostra(); };
+      });
+      if (evid) {
+        var conti = [];
+        for (var t = 0; t < C.B.length; t++) conti.push(C.A[er][t] + '·' + C.B[t][ec]);
+        out.innerHTML = '<b>[AB]<sub>' + (er + 1) + ',' + (ec + 1) + '</sub></b> = riga ' + (er + 1) + ' di A · colonna ' + (ec + 1) + ' di B<br>' +
+          '= ' + conti.join(' + ') + ' = <b>' + P[er][ec] + '</b>';
+      } else {
+        out.innerHTML = '<span style="color:var(--text-faint)">Clicca una cella del risultato per vedere da dove esce.</span>' +
+          (i === 1 ? '<br><span style="color:var(--warn)">Questa coppia serve a mostrare che AB ≠ BA: prova a calcolare BA a mano.</span>' : '');
+      }
+    }
+    function tabRis(M, er, ec) {
+      var o = '<table class="matrice"><tbody>';
+      for (var a = 0; a < M.length; a++) {
+        o += '<tr><td class="bra"></td>';
+        for (var b = 0; b < M[a].length; b++) {
+          var e = (a === er && b === ec);
+          o += '<td data-ij="' + a + ',' + b + '"' + (e ? ' class="pivot"' : '') + '>' + M[a][b] + '</td>';
+        }
+        o += '<td class="ket"></td></tr>';
+      }
+      return o + '</tbody></table>';
+    }
+    sel.onchange = function () { i = +this.value; evid = null; mostra(); };
+    mostra();
+  })();
+
+  /* ---------- Rouché-Capelli: stesso A, b variabile ---------- */
+  (function () {
+    // A ha rango 2: la terza riga e' la somma delle prime due
+    var A = [[1,2,0,1],[1,2,2,4],[2,4,2,5]];
+    var b = [1,1,2];
+    var mat = document.getElementById('rcMat'), out = document.getElementById('rcOut');
+
+    function aggiorna() {
+      var M = A.map(function (r, i) { return r.concat([b[i]]); });
+      var res = MEG.riduci(MEG.da(M), 4);
+      var a = MEG.analizza(res);
+      var p = res.passi[res.passi.length - 1];
+      mat.innerHTML = MEG.html(p.M, { nA: 4, pivot: p.pivot, elle: true });
+      var esito = a.esito === 'incompatibile'
+        ? '<span style="color:var(--danger)"><b>INCOMPATIBILE</b> — rg A ≠ rg [A|b]: c\'è uno 0-pivot.</span>'
+        : '<span style="color:var(--ok)"><b>COMPATIBILE</b> con ' + (a.libere ? '∞ soluzioni, ' + a.libere + ' parametri liberi' : 'soluzione unica') + '</span>';
+      out.innerHTML =
+        'b = (' + b.join(', ') + ')ᵀ &nbsp;·&nbsp; A è 3×4 con rg A = <b>' + a.rangoA + '</b> (fisso: non dipende da b)<br>' +
+        'rg [A|b] = <b>' + a.rangoTot + '</b> → ' + esito + '<br>' +
+        '<span style="color:var(--text-faint)">La terza riga di A è la somma delle prime due: perché il sistema sia compatibile deve valere lo stesso fra i termini noti, cioè b₃ = b₁ + b₂.</span>';
+    }
+    ['rcB1','rcB2','rcB3'].forEach(function (id, k) {
+      plotSlider(id, function (v) { b[k] = v; aggiorna(); });
+    });
+  })();
+});
+</script>
+</body>
+</html>

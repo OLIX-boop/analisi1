@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 1 · Sistemi lineari e metodo di Gauss — Geometria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7a4e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../../index.html"><span class="brand-mark">G</span> Geometria</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="0-preliminari.html">0 · Preliminari</a>
+      <a href="1-sistemi.html">1 · Sistemi</a>
+      <a href="2-matrici.html">2 · Matrici</a>
+      <a href="3-complessi.html">3 · Complessi</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../esercizi.html">Esercizi</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 1</h4>
+    <a href="#checklist">Checklist del programma</a>
+    <a href="#sistemi">1 · Che cos'è un sistema lineare</a>
+    <a href="#matrici" class="sub">Dalla scrittura alla matrice</a>
+    <a href="#equivalenza">2 · Operazioni elementari</a>
+    <a href="#scala">3 · Matrici a scala</a>
+    <a href="#pivot" class="sub">Pivot e il criterio degli ℓᵢ</a>
+    <a href="#meg">4 · Il MEG in azione</a>
+    <a href="#laboratorio" class="sub">Laboratorio interattivo</a>
+    <a href="#lettura">5 · Leggere la matrice ridotta</a>
+    <a href="#zeropivot" class="sub">Il criterio dello 0-pivot</a>
+    <a href="#rango" class="sub">Rango e incognite libere</a>
+    <a href="#test">Mettiti alla prova</a>
+    <a href="#errori">Errori tipici</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 1 · Geometria e Algebra Lineare</div>
+      <h1>Sistemi lineari, matrici e metodo di Gauss</h1>
+      <p class="lead">Un solo algoritmo — il <strong>MEG</strong> — risolve <em>tutti</em> i sistemi lineari: dice se ci sono soluzioni, quante, e quali. Tutto il resto della sezione serve a spiegare perché funziona e come si legge il risultato.</p>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">↳ L'idea in una frase</div>
+      <p class="mb0">Un sistema è difficile da guardare, una <strong>matrice a scala</strong> è facile. Le operazioni elementari permettono di passare dal primo alla seconda <em>senza cambiare le soluzioni</em>, e il MEG garantisce che ci si arrivi sempre in un numero finito di passi. A quel punto basta leggere.</p>
+    </div>
+
+    <h2 id="checklist">Checklist del programma</h2>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 1</strong>
+        <span class="muted small"><span data-progress-txt="g1">0/14</span> · <span data-progress-pct="g1">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="g1"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <!-- ============================================================ -->
+    <h2 id="sistemi">1 · Che cos'è un sistema lineare</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p>Un <strong>sistema lineare</strong> di $m$ equazioni in $n$ incognite $x_1,\dots,x_n$ è un sistema della forma</p>
+      $$(*)\qquad\begin{cases}a_{11}x_1+a_{12}x_2+\dots+a_{1n}x_n=b_1\\ a_{21}x_1+a_{22}x_2+\dots+a_{2n}x_n=b_2\\ \ \vdots\\ a_{m1}x_1+a_{m2}x_2+\dots+a_{mn}x_n=b_m\end{cases}$$
+      <p class="mb0">ovvero, in forma compatta, $\displaystyle\sum_{j=1}^{n}a_{ij}x_j=b_i$ per $i=1,\dots,m$. Gli $a_{ij}$ si dicono <strong>coefficienti</strong>, i $b_i$ <strong>termini noti</strong>; sono <em>costanti</em>, cioè non dipendono dalle incognite.</p>
+    </div>
+
+    <div class="box def">
+      <div class="box-title">Definizione — soluzione</div>
+      <p class="mb0">Una <strong>soluzione</strong> di $(*)$ è un valore del vettore incognito $\vx:=(x_1,\dots,x_n)$ per cui <em>tutte</em> le equazioni sono uguaglianze valide. Le soluzioni sono dunque elementi di $\R^{n}$, oppure di $\C^{n}$ se si ammettono soluzioni complesse.</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title">La convenzione $\K$</div>
+      <p class="mb0">Quando un argomento vale sia sul campo $\R$ sia sul campo $\C$, il campo si indica con $\K$. Tutta questa sezione è scritta su $\K$: il MEG usa solo somma, prodotto e divisione per elementi non nulli, che esistono in entrambi.</p>
+    </div>
+
+    <p><strong>Terminologia.</strong> Il sistema si dice <strong>compatibile</strong> se ammette almeno una soluzione, <strong>incompatibile</strong> altrimenti. Si dice <strong>omogeneo</strong> se $b_1=\dots=b_m=0$; un sistema omogeneo è sempre compatibile, perché $\vx=\vzero$ lo risolve.</p>
+
+    <h3 id="matrici">Dalla scrittura alla matrice</h3>
+    <p>Le incognite non servono a nulla durante i calcoli: servono solo i numeri e la loro posizione. Si buttano via i simboli e si tiene la tabella.</p>
+
+    <div class="box def">
+      <div class="box-title">Definizione — matrici del sistema</div>
+      <p class="mb0">$$A=[a_{ij}]=\begin{bmatrix}a_{11}&\cdots&a_{1n}\\ \vdots&&\vdots\\ a_{m1}&\cdots&a_{mn}\end{bmatrix}\ \ \text{(matrice dei coefficienti, tipo } m\times n),$$
+      $$[A\,|\,\vb]=\left[\begin{array}{ccc|c}a_{11}&\cdots&a_{1n}&b_1\\ \vdots&&\vdots&\vdots\\ a_{m1}&\cdots&a_{mn}&b_m\end{array}\right]\ \ \text{(matrice completa)}.$$
+      Il sistema si scrive allora in <strong>forma matriciale</strong> come $\ A\vx=\vb$.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="equivalenza">2 · Operazioni elementari e sistemi equivalenti</h2>
+
+    <div class="box def">
+      <div class="box-title">Le tre operazioni elementari sulle righe</div>
+      <ol class="mb0">
+        <li>scambiare due righe: $R_i\leftrightarrow R_k$;</li>
+        <li>moltiplicare una riga per uno scalare $\lambda\ne0$: $R_i\to\lambda R_i$;</li>
+        <li>sommare a una riga un multiplo di un'altra: $R_i\to R_i+\lambda R_k$ (con $i\ne k$).</li>
+      </ol>
+    </div>
+
+    <div class="box teo">
+      <div class="box-title">Teorema <span class="badge star">risultato centrale</span></div>
+      <p class="mb0">Se $[A'\,|\,\vb']$ si ottiene da $[A\,|\,\vb]$ mediante operazioni elementari sulle righe, i due sistemi sono <strong>equivalenti</strong>: hanno esattamente lo stesso insieme di soluzioni.</p>
+    </div>
+
+    <details class="reveal proof">
+      <summary>Dimostrazione a passi coperti</summary>
+      <div class="reveal-body">
+        <div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>
+        <div class="steps">
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Che cosa va dimostrato?</div>
+            <div class="step-content">L'uguaglianza di due <em>insiemi</em>, $S=S'$. Si procede per doppia inclusione.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">$S\subseteq S'$ per l'operazione (3)</div>
+            <div class="step-content">Se $\vx$ soddisfa la riga $i$ e la riga $k$, soddisfa anche la loro combinazione: sommando membro a membro $\sum_j a_{ij}x_j=b_i$ e $\lambda\sum_j a_{kj}x_j=\lambda b_k$ si ottiene la riga nuova. Le altre righe non sono toccate.</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">E l'inclusione opposta? (il passaggio che quasi tutti saltano)</div>
+            <div class="step-content">Ogni operazione elementare è <strong>invertibile</strong>, e l'inversa è dello stesso tipo: lo scambio si annulla riscambiando, $\lambda R_i$ si annulla con $\lambda^{-1}R_i$, e $R_i+\lambda R_k$ con $R_i-\lambda R_k$. Applicando il ragionamento all'operazione inversa si ottiene $S'\subseteq S$, quindi $S=S'$. $\blacksquare$</div></div></div>
+          <div class="step"><div class="step-n"></div><div class="step-body">
+            <div class="step-cue">Dove serve $\lambda\ne0$?</div>
+            <div class="step-content">Proprio nell'invertibilità: se $\lambda=0$ la riga viene cancellata e l'operazione non si può disfare. Da $x=1$ si otterrebbe $0=0$, vera per ogni $x$: il sistema trasformato avrebbe <em>più</em> soluzioni.</div></div></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ============================================================ -->
+    <h2 id="scala">3 · Matrici a scala</h2>
+
+    <div class="box def">
+      <div class="box-title">Definizione — il criterio degli $\ell_i$</div>
+      <p>Per ogni riga $i$ sia $\ell_i$ il <strong>numero di zeri iniziali</strong> della riga (con $\ell_i=n$ se la riga è tutta nulla). La matrice è <strong>a scala</strong> se</p>
+      $$\ell_1<\ell_2<\ell_3<\dots\qquad\text{finché }\ell_i<n,$$
+      <p class="mb0">cioè gli zeri iniziali crescono <em>strettamente</em>, e le eventuali righe nulle stanno tutte in fondo.</p>
+    </div>
+
+    <h3 id="pivot">Pivot</h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Il <strong>pivot</strong> di una riga non nulla è il suo primo elemento non nullo, che occupa il posto $(i,\ \ell_i+1)$. In una matrice a scala i pivot si spostano verso destra scendendo di riga.</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-head"><span>Riconoscere una matrice a scala</span><span class="faint" style="text-transform:none;font-weight:400">guarda gli ℓᵢ a destra</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="scSel">matrice</label>
+            <select id="scSel">
+              <option value="0">esempio A</option>
+              <option value="1">esempio B</option>
+              <option value="2">esempio C</option>
+              <option value="3">esempio D</option>
+              <option value="4">esempio E</option>
+            </select>
+          </div>
+        </div>
+        <div class="matrice-wrap" id="scMat"></div>
+        <div class="readout" id="scOut"></div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="meg">4 · Il metodo di eliminazione di Gauss</h2>
+
+    <div class="box teo">
+      <div class="box-title">Teorema (MEG) <span class="badge star2">enunciato a lezione senza dimostrazione</span></div>
+      <p class="mb0">Esiste un algoritmo — il <strong>metodo di eliminazione di Gauss</strong> — che trasforma una matrice qualsiasi in una matrice a scala mediante un numero <em>finito</em> di operazioni elementari sulle righe.</p>
+    </div>
+
+    <div class="box">
+      <div class="box-title">L'algoritmo, in quattro mosse</div>
+      <ol class="mb0">
+        <li>Individua la prima colonna non tutta nulla (da sinistra, sotto la riga corrente).</li>
+        <li>Porta in posizione, con uno <strong>scambio</strong>, una riga che abbia lì un elemento non nullo: è il <strong>pivot</strong>.</li>
+        <li>Annulla tutti gli elementi <em>sotto</em> il pivot con l'operazione (3).</li>
+        <li>Ripeti sulla sottomatrice rimanente, ignorando la riga e la colonna appena sistemate.</li>
+      </ol>
+    </div>
+
+    <details class="reveal"><summary>Perché l'algoritmo termina?</summary><div class="reveal-body">
+      <p class="mb0">Perché a ogni passo la sottomatrice da trattare perde <strong>almeno una riga e una colonna</strong>. Dopo al più $\min\{m,n\}$ passi non resta nulla da fare. È questo a garantire che il numero di operazioni sia finito — la parte dell'enunciato che si dà spesso per scontata.</p>
+    </div></details>
+
+    <h3 id="laboratorio">Laboratorio: il MEG passo per passo</h3>
+    <div class="widget">
+      <div class="widget-head"><span>MEG interattivo</span><span class="faint" style="text-transform:none;font-weight:400">aritmetica esatta, niente arrotondamenti</span></div>
+      <div class="widget-body">
+        <div class="controls">
+          <div class="ctrl"><label for="megSel">sistema</label>
+            <select id="megSel"></select>
+          </div>
+          <label class="ctrl"><input type="checkbox" id="megElle" checked> <span>mostra gli $\ell_i$</span></label>
+        </div>
+        <div class="btnrow" style="margin:0 0 10px">
+          <button class="btn sm" id="megPrev">← indietro</button>
+          <button class="btn sm primary" id="megNext">avanti →</button>
+          <button class="btn sm ghost" id="megAll">vai alla fine</button>
+          <button class="btn sm ghost" id="megReset">ricomincia</button>
+          <span class="small muted" style="align-self:center" id="megPos"></span>
+        </div>
+        <div class="meg-op" id="megOp"></div>
+        <div class="meg-spiega" id="megSpiega"></div>
+        <div class="matrice-wrap" id="megMat"></div>
+        <div class="readout" id="megOut"></div>
+      </div>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ Come leggere il laboratorio</div>
+      <p class="mb0">I <span style="color:var(--danger);font-weight:700">pivot cerchiati in rosso</span> sono quelli della matrice dei coefficienti; un pivot <span style="color:var(--warn);font-weight:700">arancione</span> nella colonna dopo la barra è uno <strong>0-pivot</strong> e segnala che il sistema è incompatibile. La riga evidenziata è quella modificata dall'operazione corrente.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="lettura">5 · Leggere la matrice ridotta</h2>
+
+    <h3 id="zeropivot">Il criterio dello 0-pivot <span class="badge star">risultato centrale</span></h3>
+    <div class="box teo">
+      <div class="box-title">Teorema</div>
+      <p class="mb0">Sia $[A\,|\,\vb]\xrightarrow{\text{MEG}}[U\,|\,\vb']$ a scala. Il sistema è <strong>incompatibile</strong> se e solo se in $[U\,|\,\vb']$ compare un pivot nella colonna dei termini noti, cioè una riga
+      $$[\,0\ \ 0\ \cdots\ 0\ \,|\ c\,]\qquad\text{con }c\ne0.$$</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione</summary><div class="reveal-body">
+      <p><strong>Se c'è uno 0-pivot</strong>, quella riga è l'equazione $0\cdot x_1+\dots+0\cdot x_n=c$ con $c\ne0$, cioè $0=c$: falsa per ogni $\vx\in\K^n$. Il sistema ridotto non ha soluzioni, e per il teorema sulle operazioni elementari nemmeno quello di partenza.</p>
+      <p class="mb0"><strong>Se non c'è</strong>, ogni riga non nulla ha il pivot in una colonna dei coefficienti. Si assegnano valori arbitrari alle incognite libere e si ricavano le altre con la <strong>sostituzione all'indietro</strong>: ogni pivot è non nullo, quindi ogni divisione è lecita, e si ottiene almeno una soluzione. $\blacksquare$</p>
+    </div></details>
+
+    <div class="box trap">
+      <div class="box-title">✗ Quando applicare il criterio</div>
+      <p class="mb0">Solo alla matrice <strong>già completamente ridotta a scala</strong>. Una riga può sembrare impossibile a metà riduzione e sistemarsi dopo, o viceversa. Il criterio è una proprietà della forma a scala, non del processo.</p>
+    </div>
+
+    <h3 id="rango">Rango, incognite di base e incognite libere <span class="badge star">risultato centrale</span></h3>
+    <div class="box def">
+      <div class="box-title">Definizione</div>
+      <p class="mb0">Il <strong>rango</strong> $r=\rg A$ è il numero di pivot di una riduzione a scala di $A$. Le incognite corrispondenti alle colonne <em>con</em> pivot si dicono <strong>di base</strong> (o pivotali); le altre <strong>libere</strong>, e sono $n-r$.</p>
+    </div>
+
+    <div class="box prop">
+      <div class="box-title">Proposizione</div>
+      <p class="mb0">$$r\le m\qquad\text{e}\qquad r\le n,\qquad\text{dunque}\qquad r\le\min\{m,n\}.$$</p>
+    </div>
+    <details class="reveal proof"><summary>Dimostrazione (due righe)</summary><div class="reveal-body">
+      <p>$r\le m$ perché ogni riga contiene <strong>al più un pivot</strong> (il suo primo elemento non nullo).</p>
+      <p class="mb0">$r\le n$ perché in una matrice a scala gli indici di colonna dei pivot sono strettamente crescenti, quindi due pivot non stanno mai nella stessa colonna: il numero di pivot non supera il numero di colonne. $\blacksquare$</p>
+    </div></details>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ Perché il rango è ben definito</div>
+      <p class="mb0">La forma a scala di $A$ <strong>non è unica</strong>: scelte diverse durante il MEG danno matrici diverse. È però unico il <em>numero</em> di pivot, e questo si ammette a lezione. Senza quel fatto, «il rango di $A$» non sarebbe neppure una definizione sensata.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <h2 id="test">Mettiti alla prova</h2>
+    <div id="quizBox"></div>
+
+    <h2 id="errori">Errori tipici della Sezione 1</h2>
+    <div class="box trap">
+      <ul class="mb0">
+        <li><strong>Scrivere $\ell_1\le\ell_2\le\dots$</strong> La crescita degli zeri iniziali dev'essere <em>stretta</em>.</li>
+        <li><strong>Moltiplicare una riga per $0$</strong> «per semplificare». Non è un'operazione elementare.</li>
+        <li><strong>Cercare lo 0-pivot prima di aver finito la riduzione.</strong></li>
+        <li><strong>Contare le incognite libere come $n-m$</strong> invece di $n-r$.</li>
+        <li><strong>Confondere $\rg A$ con $\rg[A\,|\,\vb]$.</strong> Differiscono al più di $1$, e differiscono esattamente quando c'è uno 0-pivot.</li>
+        <li><strong>Dividere per un coefficiente che contiene un parametro</strong> senza discutere il caso in cui si annulla.</li>
+        <li><strong>Dimenticare che le operazioni si fanno sulle righe</strong>, non sulle colonne: scambiare colonne cambia l'ordine delle incognite.</li>
+      </ul>
+    </div>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="2-matrici.html">Sezione 2 · Algebra delle matrici →</a>
+      <a class="btn" href="0-preliminari.html">← Preliminari</a>
+      <a class="btn" href="../esercizi.html?sez=1">Esercizi della Sezione 1</a>
+    </div>
+  </main>
+</div>
+
+<footer>Geometria e Algebra Lineare · Sezione 1 · Appunti non ufficiali</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../../assets/js/materie.js"></script>
+<script src="../data/topics.js"></script>
+<script src="../data/quiz.js"></script>
+<script src="../../assets/js/meg.js"></script>
+<script src="../../assets/js/plot.js"></script>
+<script src="../../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 1, 'geometria');
+  AM.mountQuiz('#quizBox', AM.QUIZ_GEO.filter(function (q) { return q.sez === 1; }), { statKey: 'geo1' });
+
+  /* ---------- riconoscere una matrice a scala ---------- */
+  (function () {
+    var ES = [
+      { M: [[1,2,3],[0,0,4],[0,0,0]], nome: 'A' },
+      { M: [[0,2,3,0],[0,0,0,1],[0,0,0,0]], nome: 'B' },
+      { M: [[0,1,0,0],[0,2,1,2],[0,0,0,5]], nome: 'C' },
+      { M: [[1,2,3],[0,0,0],[0,0,1]], nome: 'D' },
+      { M: [[1,0,0],[0,1,0],[0,0,1]], nome: 'E' }
+    ];
+    var i = 0, mat = document.getElementById('scMat'), out = document.getElementById('scOut');
+    function mostra() {
+      var M = MEG.da(ES[i].M), n = M[0].length;
+      var scala = MEG.aScala(M);
+      // i pivot si evidenziano solo se la matrice e' davvero a scala
+      var piv = [];
+      if (scala) M.forEach(function (riga, k) { var l = MEG.elle(riga); if (l < n) piv.push({ i: k, j: l }); });
+      mat.innerHTML = MEG.html(M, { nA: n, pivot: piv, elle: true });
+      var ls = M.map(function (r) { return MEG.elle(r); });
+      out.innerHTML =
+        'ℓ = (' + ls.join(', ') + ') &nbsp;·&nbsp; n = ' + n + '<br>' +
+        (scala
+          ? '<span style="color:var(--ok)"><b>È a scala ✓</b> — gli ℓᵢ crescono strettamente fino alle righe nulle, che stanno in fondo. Pivot: ' + piv.length + ', quindi il rango è ' + piv.length + '.</span>'
+          : '<span style="color:var(--danger)"><b>Non è a scala ✗</b> — ' + motivo(ls, n) + '</span>');
+    }
+    function motivo(ls, n) {
+      for (var k = 1; k < ls.length; k++) {
+        if (ls[k - 1] === n && ls[k] < n) return 'una riga nulla (ℓ' + k + ' = ' + n + ') precede una riga non nulla.';
+        if (ls[k] <= ls[k - 1] && ls[k - 1] < n) return 'ℓ' + (k + 1) + ' = ' + ls[k] + ' non è maggiore di ℓ' + k + ' = ' + ls[k - 1] + ': la crescita non è stretta.';
+      }
+      return 'la condizione sugli ℓᵢ non è rispettata.';
+    }
+    var sel = document.getElementById('scSel');
+    Array.prototype.forEach.call(sel.options, function (o, k) { if (ES[k]) o.textContent = 'esempio ' + ES[k].nome; });
+    sel.onchange = function () { i = +this.value; mostra(); };
+    mostra();
+  })();
+
+  /* ---------- MEG interattivo ---------- */
+  (function () {
+    var SISTEMI = [
+      { nome: 'soluzione unica (3×3)', nA: 3,
+        M: [[1,2,1,4],[2,5,-1,3],[3,7,2,12]] },
+      { nome: 'due incognite libere (3×4)', nA: 4,
+        M: [[1,2,0,1,1],[1,2,2,4,1],[2,4,2,5,2]] },
+      { nome: 'incompatibile: 0-pivot', nA: 3,
+        M: [[1,1,1,1],[1,1,1,2],[2,3,1,4]] },
+      { nome: 'serve uno scambio di righe', nA: 3,
+        M: [[0,1,2,3],[1,3,4,5],[2,1,0,1]] },
+      { nome: 'omogeneo 2×3 (soluzioni non banali)', nA: 3,
+        M: [[1,2,3,0],[2,4,7,0]] },
+      { nome: 'rango 2, una riga si azzera', nA: 3,
+        M: [[1,2,-1,1],[2,5,1,4],[3,7,0,5]] },
+      { nome: 'frazioni (aritmetica esatta)', nA: 3,
+        M: [[2,1,1,5],[1,3,2,6],[1,1,5,9]] }
+    ];
+
+    var sel = document.getElementById('megSel');
+    sel.innerHTML = SISTEMI.map(function (s, k) { return '<option value="' + k + '">' + s.nome + '</option>'; }).join('');
+
+    var idx = 0, passo = 0, res = null;
+    var elle = document.getElementById('megElle');
+    var mat = document.getElementById('megMat'), op = document.getElementById('megOp');
+    var spiega = document.getElementById('megSpiega'), out = document.getElementById('megOut'), pos = document.getElementById('megPos');
+
+    function carica() {
+      res = MEG.riduci(MEG.da(SISTEMI[idx].M), SISTEMI[idx].nA);
+      passo = 0; mostra();
+    }
+
+    function mostra() {
+      var p = res.passi[passo], S = SISTEMI[idx];
+      mat.innerHTML = MEG.html(p.M, { nA: S.nA, pivot: p.pivot, attive: p.attive, elle: elle.checked });
+      op.innerHTML = p.op;
+      spiega.textContent = p.spiega || (p.tipo === 'start' ? 'Matrice completa [A | b] del sistema di partenza.' : '');
+      pos.textContent = 'passo ' + passo + ' di ' + (res.passi.length - 1);
+      document.getElementById('megPrev').disabled = passo === 0;
+      document.getElementById('megNext').disabled = passo === res.passi.length - 1;
+
+      if (passo === res.passi.length - 1) {
+        var a = MEG.analizza(res);
+        var esito = a.esito === 'incompatibile'
+          ? '<span style="color:var(--danger)"><b>Sistema incompatibile</b> — c\'è uno 0-pivot nella colonna dei termini noti, cioè una riga che dice 0 = (numero non nullo).</span>'
+          : a.esito === 'unica'
+            ? '<span style="color:var(--ok)"><b>Soluzione unica</b> — r = n, nessuna incognita libera.</span>'
+            : '<span style="color:var(--accent)"><b>Infinite soluzioni</b> — dipendono da n − r = ' + a.libere + ' parametri liberi.</span>';
+        out.innerHTML =
+          '<b>Matrice a scala ✓</b> (ℓᵢ strettamente crescenti)<br>' +
+          'rg A = <b>' + a.rangoA + '</b> &nbsp;·&nbsp; rg [A|b] = <b>' + a.rangoTot + '</b> &nbsp;·&nbsp; n = ' + a.n + ' incognite, m = ' + a.m + ' equazioni<br>' +
+          'Rouché-Capelli: rg A ' + (a.compatibile ? '=' : '≠') + ' rg [A|b] → ' + esito + '<br>' +
+          '<span style="color:var(--text-faint)">verifica: r ≤ min{m, n} = ' + Math.min(a.m, a.n) + ' ✓</span>';
+      } else {
+        out.innerHTML = '<span style="color:var(--text-faint)">Procedi fino all\'ultimo passo per leggere rango, compatibilità e numero di soluzioni.</span>';
+      }
+    }
+
+    document.getElementById('megPrev').onclick = function () { if (passo > 0) { passo--; mostra(); } };
+    document.getElementById('megNext').onclick = function () { if (passo < res.passi.length - 1) { passo++; mostra(); } };
+    document.getElementById('megAll').onclick = function () { passo = res.passi.length - 1; mostra(); };
+    document.getElementById('megReset').onclick = function () { passo = 0; mostra(); };
+    elle.onchange = mostra;
+    sel.onchange = function () { idx = +this.value; carica(); };
+    carica();
+  })();
+});
+</script>
+</body>
+</html>

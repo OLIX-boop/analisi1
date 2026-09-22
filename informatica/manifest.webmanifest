@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "Fondamenti di Informatica — appunti",
+  "short_name": "Fondamenti",
+  "description": "Appunti del corso di Fondamenti di Informatica con simulazioni di algoritmi eseguibili passo passo.",
+  "lang": "it",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f7f6f3",
+  "theme_color": "#b4571a",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Catalogo di algoritmi", "url": "./#cap2" },
+    { "name": "Istruzioni e programmi in C", "url": "./#cap4" },
+    { "name": "Array e stringhe", "url": "./#cap5" }
+  ]
+}

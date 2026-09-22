@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geometria e Algebra Lineare — piano di studio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7a4e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../index.html"><span class="brand-mark">G</span> Geometria</a>
+    <nav class="topnav">
+      <a href="index.html">Piano</a>
+      <a href="sezioni/0-preliminari.html">0 · Preliminari</a>
+      <a href="sezioni/1-sistemi.html">1 · Sistemi</a>
+      <a href="sezioni/2-matrici.html">2 · Matrici</a>
+      <a href="sezioni/3-complessi.html">3 · Complessi</a>
+      <a href="teoremi.html">Teoremi</a>
+      <a href="esercizi.html">Esercizi</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>In questa pagina</h4>
+    <a href="#progressi">I tuoi progressi</a>
+    <a href="#sezioni">Le sezioni</a>
+    <a href="#filo">Il filo del corso</a>
+    <a href="#esame">Sull'esame</a>
+    <a href="#materiale">Materiale del corso</a>
+    <h4>Sezioni</h4>
+    <a href="sezioni/0-preliminari.html">0 · Preliminari e linguaggio</a>
+    <a href="sezioni/1-sistemi.html">1 · Sistemi lineari e MEG</a>
+    <a href="sezioni/2-matrici.html">2 · Matrici e invertibilità</a>
+    <a href="sezioni/3-complessi.html">3 · Numeri complessi</a>
+    <h4>Strumenti</h4>
+    <a href="teoremi.html">Teoremi e dimostrazioni</a>
+    <a href="esercizi.html">Palestra esercizi</a>
+    <h4>Altre materie</h4>
+    <a href="../analisi/index.html">Analisi Matematica 1</a>
+    <a href="../informatica/index.html">Fondamenti di Informatica</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Politecnico di Milano · Prof. Pavel Gumenyuk</div>
+      <h1>Geometria e Algebra Lineare</h1>
+      <p class="lead">Sistemi lineari, matrici e invertibilità: il programma svolto finora, con il <strong>MEG interattivo</strong> in aritmetica esatta, i teoremi a passi coperti ed esercizi con suggerimenti progressivi.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ Due avvertenze oneste</div>
+      <ul class="mb0">
+        <li><strong>Non ho informazioni sull'esame.</strong> Fra il materiale non c'è un documento tipo «modalità d'esame» con struttura, punteggi o soglie. Se lo trovi sul drive, aggiungilo: taro il sito su quello.</li>
+        <li><strong>Le stelline qui sono redazionali.</strong> A differenza di Analisi — dove il programma ufficiale marca con (*) e (**) le dimostrazioni richieste — qui non esiste un elenco simile. <span class="badge star">risultato centrale</span> e <span class="badge star2">da conoscere</span> indicano il peso del risultato secondo questi appunti, <em>non</em> una richiesta della docenza.</li>
+      </ul>
+    </div>
+
+    <h2 id="progressi">I tuoi progressi</h2>
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Programma svolto finora</strong>
+        <span class="muted small"><span data-progress-txt="geometria">0/44</span> · <span data-progress-pct="geometria">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="geometria"><span style="width:0"></span></div>
+    </div>
+
+    <div class="grid g4" id="stat"></div>
+
+    <h2 id="sezioni">Le sezioni</h2>
+    <div class="grid g2">
+      <a class="card" href="sezioni/0-preliminari.html">
+        <h3>0 · Preliminari e linguaggio</h3>
+        <p>Insiemi e quantificatori, lo spazio $\K^n$, il prodotto scalare standard. Il vocabolario che il prof dà per acquisito dalla prima lezione.</p>
+        <div style="margin-top:12px"><div class="pbar" data-progress-for="g0"><span style="width:0"></span></div>
+        <div class="muted small" style="margin-top:5px"><span data-progress-txt="g0">0/8</span> argomenti</div></div>
+      </a>
+      <a class="card" href="sezioni/1-sistemi.html">
+        <h3>1 · Sistemi lineari e metodo di Gauss</h3>
+        <p>Dalla scrittura alla matrice completa, operazioni elementari, matrici a scala, pivot, rango e il criterio dello 0-pivot.</p>
+        <div style="margin-top:12px"><div class="pbar" data-progress-for="g1"><span style="width:0"></span></div>
+        <div class="muted small" style="margin-top:5px"><span data-progress-txt="g1">0/14</span> argomenti</div></div>
+      </a>
+      <a class="card" href="sezioni/2-matrici.html">
+        <h3>2 · Algebra delle matrici e invertibilità</h3>
+        <p>Prodotto righe per colonne, struttura delle soluzioni, Rouché-Capelli, matrice inversa, determinante e Cramer.</p>
+        <div style="margin-top:12px"><div class="pbar" data-progress-for="g2"><span style="width:0"></span></div>
+        <div class="muted small" style="margin-top:5px"><span data-progress-txt="g2">0/16</span> argomenti</div></div>
+      </a>
+      <a class="card" href="sezioni/3-complessi.html">
+        <h3>3 · Numeri complessi</h3>
+        <p>Il campo $\C$ dal lato dell'algebra lineare. Se hai già fatto la Sezione 1 di Analisi, qui trovi soprattutto raccordi.</p>
+        <div style="margin-top:12px"><div class="pbar" data-progress-for="g3"><span style="width:0"></span></div>
+        <div class="muted small" style="margin-top:5px"><span data-progress-txt="g3">0/6</span> argomenti</div></div>
+      </a>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <a class="card" href="teoremi.html">
+        <h3>🎯 Teoremi e dimostrazioni</h3>
+        <p>I risultati principali a passi coperti: Rouché-Capelli, struttura delle soluzioni, condizioni di invertibilità, Cramer.</p>
+      </a>
+      <a class="card" href="esercizi.html">
+        <h3>✎ Palestra esercizi</h3>
+        <p>Riduzioni a scala, discussioni con parametro, calcolo dell'inversa, vero/falso sulle proprietà del prodotto.</p>
+      </a>
+    </div>
+
+    <h2 id="filo">Il filo del corso</h2>
+    <div class="box">
+      <p>Vale la pena vedere fin d'ora dove porta tutto questo, perché i risultati si incastrano in una catena sola:</p>
+      <ol class="mb0">
+        <li><strong>Le operazioni elementari non cambiano le soluzioni</strong> → si può trasformare il sistema senza perderne le soluzioni.</li>
+        <li><strong>Il MEG termina sempre</strong> → si arriva sempre a una matrice a scala.</li>
+        <li><strong>Una matrice a scala si legge</strong> → 0-pivot ⟹ incompatibile; altrimenti $n-r$ incognite libere.</li>
+        <li><strong>Rouché-Capelli</strong> è la traduzione del punto 3 nel linguaggio dei ranghi.</li>
+        <li><strong>La struttura delle soluzioni</strong> dice che l'insieme è $\vx_0+$ (soluzioni dell'omogeneo).</li>
+        <li><strong>Le condizioni di invertibilità</strong> sono il caso particolare $m=n$ e $r=n$.</li>
+      </ol>
+    </div>
+
+    <div class="box tip">
+      <div class="box-title">✓ Il collegamento con Analisi 1</div>
+      <p class="mb0">I <a href="../analisi/sezioni/1-numeri.html#complessi">numeri complessi</a> li trovi già trattati a fondo nella Sezione 1 di Analisi: forma trigonometrica, de Moivre, radici $n$-esime, con il piano di Argand interattivo. Qui cambia solo l'uso che se ne fa — risolvere sistemi su $\C$ e, più avanti, trovare autovalori. Non studiarli due volte.</p>
+    </div>
+
+    <h2 id="esame">Sull'esame</h2>
+    <div class="box">
+      <p class="mb0">Da quel che hai capito c'è un <strong>parziale</strong>, ma nel materiale caricato non c'è nulla che ne descriva struttura, punteggi o soglie — a differenza di Analisi, dove il PDF «Modalità d'esame» le specifica con precisione. Finché non arriva quel documento, questo sito non simula la prova: si limita a coprire il programma. Se lo recuperi, posso aggiungere una simulazione cronometrata come quella di Analisi.</p>
+    </div>
+
+    <h2 id="materiale">Materiale del corso</h2>
+    <div class="grid g2">
+      <a class="card" href="materiale/00%20Materiale%20preliminare.pdf"><h3>📄 Materiale preliminare</h3><p>Slide del prof: insiemi, notazione, $\R^n$ e $\C^n$, quantificatori.</p></a>
+      <a class="card" href="materiale/01%20Sistemi%20di%20equazioni%20lineari,%20matrici,%20e%20metodo%20di%20eliminazione%20di%20Gauss.pdf"><h3>📓 Lezione 1</h3><p>Sistemi lineari, matrici, MEG. Riferimento: <em>ALG</em> cap. 2, pp. 67-74 e 84-94.</p></a>
+      <a class="card" href="materiale/02%20Algebra%20delle%20matrici.%20Teorema%20di%20Rouche-Capelli.%20Teorema%20di%20Cramer.%20L'inversa%20di%20una%20matrice%20quadrata.%20Condizioni%20di%20invertibilita.pdf"><h3>📓 Lezione 2</h3><p>Algebra delle matrici, Rouché-Capelli, Cramer, inversa. <em>ALG</em> cap. 2 pp. 75-81 e 94-105; cap. 3 §§1-5.</p></a>
+      <a class="card" href="materiale/Numeri%20complessi.pdf"><h3>📄 Numeri complessi</h3><p>Appendice I del libro di teoria.</p></a>
+      <a class="card" href="materiale/Pagine%20dal%20Libro%20di%20teoria.pdf"><h3>📖 Pagine dal libro di teoria</h3><p>Capitolo 2, «Sistemi lineari».</p></a>
+      <a class="card" href="materiale/Pagine%20dal%20Libro%20di%20esercizi.pdf"><h3>✎ Pagine dal libro di esercizi</h3><p>Esercizi svolti sul capitolo 2.</p></a>
+    </div>
+
+    <div class="box" style="margin-top:26px">
+      <div class="box-title">📚 Libro di riferimento</div>
+      <p class="mb0"><strong>[ALG]</strong> E. Schlesinger, <em>Algebra lineare e geometria</em>. È il testo a cui rimandano le lezioni; i riferimenti di pagina nelle checklist puntano lì.</p>
+    </div>
+  </main>
+</div>
+
+<footer>Geometria e Algebra Lineare · Appunti non ufficiali</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../assets/js/materie.js"></script>
+<script src="data/topics.js"></script>
+<script src="data/teoremi.js"></script>
+<script src="data/esercizi.js"></script>
+<script src="../assets/js/plot.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  var tot = AM.contaArgomenti('geometria');
+  var fatti = AM.contaFatti('geometria');
+  document.getElementById('stat').innerHTML =
+    '<div class="card stat"><div class="stat-val" style="color:var(--accent)">' + tot + '</div><div class="stat-lab">argomenti</div></div>' +
+    '<div class="card stat"><div class="stat-val" style="color:var(--ok)">' + fatti + '</div><div class="stat-lab">spuntati</div></div>' +
+    '<div class="card stat"><div class="stat-val" style="color:var(--danger)">' + AM.TEOREMI_GEO.length + '</div><div class="stat-lab">teoremi</div></div>' +
+    '<div class="card stat"><div class="stat-val" style="color:var(--purple)">' + AM.ESERCIZI_GEO.length + '</div><div class="stat-lab">esercizi</div></div>';
+});
+</script>
+</body>
+</html>

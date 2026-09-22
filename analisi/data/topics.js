@@ -100,38 +100,15 @@
     }
   ];
 
-  const AM = (window.AM = window.AM || {});
-  AM.SEZIONI = SEZIONI;
-
-  // indice id → sezione, per le barre di progresso della dashboard
-  AM.TOPIC_INDEX = SEZIONI.reduce((acc, s) => {
-    acc['s' + s.n] = s.topics.map(t => t.id);
-    return acc;
-  }, {});
-  AM.TOPIC_INDEX['tutti'] = SEZIONI.flatMap(s => s.topics.map(t => t.id));
-
-  AM.allTopics = () => SEZIONI.flatMap(s => s.topics.map(t => Object.assign({ sez: s.n }, t)));
-
-  /** Rende la checklist di una sezione dentro un contenitore. */
-  AM.renderChecklist = function (sel, sezN) {
-    const el = typeof sel === 'string' ? document.querySelector(sel) : sel;
-    if (!el) return;
-    const s = SEZIONI.find(x => x.n === sezN);
-    if (!s) return;
-    el.innerHTML = '<ul class="checklist">' + s.topics.map(t =>
-      '<li><input type="checkbox" id="cb-' + t.id + '" data-topic="' + t.id + '">' +
-      '<label for="cb-' + t.id + '">' + t.t +
-      (t.mark === '*' ? ' <span class="badge star">dim. scritto</span>' : t.mark === '**' ? ' <span class="badge star2">dim. orale</span>' : '') +
-      (t.q && t.q !== '—' ? ' <span class="badge">Q ' + t.q + '</span>' : '') +
-      '</label></li>').join('') + '</ul>';
-    el.querySelectorAll('input[data-topic]').forEach(cb => {
-      cb.checked = AM.store.get('topic:' + cb.dataset.topic, false);
-      cb.addEventListener('change', () => {
-        AM.store.set('topic:' + cb.dataset.topic, cb.checked);
-        AM.refreshProgress();
-      });
-    });
-    AM.refreshProgress();
-    AM.typeset(el);
-  };
+  window.AM = window.AM || {};
+  window.AM.registraMateria({
+    key: 'analisi',
+    nome: 'Analisi Matematica 1',
+    sottotitolo: 'Prima parte — primo parziale',
+    base: 'analisi/',
+    prefisso: 's',
+    qLabel: 'Q ',
+    icona: '∫',
+    sezioni: SEZIONI
+  });
 })();

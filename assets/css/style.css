@@ -497,6 +497,37 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 }
 .readout b { color: var(--text); font-weight: 650; }
 
+/* ---------- Matrici (Geometria) ---------- */
+.matrice { border-collapse: collapse; width: auto; margin: 0 auto; background: none; font-variant-numeric: tabular-nums; }
+.matrice td {
+  border: none; padding: 5px 11px; text-align: center;
+  font-family: var(--font-mono); font-size: 14.5px; white-space: nowrap;
+  transition: background .2s;
+}
+.matrice td.lab { color: var(--text-faint); font-size: 11.5px; font-family: var(--font-sans); padding: 5px 8px; }
+.matrice td.elle { color: var(--accent); font-weight: 600; }
+.matrice td.bra, .matrice td.ket { padding: 0; width: 8px; border-top: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted); }
+.matrice td.bra { border-left: 2px solid var(--text-muted); }
+.matrice td.ket { border-right: 2px solid var(--text-muted); }
+.matrice td.sep { border-left: 2px dashed var(--border-strong); }
+.matrice td.pivot {
+  background: var(--danger-soft); color: var(--danger); font-weight: 700;
+  border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--danger);
+}
+.matrice td.zeropivot {
+  background: var(--warn-soft); color: var(--warn); font-weight: 700;
+  box-shadow: inset 0 0 0 2px var(--warn);
+}
+.matrice tr.attiva td:not(.lab) { background: var(--accent-soft); }
+.matrice tr.attiva td.pivot { background: var(--danger-soft); }
+.matrice-wrap { overflow-x: auto; padding: 6px 0; }
+
+.meg-op {
+  text-align: center; font-family: var(--font-mono); font-size: 14px;
+  color: var(--accent); font-weight: 600; margin: 4px 0 2px;
+}
+.meg-spiega { text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+
 /* ---------- Quiz ---------- */
 .quiz { border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-elev); padding: 18px 20px; margin: 20px 0; box-shadow: var(--shadow); }
 .quiz-q { font-weight: 600; margin-bottom: 14px; }

@@ -1,86 +1,94 @@
-# Analisi Matematica 1 — guida di studio interattiva
+# Appunti — Ingegneria Informatica, Politecnico di Milano
 
-Guida di studio per **Analisi Matematica 1**, Ingegneria Informatica, Politecnico di Milano
-(a.a. 2026/27, scaglione Mon-Ret, Prof. Giulia Meglioli).
+Appunti interattivi del primo anno, raccolti in un unico sito.
 
-Copre la **prima parte del programma**, cioè quella della **prima prova in itinere**:
+👉 **<https://olix-boop.github.io/appunti/>**
 
-| Sezione | Argomento | Argomenti | Dim. allo scritto |
-|---|---|---:|---:|
-| 1 | Numeri reali e complessi | 23 | 4 |
-| 2 | Funzioni, successioni e limiti | 29 | 5 |
-| 3 | Serie numeriche | 12 | 5 |
+| Materia | Contenuto | Stato |
+|---|---|---|
+| [Analisi Matematica 1](https://olix-boop.github.io/appunti/analisi/) | Numeri reali e complessi · successioni e limiti · serie numeriche | prima parte completa (primo parziale) |
+| [Geometria e Algebra Lineare](https://olix-boop.github.io/appunti/geometria/) | Preliminari · sistemi lineari e MEG · matrici e invertibilità · numeri complessi | programma svolto finora |
+| [Fondamenti di Informatica](https://olix-boop.github.io/appunti/informatica/) | Algoritmi · macchina astratta C · istruzioni · array e stringhe | 5 capitoli |
 
 ## Cosa c'è dentro
 
-- **Piano di studio** (`index.html`) — avanzamento per sezione, ripasso programmato, struttura della prova, calendario settimanale agganciato agli orari delle lezioni.
-- **Tre pagine di teoria** (`sezioni/`) — definizioni, teoremi, dimostrazioni a passi coperti, **grafici interattivi** (piano di Argand, radici *n*-esime, visualizzatore ε–N, gerarchia degli infiniti, somme parziali…) e box di errori tipici.
-- **Dimostrazioni** (`teoremi.html`) — le 14 richieste allo scritto più quelle da orale, ciascuna spezzata in passi da rivelare uno alla volta, con l'idea chiave e le trappole.
-- **Quesiti teorici** (`quesiti.html`) — tutti e 66 i quesiti ufficiali della prima parte, con risposta modello, in modalità flashcard con **ripetizione dilazionata** (box di Leitner: 1, 2, 4, 8, 16, 32 giorni).
-- **Palestra esercizi** (`esercizi.html`) — esercizi con suggerimenti progressivi e svolgimento completo, filtrabili per sezione, tema e difficoltà.
-- **Simulazione d'esame** (`simulazione.html`) — 60 minuti, 32 punti, tre parti, con le soglie reali (≥7/14, ≥5/10, ≥15/32) e autovalutazione sulle parti aperte.
+Non è materiale da leggere, è materiale da **usare**:
 
-Tutti i progressi (argomenti spuntati, statistiche dei test, stato del ripasso) sono salvati in
-`localStorage`: restano sul dispositivo, non vengono inviati da nessuna parte.
+- **dimostrazioni a passi coperti** — provi a ricordare il passo successivo, poi lo riveli;
+- **esercizi con suggerimenti progressivi** — un aiuto alla volta, lo svolgimento solo alla fine;
+- **widget interattivi** — piano di Argand, visualizzatore ε–N, gerarchia degli infiniti,
+  **MEG passo per passo in aritmetica esatta**, Rouché-Capelli al variare del termine noto,
+  esecutori simulati per gli algoritmi in C;
+- **flashcard con ripetizione dilazionata** (Leitner: 1, 2, 4, 8, 16, 32 giorni);
+- **simulazione d'esame cronometrata** per Analisi, con le soglie reali della prova in itinere.
 
-## Come si usa
+L'avanzamento (argomenti spuntati, statistiche dei test, stato del ripasso) è salvato in
+`localStorage`: resta sul dispositivo e non viene inviato da nessuna parte.
 
-Aprilo online su GitHub Pages, oppure in locale:
+## Struttura
+
+```
+index.html                 hub: le tre materie
+assets/
+  css/style.css            tema chiaro/scuro, layout, componenti  (condiviso)
+  js/materie.js            registro delle materie e checklist     (condiviso)
+  js/app.js                tema, KaTeX, reveal, progressi, quiz, flashcard, timer
+  js/plot.js               motore di grafici su canvas, senza dipendenze
+  js/meg.js                eliminazione di Gauss su frazioni esatte
+analisi/
+  index.html teoremi.html quesiti.html esercizi.html simulazione.html
+  sezioni/1-numeri.html 2-successioni.html 3-serie.html
+  data/                    topics · teoremi · quesiti · esercizi · quiz
+  materiale/               PDF del corso
+geometria/
+  index.html teoremi.html esercizi.html
+  sezioni/0-preliminari.html 1-sistemi.html 2-matrici.html 3-complessi.html
+  data/                    topics · teoremi · esercizi · quiz
+  materiale/               PDF del corso
+informatica/               single-page app autonoma, installabile come PWA
+```
+
+**I contenuti stanno tutti in `<materia>/data/`**: per aggiungere materiale non serve toccare l'HTML.
+
+### Aggiungere una materia
+
+1. crea `<materia>/data/topics.js` che chiama `AM.registraMateria({...})` con `key`, `base`,
+   `prefisso` (la lettera iniziale degli id degli argomenti) e l'elenco delle sezioni;
+2. aggiungi una card in `index.html` con `data-progress-for="<key>"`;
+3. le barre di avanzamento, le checklist e il riepilogo dell'hub si aggiornano da soli.
+
+Gli id degli argomenti vanno prefissati per materia (`s1-01` per Analisi, `g1-01` per Geometria),
+così le chiavi di `localStorage` non collidono.
+
+### Aggiungere contenuto a una materia esistente
+
+- **nuovo argomento** → una voce in `data/topics.js`;
+- **nuovo teorema** → un oggetto in `data/teoremi.js` con `steps: [{cue, body}]`;
+- **nuovo esercizio** → un oggetto in `data/esercizi.js` con `hints: []` e `sol`;
+- **nuova domanda** → un oggetto in `data/quiz.js` (la risposta giusta va in `a`, le opzioni
+  vengono mescolate a ogni giro).
+
+Nei file dati le stringhe con LaTeX usano ``r`…` `` (`String.raw`), così i backslash non vanno
+raddoppiati. Le macro disponibili (`\R`, `\C`, `\K`, `\vx`, `\vb`, `\vzero`, `\rg`, …) sono
+dichiarate in `assets/js/app.js`.
+
+## Dipendenze
+
+Solo [KaTeX](https://katex.org) da CDN per le formule e Google Fonts. Tutto il resto — grafici,
+MEG, flashcard, quiz, timer — è JavaScript scritto a mano: niente framework, niente build step.
+Basta aprire `index.html`, oppure:
 
 ```bash
 python -m http.server 8765
 ```
 
-e vai su <http://localhost:8765>.
-
-## Struttura
-
-```
-index.html              piano di studio / dashboard
-sezioni/1-numeri.html   Sezione 1 · numeri reali e complessi
-sezioni/2-successioni.html
-sezioni/3-serie.html
-teoremi.html            le dimostrazioni, a passi coperti
-quesiti.html            i 66 quesiti teorici (flashcard + elenco)
-esercizi.html           palestra con suggerimenti progressivi
-simulazione.html        prova cronometrata
-assets/css/style.css    tema chiaro/scuro, layout, componenti
-assets/js/plot.js       motore di grafici su canvas (nessuna dipendenza)
-assets/js/app.js        tema, KaTeX, reveal, progressi, quiz, flashcard, timer
-assets/js/data/         i CONTENUTI, separati dalla presentazione:
-    topics.js             programma → checklist e barre di avanzamento
-    teoremi.js            enunciati e dimostrazioni passo per passo
-    quesiti.js            i 66 quesiti con risposta modello
-    esercizi.js           esercizi con hint e svolgimenti
-    quiz.js               banca di domande a risposta multipla
-```
-
-I contenuti stanno tutti in `assets/js/data/`: per aggiungere materiale **non serve toccare l'HTML**.
-
-### Aggiungere materiale quando escono nuovi appunti
-
-- **nuovo argomento a programma** → aggiungi una voce in `topics.js` (la checklist e le percentuali si aggiornano da sole);
-- **nuova dimostrazione** → un oggetto in `teoremi.js` con `steps: [{cue, body}]`;
-- **nuovo esercizio** → un oggetto in `esercizi.js` con `hints: []` e `sol`;
-- **nuova domanda a risposta multipla** → un oggetto in `quiz.js` (la risposta corretta va in `a`, le opzioni vengono mescolate a ogni giro).
-
-Nei file dati le stringhe con LaTeX usano ``r`…` `` (`String.raw`), così i backslash non vanno raddoppiati.
-
-## Dipendenze
-
-Solo [KaTeX](https://katex.org) da CDN per le formule e Google Fonts. Tutto il resto — grafici,
-flashcard, quiz, timer — è JavaScript scritto a mano, senza framework né build step.
-
-## Materiale del corso
-
-I PDF pubblicati dalla docente su WeBeep sono nella radice del repository e sono collegati
-dalla dashboard. **Sono materiale didattico della Prof. Giulia Meglioli**: se preferisci non
-ridistribuirli pubblicamente, toglili dal repository e i link semplicemente non funzioneranno.
-
 ## Note
 
-Guida **non ufficiale**, scritta come supporto allo studio personale. In caso di discrepanza,
-fanno fede il programma ufficiale, gli appunti delle lezioni e i testi indicati in bibliografia:
+Appunti **non ufficiali**, scritti come supporto allo studio personale. In caso di discrepanza
+fanno fede i programmi ufficiali, le lezioni e i testi indicati nelle bibliografie dei corsi.
 
-- [1] S. Biagi, F. Punzo, *Lezioni di Analisi Matematica 1*, Esculapio (2024)
-- [2] G. Catino, F. Punzo, *Analisi Matematica 1. Esercizi Svolti e Quesiti Teorici*, Esculapio (2025)
+Per Analisi, le marcature `(*)` e `(**)` sulle dimostrazioni vengono dal **programma ufficiale**
+della Prof. Meglioli. Per Geometria non esiste un documento equivalente: lì le stelline sono
+**redazionali** e indicano il peso del risultato, non una richiesta della docenza.
+
+I PDF nelle cartelle `materiale/` sono materiale didattico dei rispettivi docenti.

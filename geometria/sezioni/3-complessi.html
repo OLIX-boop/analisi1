@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sezione 3 · Numeri complessi — Geometria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7a4e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../../index.html"><span class="brand-mark">G</span> Geometria</a>
+    <nav class="topnav">
+      <a href="../index.html">Piano</a>
+      <a href="0-preliminari.html">0 · Preliminari</a>
+      <a href="1-sistemi.html">1 · Sistemi</a>
+      <a href="2-matrici.html">2 · Matrici</a>
+      <a href="3-complessi.html">3 · Complessi</a>
+      <a href="../teoremi.html">Teoremi</a>
+      <a href="../esercizi.html">Esercizi</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Sezione 3</h4>
+    <a href="#checklist">Checklist</a>
+    <a href="#raccordo">Se hai già fatto Analisi</a>
+    <a href="#richiami">1 · Richiami essenziali</a>
+    <a href="#sistemi">2 · Sistemi lineari su $\C$</a>
+    <a href="#tfa">3 · Teorema fondamentale</a>
+    <a href="#perche" class="sub">Perché serve in geometria</a>
+    <a href="#test">Mettiti alla prova</a>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Sezione 3 · Geometria e Algebra Lineare</div>
+      <h1>Numeri complessi</h1>
+      <p class="lead">Il campo $\C$ visto dal lato dell'algebra lineare: serve a risolvere sistemi su $\C$ e, più avanti, a garantire che ogni matrice quadrata abbia autovalori.</p>
+    </div>
+
+    <div class="box tip" id="raccordo">
+      <div class="box-title">✓ Se hai già studiato la Sezione 1 di Analisi, non rifare tutto</div>
+      <p class="mb0">Forma algebrica, coniugato, modulo, piano di Gauss, forma trigonometrica ed esponenziale, formule di de Moivre e radici $n$-esime sono trattati là in modo completo, con dimostrazioni a passi coperti e widget interattivi (piano di Argand trascinabile, spirale delle potenze, poligono delle radici).<br><br>
+      👉 <a href="../../analisi/sezioni/1-numeri.html#complessi"><strong>Vai ai numeri complessi in Analisi 1</strong></a><br><br>
+      Qui trovi solo il <em>raccordo</em>: che cosa cambia quando i complessi entrano in un corso di geometria.</p>
+    </div>
+
+    <h2 id="checklist">Checklist</h2>
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+        <strong>Avanzamento Sezione 3</strong>
+        <span class="muted small"><span data-progress-txt="g3">0/6</span> · <span data-progress-pct="g3">0%</span></span>
+      </div>
+      <div class="pbar" data-progress-for="g3"><span style="width:0"></span></div>
+    </div>
+    <div id="checklist"></div>
+
+    <h2 id="richiami">1 · Richiami essenziali</h2>
+    <div class="box def">
+      <div class="box-title">In sintesi</div>
+      <p class="mb0">$\C:=\{z=x+iy\ :\ x,y\in\R\}$ con $i^{2}=-1$. Per $z=x+iy$:
+      $$\Real z=x,\quad \Imag z=y,\quad \bar z=x-iy,\quad |z|=\sqrt{x^{2}+y^{2}},\quad z\bar z=|z|^{2}.$$
+      Divisione: $\dfrac{z}{w}=\dfrac{z\bar w}{|w|^{2}}$. Forma trigonometrica: $z=\rho(\cos\theta+i\sin\theta)=\rho e^{i\theta}$.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ $\C$ è un campo, ma non è ordinato</div>
+      <p class="mb0">In $\C$ si può sempre dividere per elementi non nulli — ed è tutto ciò che serve al MEG. Non esiste però un ordinamento compatibile con le operazioni: scritture come $z>0$ o $z_1<z_2$ non hanno senso, a meno che i numeri non siano reali. Si confronta solo il <strong>modulo</strong>, che è reale.</p>
+    </div>
+
+    <h2 id="sistemi">2 · Sistemi lineari su $\C$</h2>
+    <div class="box">
+      <div class="box-title">La buona notizia</div>
+      <p class="mb0">Non cambia <strong>niente</strong>. Il metodo di eliminazione di Gauss usa solo somma, prodotto e divisione per elementi non nulli: tutte operazioni disponibili in $\C$ esattamente come in $\R$. Perciò valgono identici, con le stesse dimostrazioni:
+      <ul class="mb0" style="margin-top:8px">
+        <li>le operazioni elementari non cambiano le soluzioni;</li>
+        <li>il MEG termina e produce una matrice a scala;</li>
+        <li>il criterio dello 0-pivot;</li>
+        <li>rango, Rouché-Capelli, struttura delle soluzioni;</li>
+        <li>le condizioni di invertibilità e il teorema di Cramer.</li>
+      </ul>
+      </p>
+    </div>
+    <p>È esattamente il motivo per cui il corso enuncia tutto su $\K$: scrivere due volte le stesse dimostrazioni, una per $\R$ e una per $\C$, sarebbe uno spreco.</p>
+
+    <div class="box ex">
+      <div class="box-title">Esempio</div>
+      <p>$$\begin{cases}(1+i)z+w=2\\ z+(1-i)w=0\end{cases}$$</p>
+      <p class="mb0">Si scambiano le righe per avere il pivot $1$, poi $R_2\to R_2-(1+i)R_1$. Usando $(1+i)(1-i)=1-i^{2}=2$ si arriva a
+      $$\left[\begin{array}{cc|c}1&1-i&0\\0&-1&2\end{array}\right]$$
+      da cui $w=-2$ e $z=2-2i$. Svolgimento completo nell'<a href="../esercizi.html?sez=3">esercizio G3.1</a>.</p>
+    </div>
+
+    <div class="box trap">
+      <div class="box-title">✗ Due trappole del caso complesso</div>
+      <ul class="mb0">
+        <li><strong>Una matrice «piena» può essere singolare.</strong> $\begin{bmatrix}i&1\\-1&i\end{bmatrix}$ ha tutte le entrate non nulle ma $\det=i^{2}+1=0$: la seconda riga è $i$ volte la prima.</li>
+        <li><strong>Attenzione ai segni con $i^{2}=-1$.</strong> Nel MEG su $\C$ la maggior parte degli errori non è concettuale: è aritmetica. Conviene tenere a mente $(1+i)(1-i)=2$ e $(1+i)^{2}=2i$.</li>
+      </ul>
+    </div>
+
+    <h2 id="tfa">3 · Teorema fondamentale dell'algebra</h2>
+    <div class="box teo">
+      <div class="box-title">Teorema <span class="badge star2">da conoscere</span></div>
+      <p class="mb0">Ogni polinomio di grado $n\ge1$ a coefficienti in $\C$ ha almeno una radice in $\C$. Iterando,
+      $$P(z)=a_n(z-z_1)(z-z_2)\cdots(z-z_n),$$ con le radici contate secondo molteplicità. Si dice che $\C$ è <strong>algebricamente chiuso</strong>.</p>
+    </div>
+    <details class="reveal"><summary>Il corollario sui coefficienti reali</summary><div class="reveal-body">
+      <p class="mb0">Se i coefficienti sono <strong>reali</strong>, le radici non reali compaiono a coppie coniugate: da $P(z_0)=0$ segue $P(\bar z_0)=0$. Di conseguenza un polinomio reale di grado <em>dispari</em> ha sempre almeno una radice reale, e uno di grado pari può non averne nessuna ($z^{2}+1$).</p>
+    </div></details>
+
+    <h3 id="perche">Perché serve in un corso di geometria</h3>
+    <div class="box tip">
+      <p class="mb0">Perché il <strong>polinomio caratteristico</strong> di una matrice quadrata di ordine $n$ ha grado $n$, e su $\C$ ha sempre $n$ radici. Quindi:
+      <ul class="mb0" style="margin-top:8px">
+        <li>su $\C$ <strong>ogni</strong> matrice quadrata ha autovalori;</li>
+        <li>su $\R$ può non averne: una rotazione del piano di angolo $\theta\notin\{0,\pi\}$ non manda nessuna direzione in sé stessa, e infatti il suo polinomio caratteristico non ha radici reali.</li>
+      </ul>
+      Quando il corso arriverà agli autovalori, questa sezione tornerà utile. Per ora basta sapere che $\C$ non è una curiosità: è ciò che rende la teoria uniforme.</p>
+    </div>
+
+    <h2 id="test">Mettiti alla prova</h2>
+    <div id="quizBox"></div>
+
+    <div class="btnrow" style="margin-top:36px">
+      <a class="btn primary" href="../teoremi.html">Teoremi e dimostrazioni →</a>
+      <a class="btn" href="2-matrici.html">← Sezione 2</a>
+      <a class="btn" href="../../analisi/sezioni/1-numeri.html#complessi">Complessi in Analisi 1</a>
+    </div>
+  </main>
+</div>
+
+<footer>Geometria e Algebra Lineare · Sezione 3 · Appunti non ufficiali</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../../assets/js/materie.js"></script>
+<script src="../data/topics.js"></script>
+<script src="../data/quiz.js"></script>
+<script src="../../assets/js/plot.js"></script>
+<script src="../../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  AM.renderChecklist('#checklist', 3, 'geometria');
+  AM.mountQuiz('#quizBox', AM.QUIZ_GEO.filter(function (q) { return q.sez === 3; }), { statKey: 'geo3' });
+});
+</script>
+</body>
+</html>

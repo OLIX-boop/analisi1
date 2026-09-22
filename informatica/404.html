@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fondamenti di Informatica — appunti</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    background: #f7f6f3; color: #1e1c1a; text-align: center; padding: 24px;
+  }
+  @media (prefers-color-scheme: dark) { body { background: #171614; color: #ece8e1; } }
+  h1 { font-family: Georgia, serif; font-size: 1.5rem; margin: 0 0 8px; }
+  p { color: #6b665e; margin: 0 0 18px; }
+  @media (prefers-color-scheme: dark) { p { color: #b3aca1; } }
+  a { display: inline-block; text-decoration: none; font-weight: 600;
+      padding: 10px 20px; border-radius: 8px; background: #b4571a; color: #fff; }
+</style>
+</head>
+<body>
+  <div>
+    <h1>Un attimo…</h1>
+    <p>Questo indirizzo è cambiato: gli appunti ora stanno tutti in una pagina sola.</p>
+    <a id="vai" href="./">Apri gli appunti</a>
+  </div>
+<script>
+/* I vecchi indirizzi (una pagina per capitolo) portano alla sezione
+   corrispondente della pagina unica. */
+(function () {
+  var mappa = {
+    "01-problemi-algoritmi": "#cap1",
+    "02-algoritmi-fondamentali": "#cap2",
+    "03-macchina-c": "#cap3",
+    "04-istruzioni-c": "#cap4",
+    "05-array-stringhe": "#cap5"
+  };
+  var base = location.pathname.replace(/^\/([^\/]+)\/.*$/, "/$1/");
+  if (base === location.pathname) base = "/";
+  var file = location.pathname.split("/").pop().replace(/\.html$/, "");
+  var dest = base + (mappa[file] || location.hash || "");
+  document.getElementById("vai").href = dest;
+  location.replace(dest);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teoremi e dimostrazioni — Geometria</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c7a4e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='bold' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <a class="brand" href="../index.html"><span class="brand-mark">G</span> Geometria</a>
+    <nav class="topnav">
+      <a href="index.html">Piano</a>
+      <a href="sezioni/0-preliminari.html">0 · Preliminari</a>
+      <a href="sezioni/1-sistemi.html">1 · Sistemi</a>
+      <a href="sezioni/2-matrici.html">2 · Matrici</a>
+      <a href="sezioni/3-complessi.html">3 · Complessi</a>
+      <a href="teoremi.html">Teoremi</a>
+      <a href="esercizi.html">Esercizi</a>
+    </nav>
+    <span class="topbar-spacer"></span>
+    <button class="icon-btn" id="themeBtn" aria-label="Tema chiaro/scuro">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h4>Teoremi</h4>
+    <div id="tocList"></div>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <div class="eyebrow">Geometria e Algebra Lineare</div>
+      <h1>Teoremi e dimostrazioni</h1>
+      <p class="lead">I risultati principali del programma svolto, con le dimostrazioni a <strong>passi coperti</strong>: prova a ricordare il passo successivo, poi clicca per rivelarlo.</p>
+    </div>
+
+    <div class="box warnb">
+      <div class="box-title">⚠ Le stelline qui sono redazionali</div>
+      <p class="mb0">A differenza di Analisi — dove il programma ufficiale marca con $(*)$ e $(**)$ le dimostrazioni richieste allo scritto e all'orale — per questo corso <strong>non ho un documento equivalente</strong>. Le etichette <span class="badge star">risultato centrale</span> e <span class="badge star2">da conoscere</span> indicano il peso del risultato secondo questi appunti, <em>non</em> una richiesta della docenza. Se recuperi un programma con le dimostrazioni richieste, le riallineo.</p>
+    </div>
+
+    <div class="chips" id="filters">
+      <button class="chip on" data-f="all">Tutti</button>
+      <button class="chip" data-f="star">Risultati centrali</button>
+      <button class="chip" data-f="g1">Sezione 1 · Sistemi</button>
+      <button class="chip" data-f="g2">Sezione 2 · Matrici</button>
+      <button class="chip" data-f="g3">Sezione 3 · Complessi</button>
+    </div>
+
+    <div class="btnrow">
+      <button class="btn primary" id="randomBtn">🎲 Teorema a caso</button>
+      <button class="btn" id="collapseBtn">Chiudi tutto</button>
+      <span class="small muted" style="align-self:center" id="count"></span>
+    </div>
+
+    <div id="list"></div>
+  </main>
+</div>
+
+<footer>Geometria e Algebra Lineare · Teoremi · Appunti non ufficiali</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="../assets/js/materie.js"></script>
+<script src="data/topics.js"></script>
+<script src="data/teoremi.js"></script>
+<script src="../assets/js/plot.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+document.addEventListener('am:ready', function () {
+  var T = AM.TEOREMI_GEO, filtro = 'all';
+  var list = document.getElementById('list'), toc = document.getElementById('tocList');
+  var SEZNOMI = { 1: 'Sistemi lineari e MEG', 2: 'Algebra delle matrici', 3: 'Numeri complessi' };
+
+  function match(t) {
+    if (filtro === 'all') return true;
+    if (filtro === 'star') return t.mark === '*';
+    return t.sez === +filtro.slice(1);
+  }
+  function badge(t) {
+    return t.mark === '*'
+      ? '<span class="badge star">★ risultato centrale</span>'
+      : '<span class="badge star2">★★ da conoscere</span>';
+  }
+  function card(t) {
+    var steps = t.steps.map(function (s) {
+      return '<div class="step"><div class="step-n"></div><div class="step-body">' +
+        '<div class="step-cue">' + s.cue + '</div>' +
+        '<div class="step-content">' + s.body + '</div></div></div>';
+    }).join('');
+    return '<section id="' + t.id + '" style="scroll-margin-top:76px">' +
+      '<h2 style="margin-top:44px">' + t.titolo + ' ' + badge(t) + '</h2>' +
+      '<div class="box teo"><div class="box-title">Enunciato · Sezione ' + t.sez +
+        (t.q ? ' · ' + t.q : '') + '</div>' + t.enunciato + '</div>' +
+      '<div class="box tip"><div class="box-title">💡 L\'idea in una riga</div><p class="mb0">' + t.idea + '</p></div>' +
+      '<details class="reveal proof"><summary>Dimostrazione a passi coperti</summary><div class="reveal-body">' +
+        '<div class="btnrow" style="margin-top:0"><button class="btn sm ghost" data-reveal-all>Mostra tutto</button></div>' +
+        '<div class="steps">' + steps + '</div></div></details>' +
+      (t.note ? '<div class="box warnb"><div class="box-title">⚠ Da non sbagliare</div><p class="mb0">' + t.note + '</p></div>' : '') +
+      '</section>';
+  }
+  function render() {
+    var sel = T.filter(match);
+    list.innerHTML = sel.length ? sel.map(card).join('')
+      : '<div class="box"><p class="mb0 muted">Nessun teorema con questo filtro.</p></div>';
+    document.getElementById('count').textContent = sel.length + ' teoremi';
+    toc.innerHTML = [1, 2, 3].map(function (s) {
+      var g = sel.filter(function (t) { return t.sez === s; });
+      if (!g.length) return '';
+      return '<h4>' + SEZNOMI[s] + '</h4>' + g.map(function (t) {
+        var st = t.mark === '*'
+          ? '<span style="color:var(--danger)">★</span> '
+          : '<span style="color:var(--accent)">★★</span> ';
+        return '<a href="#' + t.id + '">' + st + t.titolo + '</a>';
+      }).join('');
+    }).join('');
+    AM.typeset(list); AM.typeset(toc);
+  }
+
+  document.querySelectorAll('#filters .chip').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('#filters .chip').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on'); filtro = b.dataset.f; render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  });
+  document.getElementById('randomBtn').onclick = function () {
+    var sel = T.filter(match);
+    if (!sel.length) return;
+    var t = sel[Math.floor(Math.random() * sel.length)];
+    document.getElementById(t.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    AM.toast('👉 ' + t.titolo.replace(/\$[^$]*\$/g, '…'));
+  };
+  document.getElementById('collapseBtn').onclick = function () {
+    document.querySelectorAll('#list details[open]').forEach(function (d) { d.open = false; });
+    document.querySelectorAll('#list .step-content.shown').forEach(function (s) { s.classList.remove('shown'); });
+    AM.toast('Tutto richiuso');
+  };
+  render();
+});
+</script>
+</body>
+</html>
