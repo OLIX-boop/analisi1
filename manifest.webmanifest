@@ -1,0 +1,31 @@
+{
+  "name": "Appunti — Ingegneria Informatica, PoliMi",
+  "short_name": "Appunti",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#1f5fa8",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "assets/icons/appunti-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/appunti-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/appunti-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

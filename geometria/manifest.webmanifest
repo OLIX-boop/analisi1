@@ -1,0 +1,31 @@
+{
+  "name": "Geometria e Algebra Lineare — appunti",
+  "short_name": "Geometria",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#1c7a4e",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "../assets/icons/geometria-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../assets/icons/geometria-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../assets/icons/geometria-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

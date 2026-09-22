@@ -1,0 +1,31 @@
+{
+  "name": "Analisi Matematica 1 — appunti",
+  "short_name": "Analisi 1",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#1f5fa8",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "../assets/icons/analisi-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../assets/icons/analisi-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "../assets/icons/analisi-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
